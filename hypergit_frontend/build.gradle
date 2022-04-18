@@ -26,6 +26,10 @@ plugins {
 //    dependsOn "buildNextJS"
 //}
 
+ext {
+    profile = (!project.hasProperty("profile") || !profile)?'dev':profile
+}
+
 clean{
     delete "$projectDir/.next"
     delete "$projectDir/node_modules"
@@ -35,10 +39,9 @@ build {
     dependsOn "buildNextJS"
 }
 
-//bootJar.enabled(false)
-//bootRun {
-//    dependsOn "runNextJSServer"
-//}
+task debugPrint() {
+    println("${profile}")
+}
 
 task buildNextJS(type:NpmTask){
     dependsOn "npmInstall"
@@ -47,22 +50,24 @@ task buildNextJS(type:NpmTask){
 
 task runNextJSServer(type: NpmTask) {
     dependsOn "buildNextJS"
-    args = ["run", "start"]
+    args = ["run-script", "${profile}"]
 }
 
 task yarnBuild(type: YarnTask){
     dependsOn "yarn"
     args = ['build']
 }
+
 task yarnRun(type: YarnTask) {
     dependsOn "yarnBuild"
-    args = ["run", "start"]
+    args = ["run", "${profile}"]
 }
-yarn {
-    doLast{
-        println "$yarn.class.name"
-    }
-}
+
+//bootJar.enabled(false)
+//bootRun {
+//    dependsOn "runNextJSServer"
+//}
+
 //task copyReactBuildFiles(type:Copy){
 //    dependsOn "buildReact"
 ////    from "$projectDir/build"
