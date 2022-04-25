@@ -1,0 +1,30 @@
+server:
+  servlet:
+    session:
+      #session delete when app restart
+      persistent: false
+
+saml:
+  idp:
+    authUrl: /sso
+    entityId: hypergitSaml
+    expired: 300
+logging:
+  level:
+    root: debug
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+server:
+  port: 9090
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+server:
+  port: 10010
+---

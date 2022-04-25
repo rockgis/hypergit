@@ -39,10 +39,6 @@ build {
     dependsOn "buildNextJS"
 }
 
-task debugPrint() {
-    println("${profile}")
-}
-
 task buildNextJS(type:NpmTask){
     dependsOn "npmInstall"
     args = ['run-script','build']
