@@ -9,9 +9,11 @@ saml:
     authUrl: /sso
     entityId: hypergitSaml
     expired: 300
+    clockSkew: 300
+
 logging:
   level:
-    root: debug
+    root: info
 
 ---
 spring:
