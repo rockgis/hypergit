@@ -1,11 +1,11 @@
 package com.goodmit.hypergit.security.config;
 
+import com.goodmit.hypergit.global.util.security.KeyStoreLocator;
+import com.goodmit.hypergit.global.util.security.KeyStoreType;
 import com.goodmit.hypergit.security.saml.SamlAuthHandler;
 import com.goodmit.hypergit.security.saml.SamlProperties;
 import com.goodmit.hypergit.security.saml.SamlResponseFilter;
 import org.opensaml.xml.parse.XMLParserException;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.context.annotation.Bean;
@@ -22,6 +22,8 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.saml.key.JKSKeyManager;
 
 import javax.servlet.SessionCookieConfig;
+import java.security.KeyStore;
+import java.security.cert.CertificateFactory;
 
 @EnableWebSecurity
 @EnableConfigurationProperties(value = {SamlProperties.class})
@@ -84,12 +86,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public JKSKeyManager keyManager(SamlProperties samlProperties) {
+        KeyStore keyStore = KeyStoreLocator.createKeyStore(samlProperties.getEntityId(), KeyStoreType.JKS);
         return null;
     }
 
     @Bean
-    public SamlResponseFilter samlResponseFilter(SamlProperties samlProperties) {
-        return new SamlResponseFilter(samlProperties.getAuthUrl());
+    public SamlResponseFilter samlResponseFilter(SamlProperties samlProperties,SamlAuthHandler samlAuthHandler) {
+        return new SamlResponseFilter(samlProperties,samlAuthHandler);
     }
 
     @Bean

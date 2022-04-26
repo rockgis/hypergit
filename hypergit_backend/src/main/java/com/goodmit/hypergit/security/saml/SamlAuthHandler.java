@@ -26,18 +26,15 @@ import org.springframework.security.saml.util.VelocityFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SamlAuthHandler {
     private SamlProperties samlProperties;
-
     private SAMLMessageDecoder decoder;
     private SAMLMessageEncoder encoder;
-
     private List<ValidatorSuite> validatorSuites;
     private SecurityPolicyResolver resolver;
 
@@ -81,27 +78,24 @@ public class SamlAuthHandler {
 
     private void initEncoder() {
         String encoderTemplate = "/templates/saml2-post-binding.tm";
-        boolean signXMLProtocolMEssage = true;
+        boolean signXMLProtocolMessage = true;
 
         encoder = new HTTPPostSimpleSignEncoder(
                 VelocityFactory.getEngine(),
                 encoderTemplate,
-                signXMLProtocolMEssage
+                signXMLProtocolMessage
         );
     }
 
     private void initPolicyResolver() {
         BasicSecurityPolicy securityPolicy = new BasicSecurityPolicy();
         securityPolicy.getPolicyRules()
-                .addAll(Collections.singletonList(
-                        new IssueInstantRule(samlProperties.getClockSkew(),samlProperties.getExpired())
-                ));
+                .add(new IssueInstantRule(samlProperties.getClockSkew(),samlProperties.getExpired()));
         resolver = new StaticSecurityPolicyResolver(securityPolicy);
     }
 
     private void initValidatorSuites() {
-        validatorSuites = Arrays.asList("saml2-core-schema-validator","saml2-core-spec-validator")
-                .stream()
+        validatorSuites = Stream.of("saml2-core-schema-validator","saml2-core-spec-validator")
                 .map(Configuration::getValidatorSuite)
                 .collect(Collectors.toList());
     }
