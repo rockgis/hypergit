@@ -1,5 +1,6 @@
 package com.goodmit.hypergit.security.saml;
 
+import com.goodmit.hypergit.global.util.security.KeyStoreType;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -16,5 +17,12 @@ public class SamlProperties {
     private final String entityId;
     private final int expired;
     private final int clockSkew;
+
+    private final String keyUrl;
+    private final String keyPassphrase;
+    private final String keyAlias;
+    private final KeyStoreType keyType;
+
+    private final String nameIDType;
 
 }

@@ -1,13 +1,15 @@
 package com.goodmit.hypergit.security.saml;
 
+import com.goodmit.hypergit.security.saml.dao.SamlPrincipal;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.opensaml.saml2.core.Issuer;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.saml.context.SAMLMessageContext;
-import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -22,9 +24,12 @@ public class SamlResponseFilter extends OncePerRequestFilter {
     private SamlProperties samlProperties;
     private SamlAuthHandler samlAuthHandler;
 
-    public SamlResponseFilter(SamlProperties samlProperties,SamlAuthHandler samlAuthHandler){
+    private SamlPrincipalFactory samlPrincipalFactory;
+
+    public SamlResponseFilter(@NonNull SamlProperties samlProperties,@NonNull SamlAuthHandler samlAuthHandler,@NonNull SamlPrincipalFactory samlPrincipalFactory){
         this.samlProperties = samlProperties;
         this.samlAuthHandler = samlAuthHandler;
+        this.samlPrincipalFactory = samlPrincipalFactory;
     }
 
     //process saml url
@@ -42,10 +47,8 @@ public class SamlResponseFilter extends OncePerRequestFilter {
             filterChain.doFilter(request,response);
             return;
         }
-
-        /*
-         * TODO : implements saml auth
-         */
+        SamlPrincipal samlPrincipal = samlPrincipalFactory.createSamlPrincipal(messageContext, authentication);
+        samlAuthHandler.sendAuthnResponse(samlPrincipal,response);
     }
 
     private boolean isSamlAuthJob(HttpServletRequest request,Authentication authentication) {

@@ -1,27 +1,38 @@
 package com.goodmit.hypergit.security.saml;
 
+import com.goodmit.hypergit.security.saml.dao.SamlPrincipal;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.joda.time.DateTime;
 import org.opensaml.Configuration;
+import org.opensaml.common.binding.BasicSAMLMessageContext;
 import org.opensaml.common.binding.decoding.SAMLMessageDecoder;
 import org.opensaml.common.binding.encoding.SAMLMessageEncoder;
 import org.opensaml.common.binding.security.IssueInstantRule;
 import org.opensaml.saml2.binding.decoding.HTTPRedirectDeflateDecoder;
 import org.opensaml.saml2.binding.encoding.HTTPPostSimpleSignEncoder;
-import org.opensaml.saml2.core.AuthnRequest;
+import org.opensaml.saml2.core.*;
+import org.opensaml.saml2.metadata.Endpoint;
 import org.opensaml.ws.message.decoder.MessageDecodingException;
+import org.opensaml.ws.message.encoder.MessageEncodingException;
 import org.opensaml.ws.security.SecurityPolicyResolver;
 import org.opensaml.ws.security.provider.BasicSecurityPolicy;
 import org.opensaml.ws.security.provider.StaticSecurityPolicyResolver;
 import org.opensaml.ws.transport.http.HttpServletRequestAdapter;
 import org.opensaml.ws.transport.http.HttpServletResponseAdapter;
+import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.parse.StaticBasicParserPool;
 import org.opensaml.xml.parse.XMLParserException;
+import org.opensaml.xml.security.CriteriaSet;
 import org.opensaml.xml.security.SecurityException;
+import org.opensaml.xml.security.credential.Credential;
+import org.opensaml.xml.security.criteria.EntityIDCriteria;
+import org.opensaml.xml.signature.SignatureException;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.ValidatorSuite;
 import org.springframework.security.saml.SAMLConstants;
 import org.springframework.security.saml.context.SAMLMessageContext;
+import org.springframework.security.saml.key.KeyManager;
 import org.springframework.security.saml.util.VelocityFactory;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,8 +49,11 @@ public class SamlAuthHandler {
     private List<ValidatorSuite> validatorSuites;
     private SecurityPolicyResolver resolver;
 
-    public SamlAuthHandler(SamlProperties samlProperties) throws XMLParserException {
+    private KeyManager keyManager;
+
+    public SamlAuthHandler(SamlProperties samlProperties, KeyManager keyManager) throws XMLParserException {
         this.samlProperties = samlProperties;
+        this.keyManager = keyManager;
         initDecoder();
         initEncoder();
         initPolicyResolver();
@@ -50,6 +64,46 @@ public class SamlAuthHandler {
         SAMLMessageContext messageContext = decodeMessageContext(request,response);
         validateAuthRequest(messageContext);
         return messageContext;
+    }
+
+    public void sendAuthnResponse(SamlPrincipal principal, HttpServletResponse response)
+            throws SecurityException, MarshallingException, SignatureException, MessageEncodingException {
+        Status status = SamlBuilder.buildStatus(StatusCode.SUCCESS_URI);
+        Credential siginingCredential = resoveCrendential(samlProperties.getEntityId());
+        Issuer issuer = SamlBuilder.buildIssuer(samlProperties.getEntityId());
+        Response authResponse = SamlBuilder.buildSAMLObject(Response.class,Response.DEFAULT_ELEMENT_NAME);
+        authResponse.setIssuer(issuer);
+        //TODO : check both wso2 and cdp services
+        authResponse.setID("te");
+
+        authResponse.setIssueInstant(DateTime.now());
+        authResponse.setInResponseTo(principal.getRequestID());
+
+        Assertion assertion = SamlBuilder.buildAssertion(principal, status, samlProperties.getEntityId());
+        SamlBuilder.signAssertion(assertion,siginingCredential);
+
+        authResponse.getAssertions().add(assertion);
+        authResponse.setDestination(principal.getAssertionConsumerServiceUrl());
+        authResponse.setStatus(status);
+
+        Endpoint endpoint = SamlBuilder.buildSAMLObject(Endpoint.class,Endpoint.DEFAULT_ELEMENT_NAME);
+        endpoint.setLocation(principal.getAssertionConsumerServiceUrl());
+
+        HttpServletResponseAdapter outTransport = new HttpServletResponseAdapter(response,false);
+
+        BasicSAMLMessageContext messageContext = new BasicSAMLMessageContext<>();
+        messageContext.setOutboundMessageTransport(outTransport);
+        messageContext.setPeerEntityEndpoint(endpoint);
+        messageContext.setOutboundSAMLMessage(authResponse);
+        messageContext.setOutboundSAMLMessageSigningCredential(siginingCredential);
+        messageContext.setOutboundMessageIssuer(samlProperties.getEntityId());
+        messageContext.setRelayState(principal.getRelayState());
+        encoder.encode(messageContext);
+
+    }
+
+    private Credential resoveCrendential(String entityId) throws SecurityException {
+        return keyManager.resolveSingle(new CriteriaSet(new EntityIDCriteria(entityId)));
     }
 
     private SAMLMessageContext decodeMessageContext(HttpServletRequest request, HttpServletResponse response) throws MessageDecodingException, SecurityException {
