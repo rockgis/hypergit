@@ -6,10 +6,7 @@ import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
 import org.opensaml.Configuration;
-import org.opensaml.common.SignableSAMLObject;
 import org.opensaml.saml2.core.*;
-import org.opensaml.xml.XMLObject;
-import org.opensaml.xml.XMLObjectBuilder;
 import org.opensaml.xml.XMLObjectBuilderFactory;
 import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.schema.XSAny;
@@ -30,9 +27,7 @@ public class SamlBuilder {
     }
 
     static <T> T buildSAMLObject(@NonNull final Class<T> objectClass, QName qName) {
-        XMLObjectBuilder bb = builderFactory.getBuilder(qName);
-        XMLObject type = bb.buildObject(qName);
-        return objectClass.cast(type);
+        return objectClass.cast(builderFactory.getBuilder(qName).buildObject(qName));
     }
 
     public static Issuer buildIssuer(String issueEntityName) {
@@ -128,7 +123,7 @@ public class SamlBuilder {
         return authnStatement;
     }
 
-    private static Subject buildSubject(String subjectNameID, String subjectNameIDType, String recipent, String inResponseTo,DateTime time) {
+    private static Subject buildSubject(String subjectNameID, String subjectNameIDType, String recipient, String inResponseTo,DateTime time) {
         Subject subject = buildSAMLObject(Subject.class,Subject.DEFAULT_ELEMENT_NAME);
 
         NameID nameID = buildSAMLObject(NameID.class,NameID.DEFAULT_ELEMENT_NAME);
@@ -140,7 +135,7 @@ public class SamlBuilder {
         subjectConfirmation.setMethod(SubjectConfirmation.METHOD_BEARER);
 
         SubjectConfirmationData subjectConfirmationData = buildSAMLObject(SubjectConfirmationData.class,SubjectConfirmationData.DEFAULT_ELEMENT_NAME);
-        subjectConfirmationData.setRecipient(recipent);
+        subjectConfirmationData.setRecipient(recipient);
         subjectConfirmationData.setInResponseTo(inResponseTo);
         subjectConfirmationData.setNotOnOrAfter(time.plusMinutes(8*60));
         subjectConfirmation.setSubjectConfirmationData(subjectConfirmationData);
@@ -149,13 +144,13 @@ public class SamlBuilder {
         return subject;
     }
 
-    public static void signAssertion(SignableXMLObject signableXMLObject, Credential siginingCredential)
+    public static void signAssertion(SignableXMLObject signableXMLObject, Credential signingCredential)
             throws MarshallingException, SignatureException {
         Signature signature = buildSAMLObject(Signature.class,Signature.DEFAULT_ELEMENT_NAME);
 
-        signature.setSigningCredential(siginingCredential);
+        signature.setSigningCredential(signingCredential);
         signature.setSignatureAlgorithm(
-                Configuration.getGlobalSecurityConfiguration().getSignatureAlgorithmURI(siginingCredential));
+                Configuration.getGlobalSecurityConfiguration().getSignatureAlgorithmURI(signingCredential));
         signature.setCanonicalizationAlgorithm(SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS);
 
         signableXMLObject.setSignature(signature);
