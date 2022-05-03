@@ -50,7 +50,7 @@ public class KeyStoreLocator {
         return createKeyStore(null,keyPassword,type);
     }
 
-    public static void addPrivateKey(KeyStore keyStore, String alias, String password) throws CertificateException, NoSuchAlgorithmException, InvalidKeySpecException, KeyStoreException, UnrecoverableKeyException {
+    public static void addPrivateKey(KeyStore keyStore, String alias, String password) throws NoSuchAlgorithmException, InvalidKeySpecException, KeyStoreException, UnrecoverableKeyException {
         char[] pwdArray = password.toCharArray();
         List<Certificate> certificateList = new ArrayList<>();
         certificateList.add(keyStore.getCertificate(alias));

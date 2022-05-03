@@ -1,9 +1,9 @@
 package com.goodmit.hypergit.security.saml.dao;
 
-import lombok.*;
-import org.springframework.util.Assert;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.ToString;
 
-import javax.print.DocFlavor;
 import java.util.ArrayList;
 import java.util.List;
 

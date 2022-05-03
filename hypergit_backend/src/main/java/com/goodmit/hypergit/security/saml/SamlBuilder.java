@@ -4,7 +4,6 @@ import com.goodmit.hypergit.security.saml.dao.SamlAttribute;
 import com.goodmit.hypergit.security.saml.dao.SamlPrincipal;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.opensaml.Configuration;
 import org.opensaml.saml2.core.*;

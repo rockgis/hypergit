@@ -2,7 +2,6 @@ package com.goodmit.hypergit.security.saml;
 
 import com.goodmit.hypergit.security.saml.dao.SamlAttribute;
 import lombok.Builder;
-import nu.xom.jaxen.expr.UnaryExpr;
 import org.springframework.security.core.Authentication;
 
 import java.util.Arrays;

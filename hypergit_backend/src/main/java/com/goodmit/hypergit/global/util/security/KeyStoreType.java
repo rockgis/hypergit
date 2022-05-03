@@ -9,9 +9,6 @@ public enum KeyStoreType {
     JCEKS;
     public static KeyStoreType fromString(String keyType) {
         Optional<KeyStoreType> optional =Stream.of(values()).filter(stroeType->stroeType.toString().equalsIgnoreCase(keyType)).findFirst();
-        if(!optional.isPresent()) {
-            return JKS;
-        }
-        return optional.get();
+        return optional.orElse(JKS);
     }
 }
