@@ -26,10 +26,8 @@ public class SamlPrincipal implements Principal {
     private String relayState;
 
     @Builder
-    protected SamlPrincipal(@NonNull String nameID, @NonNull String nameIDType,
-                            @NonNull List<SamlAttribute> attributes, @NonNull String serviceProviderEntityID,
-                            @NonNull String requestID, @NonNull String assertionConsumerServiceUrl,
-                            @NonNull String relayState) {
+    protected SamlPrincipal(@NonNull String nameID, @NonNull String nameIDType, @NonNull List<SamlAttribute> attributes,
+                            @NonNull String serviceProviderEntityID, String requestID, String assertionConsumerServiceUrl, String relayState) {
 
         this.nameID = nameID;
         this.nameIDType = nameIDType;

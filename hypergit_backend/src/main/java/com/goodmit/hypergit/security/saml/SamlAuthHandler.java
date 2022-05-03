@@ -13,6 +13,7 @@ import org.opensaml.saml2.binding.decoding.HTTPRedirectDeflateDecoder;
 import org.opensaml.saml2.binding.encoding.HTTPPostSimpleSignEncoder;
 import org.opensaml.saml2.core.*;
 import org.opensaml.saml2.metadata.Endpoint;
+import org.opensaml.saml2.metadata.SingleSignOnService;
 import org.opensaml.ws.message.decoder.MessageDecodingException;
 import org.opensaml.ws.message.encoder.MessageEncodingException;
 import org.opensaml.ws.security.SecurityPolicyResolver;
@@ -69,24 +70,23 @@ public class SamlAuthHandler {
     public void sendAuthnResponse(SamlPrincipal principal, HttpServletResponse response)
             throws SecurityException, MarshallingException, SignatureException, MessageEncodingException {
         Status status = SamlBuilder.buildStatus(StatusCode.SUCCESS_URI);
-        Credential siginingCredential = resoveCrendential(samlProperties.getEntityId());
+        Credential signingCredential = resolveCredential(samlProperties.getKeyAlias());
         Issuer issuer = SamlBuilder.buildIssuer(samlProperties.getEntityId());
         Response authResponse = SamlBuilder.buildSAMLObject(Response.class,Response.DEFAULT_ELEMENT_NAME);
         authResponse.setIssuer(issuer);
-        //TODO : check both wso2 and cdp services
-        authResponse.setID("te");
+        authResponse.setID(SamlBuilder.randomSAMLId());
 
         authResponse.setIssueInstant(DateTime.now());
         authResponse.setInResponseTo(principal.getRequestID());
 
-        Assertion assertion = SamlBuilder.buildAssertion(principal, status, samlProperties.getEntityId());
-        SamlBuilder.signAssertion(assertion,siginingCredential);
+        Assertion assertion = SamlBuilder.buildAssertion(principal, status, samlProperties.getEntityId(),samlProperties.getKeyPassphrase());
+        SamlBuilder.signAssertion(assertion,signingCredential);
 
         authResponse.getAssertions().add(assertion);
         authResponse.setDestination(principal.getAssertionConsumerServiceUrl());
         authResponse.setStatus(status);
 
-        Endpoint endpoint = SamlBuilder.buildSAMLObject(Endpoint.class,Endpoint.DEFAULT_ELEMENT_NAME);
+        Endpoint endpoint = SamlBuilder.buildSAMLObject(Endpoint.class, SingleSignOnService.DEFAULT_ELEMENT_NAME);
         endpoint.setLocation(principal.getAssertionConsumerServiceUrl());
 
         HttpServletResponseAdapter outTransport = new HttpServletResponseAdapter(response,false);
@@ -95,14 +95,14 @@ public class SamlAuthHandler {
         messageContext.setOutboundMessageTransport(outTransport);
         messageContext.setPeerEntityEndpoint(endpoint);
         messageContext.setOutboundSAMLMessage(authResponse);
-        messageContext.setOutboundSAMLMessageSigningCredential(siginingCredential);
+        messageContext.setOutboundSAMLMessageSigningCredential(signingCredential);
         messageContext.setOutboundMessageIssuer(samlProperties.getEntityId());
         messageContext.setRelayState(principal.getRelayState());
         encoder.encode(messageContext);
 
     }
 
-    private Credential resoveCrendential(String entityId) throws SecurityException {
+    private Credential resolveCredential(String entityId) throws SecurityException {
         return keyManager.resolveSingle(new CriteriaSet(new EntityIDCriteria(entityId)));
     }
 
@@ -131,7 +131,7 @@ public class SamlAuthHandler {
     }
 
     private void initEncoder() {
-        String encoderTemplate = "/templates/saml2-post-binding.tm";
+        String encoderTemplate = "/templates/saml2-post-binding.vm";
         boolean signXMLProtocolMessage = true;
 
         encoder = new HTTPPostSimpleSignEncoder(

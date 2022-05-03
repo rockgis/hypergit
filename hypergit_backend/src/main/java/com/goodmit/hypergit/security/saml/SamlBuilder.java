@@ -4,6 +4,7 @@ import com.goodmit.hypergit.security.saml.dao.SamlAttribute;
 import com.goodmit.hypergit.security.saml.dao.SamlPrincipal;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.opensaml.Configuration;
 import org.opensaml.saml2.core.*;
@@ -16,6 +17,7 @@ import org.opensaml.xml.signature.*;
 
 import javax.xml.namespace.QName;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -45,7 +47,7 @@ public class SamlBuilder {
         return status;
     }
 
-    public static Assertion buildAssertion(SamlPrincipal principal, Status status, String entityId) {
+    public static Assertion buildAssertion(SamlPrincipal principal, Status status, String entityId, String keyAlias) {
         DateTime time = DateTime.now();
         Assertion assertion = buildSAMLObject(Assertion.class,Assertion.DEFAULT_ELEMENT_NAME);
 
@@ -54,9 +56,6 @@ public class SamlBuilder {
                     principal.getAssertionConsumerServiceUrl(),principal.getRequestID(),time);
             assertion.setSubject(subject);
         }
-
-        Issuer issuer = buildIssuer(entityId);
-        assertion.setIssuer(issuer);
 
         Audience audience = buildSAMLObject(Audience.class,Audience.DEFAULT_ELEMENT_NAME);
         audience.setAudienceURI(principal.getServiceProviderEntityID());
@@ -70,13 +69,15 @@ public class SamlBuilder {
         conditions.getAudienceRestrictions().add(audienceRestriction);
         assertion.setConditions(conditions);
 
-        AuthnStatement authnStatement = buildAuthnStatement(time, entityId);
+        Issuer issuer = buildIssuer(entityId);
+        assertion.setIssuer(issuer);
+
+        AuthnStatement authnStatement = buildAuthnStatement(time, keyAlias);
         assertion.getAuthnStatements().add(authnStatement);
 
         assertion.getAttributeStatements().add(buildAttributeStatement(principal.getAttributes(),principal.getNameIDType()));
 
-        //TODO : check both wso2 and cpd services
-        assertion.setID("te");
+        assertion.setID(randomSAMLId());
         assertion.setIssueInstant(time);
         return assertion;
     }
@@ -157,5 +158,9 @@ public class SamlBuilder {
 
         Configuration.getMarshallerFactory().getMarshaller(signableXMLObject).marshall(signableXMLObject);
         Signer.signObject(signature);
+    }
+
+    public static String randomSAMLId() {
+        return  "_".concat(UUID.randomUUID().toString());
     }
 }

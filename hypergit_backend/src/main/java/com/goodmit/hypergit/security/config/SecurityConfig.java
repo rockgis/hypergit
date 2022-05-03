@@ -1,20 +1,19 @@
 package com.goodmit.hypergit.security.config;
 
-import com.goodmit.hypergit.global.util.security.KeyStoreLocator;
-import com.goodmit.hypergit.security.saml.*;
+import com.goodmit.hypergit.security.saml.SamlConfiguration;
+import com.goodmit.hypergit.security.saml.SamlProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.opensaml.DefaultBootstrap;
-import org.opensaml.saml2.core.Issuer;
 import org.opensaml.xml.ConfigurationException;
-import org.opensaml.xml.parse.XMLParserException;
-import org.slf4j.Logger;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.FatalBeanException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -25,23 +24,19 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.security.saml.key.JKSKeyManager;
-import org.springframework.security.saml.key.KeyManager;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.SessionCookieConfig;
-import java.nio.file.Paths;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.UnrecoverableKeyException;
-import java.security.cert.CertificateException;
-import java.security.spec.InvalidKeySpecException;
-import java.util.Collections;
 
 @Slf4j
+@Import({SamlConfiguration.class})
 @EnableWebSecurity
 @EnableConfigurationProperties(value = {SamlProperties.class})
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private OncePerRequestFilter samlResponseFilter;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -52,12 +47,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .and()
                 .logout()
-                .deleteCookies("JSESSIONID","idp.session");
+                .logoutSuccessUrl("/login")
+                .and()
+                .addFilterAfter(samlResponseFilter, FilterSecurityInterceptor.class);
 //                .loginPage("/login").permitAll()
 //                .failureUrl("/login?error=true").permitAll()
 //                .and()
 //                .logout()
-//                .logoutSuccessUrl("/login")
+
 //                .and()
 //                .addFilterAfter(samlResponseFilter(), FilterSecurityInterceptor.class)
 //                .csrf().disable();
@@ -99,46 +96,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         };
     }
 
-    @Bean
-    public JKSKeyManager keyManager(SamlProperties samlProperties)
-            throws  CertificateException, NoSuchAlgorithmException, InvalidKeySpecException, KeyStoreException, UnrecoverableKeyException {
-        String keyAlias = samlProperties.getKeyAlias();
-        String keyPassword = samlProperties.getKeyPassphrase();
-        KeyStore keyStore = KeyStoreLocator.createKeyStore(Paths.get(samlProperties.getKeyUrl()),keyPassword, samlProperties.getKeyType());
-        KeyStoreLocator.addPrivateKey(keyStore,keyAlias,keyPassword);
-        return new JKSKeyManager(keyStore, Collections.singletonMap(keyAlias,keyPassword),keyAlias);
-    }
 
-
-    @Bean
-    public SamlResponseFilter samlResponseFilter(SamlProperties samlProperties,
-                                                 SamlAuthHandler samlAuthHandler,
-                                                 SamlPrincipalFactory samlPrincipalFactory) {
-        return new SamlResponseFilter(samlProperties,samlAuthHandler,samlPrincipalFactory);
-    }
-
-    @Bean
-    public SamlAuthHandler samlAuthHandler(SamlProperties samlProperties,JKSKeyManager keyManager) throws XMLParserException {
-        return new SamlAuthHandler(samlProperties,keyManager);
-    }
-
-    @Bean
-    public static BeanFactoryPostProcessor samlInitializer() {
-        return new BeanFactoryPostProcessor() {
-            @Override
-            public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-                try {
-                    log.info("Initialize open saml...");
-                    DefaultBootstrap.bootstrap();
-                } catch (ConfigurationException e) {
-                    throw new FatalBeanException("Error invoking OpenSAML bootstrap", e);
-                }
-            }
-        };
-    }
-
-    @Bean
-    public SamlPrincipalFactory samlPrincipalFactory(SamlProperties samlProperties) {
-        return LocalSamlPricipalFactory.builder().nameIdType(samlProperties.getNameIDType()).build();
-    }
 }
