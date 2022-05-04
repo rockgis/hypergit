@@ -3,6 +3,8 @@ package com.goodmit.hypergit.global.util.security;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -41,14 +43,6 @@ public class KeyStoreLocator {
         }
     }
 
-    public static KeyStore createKeyStore(String keyPassword) {
-        KeyStoreType type = KeyStoreType.valueOf(KeyStore.getDefaultType().toUpperCase());
-        return createKeyStore(null,keyPassword,type);
-    }
-
-    public static KeyStore createKeyStore(String keyPassword,KeyStoreType type) {
-        return createKeyStore(null,keyPassword,type);
-    }
 
     public static void addPrivateKey(KeyStore keyStore, String alias, String password) throws NoSuchAlgorithmException, InvalidKeySpecException, KeyStoreException, UnrecoverableKeyException {
         char[] pwdArray = password.toCharArray();

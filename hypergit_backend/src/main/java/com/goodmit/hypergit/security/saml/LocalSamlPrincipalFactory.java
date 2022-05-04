@@ -7,14 +7,14 @@ import org.springframework.security.core.Authentication;
 import java.util.Arrays;
 import java.util.List;
 
-public class LocalSamlPricipalFactory extends SamlPrincipalFactory{
+public class LocalSamlPrincipalFactory extends SamlPrincipalFactory{
 
     private static final String KEY_USER_NAME="User.Username";
     private static final String KEY_USER_EMAIL="User.Email";
     private static final String KEY_USER_FI="User.FederationIdentifier";
 
     @Builder
-    protected LocalSamlPricipalFactory(String nameIdType) {
+    protected LocalSamlPrincipalFactory(String nameIdType) {
         super(nameIdType);
     }
 

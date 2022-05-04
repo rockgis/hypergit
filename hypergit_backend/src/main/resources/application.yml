@@ -1,16 +1,27 @@
+---
+spring:
+  profiles:
+    group:
+      local: common, loc
+      dev: common, develop
+      prod: common
+---
+spring:
+  config:
+    activate:
+      on-profile: common
 server:
   servlet:
     session:
       #session delete when app restart
       persistent: false
-
 saml:
   idp:
     authUrl: /sso
     entityId: hypergitSaml
     expired: 300
     clockSkew: 300
-    keyUrl: /Users/drshin/work/goodmit/project/keys/saml.p12
+    keyUrl: classpath:keys/saml.p12
     keyPassphrase: test
     keyType: PKCS12
     keyAlias: hypergit
@@ -24,14 +35,20 @@ logging:
 spring:
   config:
     activate:
-      on-profile: dev
+      on-profile: loc
+  ldap:
+    embedded:
+      ldif: classpath:test.ldif
+      base-dn: dc=springframework,dc=org
+      port: 8389
 server:
   port: 9090
+
 ---
 spring:
   config:
     activate:
-      on-profile: local
+      on-profile: develop
 server:
   port: 10010
 ---

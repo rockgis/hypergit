@@ -10,8 +10,9 @@ import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.saml.key.JKSKeyManager;
+import org.springframework.util.ResourceUtils;
 
-import java.nio.file.Paths;
+import java.io.FileNotFoundException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
@@ -37,10 +38,13 @@ public class SamlConfiguration {
 
     @Bean
     public JKSKeyManager keyManager(SamlProperties samlProperties)
-            throws NoSuchAlgorithmException, InvalidKeySpecException, KeyStoreException, UnrecoverableKeyException {
+            throws NoSuchAlgorithmException, InvalidKeySpecException, KeyStoreException, UnrecoverableKeyException, FileNotFoundException {
         String keyAlias = samlProperties.getKeyAlias();
         String keyPassword = samlProperties.getKeyPassphrase();
-        KeyStore keyStore = KeyStoreLocator.createKeyStore(Paths.get(samlProperties.getKeyUrl()),keyPassword, samlProperties.getKeyType());
+        KeyStore keyStore = KeyStoreLocator.createKeyStore(
+                ResourceUtils.getFile(samlProperties.getKeyUrl()).toPath(),
+                keyPassword,
+                samlProperties.getKeyType());
         KeyStoreLocator.addPrivateKey(keyStore,keyAlias,keyPassword);
         return new JKSKeyManager(keyStore, Collections.singletonMap(keyAlias,keyPassword),keyAlias);
     }
@@ -61,6 +65,6 @@ public class SamlConfiguration {
 
     @Bean
     public SamlPrincipalFactory samlPrincipalFactory(SamlProperties samlProperties) {
-        return LocalSamlPricipalFactory.builder().nameIdType(samlProperties.getNameIDType()).build();
+        return LocalSamlPrincipalFactory.builder().nameIdType(samlProperties.getNameIDType()).build();
     }
 }
