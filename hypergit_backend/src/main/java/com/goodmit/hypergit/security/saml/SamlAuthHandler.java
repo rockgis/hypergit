@@ -1,5 +1,6 @@
 package com.goodmit.hypergit.security.saml;
 
+import com.goodmit.hypergit.security.saml.config.SamlProperties;
 import com.goodmit.hypergit.security.saml.dao.SamlPrincipal;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -120,7 +121,7 @@ public class SamlAuthHandler {
 
     private void validateAuthRequest(SAMLMessageContext messageContext) throws ValidationException {
         for (ValidatorSuite validateSuit : validatorSuites) {
-            validateSuit.validate((AuthnRequest)messageContext.getInboundMessage());
+            validateSuit.validate(messageContext.getInboundMessage());
         }
     }
 

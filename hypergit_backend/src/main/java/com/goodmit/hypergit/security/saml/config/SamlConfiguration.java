@@ -1,12 +1,17 @@
-package com.goodmit.hypergit.security.saml;
+package com.goodmit.hypergit.security.saml.config;
 
 import com.goodmit.hypergit.global.util.security.KeyStoreLocator;
+import com.goodmit.hypergit.security.saml.LocalSamlPrincipalFactory;
+import com.goodmit.hypergit.security.saml.SamlAuthHandler;
+import com.goodmit.hypergit.security.saml.SamlPrincipalFactory;
+import com.goodmit.hypergit.security.saml.SamlResponseFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.opensaml.DefaultBootstrap;
 import org.opensaml.xml.ConfigurationException;
 import org.opensaml.xml.parse.XMLParserException;
 import org.springframework.beans.FatalBeanException;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.saml.key.JKSKeyManager;
@@ -22,7 +27,8 @@ import java.util.Collections;
 
 @Slf4j
 @Configuration
-public class SamlConfiguration {
+@EnableConfigurationProperties(value = {SamlProperties.class})
+public class SamlConfiguration  {
 
     @Bean
     public static BeanFactoryPostProcessor samlInitializer() {
@@ -62,9 +68,9 @@ public class SamlConfiguration {
         return new SamlAuthHandler(samlProperties,keyManager);
     }
 
-
     @Bean
     public SamlPrincipalFactory samlPrincipalFactory(SamlProperties samlProperties) {
         return LocalSamlPrincipalFactory.builder().nameIdType(samlProperties.getNameIDType()).build();
     }
+
 }

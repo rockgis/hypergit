@@ -15,6 +15,12 @@ server:
     session:
       #session delete when app restart
       persistent: false
+      cookie:
+        name: hypergit
+        max-age: 3660
+        http-only: true
+        secure: true
+        
 saml:
   idp:
     authUrl: /sso
@@ -41,6 +47,7 @@ spring:
       ldif: classpath:test.ldif
       base-dn: dc=springframework,dc=org
       port: 8389
+
 server:
   port: 9090
 

@@ -1,9 +1,11 @@
-package com.goodmit.hypergit.security.saml;
+package com.goodmit.hypergit.security.saml.config;
 
 import com.goodmit.hypergit.global.util.security.KeyStoreType;
 import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConstructorBinding;
 
