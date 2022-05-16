@@ -6,6 +6,8 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.joda.time.DateTime;
 import org.opensaml.Configuration;
+import org.opensaml.common.SAMLException;
+import org.opensaml.common.SAMLObject;
 import org.opensaml.common.binding.BasicSAMLMessageContext;
 import org.opensaml.common.binding.decoding.SAMLMessageDecoder;
 import org.opensaml.common.binding.encoding.SAMLMessageEncoder;
@@ -14,7 +16,10 @@ import org.opensaml.saml2.binding.decoding.HTTPRedirectDeflateDecoder;
 import org.opensaml.saml2.binding.encoding.HTTPPostSimpleSignEncoder;
 import org.opensaml.saml2.core.*;
 import org.opensaml.saml2.metadata.Endpoint;
+import org.opensaml.saml2.metadata.SingleLogoutService;
 import org.opensaml.saml2.metadata.SingleSignOnService;
+import org.opensaml.saml2.metadata.impl.SingleLogoutServiceImpl;
+import org.opensaml.saml2.metadata.provider.MetadataProviderException;
 import org.opensaml.ws.message.decoder.MessageDecodingException;
 import org.opensaml.ws.message.encoder.MessageEncodingException;
 import org.opensaml.ws.security.SecurityPolicyResolver;
@@ -36,6 +41,8 @@ import org.springframework.security.saml.SAMLConstants;
 import org.springframework.security.saml.context.SAMLMessageContext;
 import org.springframework.security.saml.key.KeyManager;
 import org.springframework.security.saml.util.VelocityFactory;
+import org.springframework.security.saml.websso.SingleLogoutProfile;
+import org.springframework.security.saml.websso.SingleLogoutProfileImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -53,6 +60,8 @@ public class SamlAuthHandler {
 
     private KeyManager keyManager;
 
+    private SingleSignOnService singleSignOnService;
+
     public SamlAuthHandler(SamlProperties samlProperties, KeyManager keyManager) throws XMLParserException {
         this.samlProperties = samlProperties;
         this.keyManager = keyManager;
@@ -60,9 +69,10 @@ public class SamlAuthHandler {
         initEncoder();
         initPolicyResolver();
         initValidatorSuites();
+        initSaml();
     }
 
-    public SAMLMessageContext extractSAMLMessageCntext(HttpServletRequest request, HttpServletResponse response) throws MessageDecodingException, SecurityException, ValidationException {
+    public SAMLMessageContext extractSAMLMessageContext(HttpServletRequest request, HttpServletResponse response) throws MessageDecodingException, SecurityException, ValidationException {
         SAMLMessageContext messageContext = decodeMessageContext(request,response);
         validateAuthRequest(messageContext);
         return messageContext;
@@ -73,10 +83,10 @@ public class SamlAuthHandler {
         Status status = SamlBuilder.buildStatus(StatusCode.SUCCESS_URI);
         Credential signingCredential = resolveCredential(samlProperties.getKeyAlias());
         Issuer issuer = SamlBuilder.buildIssuer(samlProperties.getEntityId());
+
         Response authResponse = SamlBuilder.buildSAMLObject(Response.class,Response.DEFAULT_ELEMENT_NAME);
         authResponse.setIssuer(issuer);
         authResponse.setID(SamlBuilder.randomSAMLId());
-
         authResponse.setIssueInstant(DateTime.now());
         authResponse.setInResponseTo(principal.getRequestID());
 
@@ -87,20 +97,47 @@ public class SamlAuthHandler {
         authResponse.setDestination(principal.getAssertionConsumerServiceUrl());
         authResponse.setStatus(status);
 
+        sendResponse(authResponse,response,principal,signingCredential);
+    }
+
+    public void sendLogoutResponse(SAMLMessageContext samlMessageContext) throws SAMLException, SecurityException, MessageEncodingException, MetadataProviderException {
+        SingleLogoutProfile singleLogoutProfile = new SingleLogoutProfileImpl();
+        singleLogoutProfile.sendLogoutResponse(samlMessageContext,StatusCode.SUCCESS_URI,"");
+
+    }
+
+    public void sendLogoutResponse(SamlPrincipal principal,HttpServletResponse response) throws SecurityException, MarshallingException, SignatureException, MessageEncodingException {
+        Status status = SamlBuilder.buildStatus(StatusCode.SUCCESS_URI);
+        Credential signingCredential = resolveCredential(samlProperties.getKeyAlias());
+        Issuer issuer = SamlBuilder.buildIssuer(samlProperties.getEntityId());
+
+        LogoutResponse logoutResponse = SamlBuilder.buildSAMLObject(LogoutResponse.class,LogoutResponse.DEFAULT_ELEMENT_NAME);
+        logoutResponse.setIssuer(issuer);
+        logoutResponse.setID(SamlBuilder.randomSAMLId());
+        logoutResponse.setIssueInstant(DateTime.now());
+        logoutResponse.setDestination(principal.getAssertionConsumerServiceUrl());
+        logoutResponse.setStatus(status);
+
+        SamlBuilder.signAssertion(logoutResponse,signingCredential);
+        sendResponse(logoutResponse,response,principal,signingCredential);
+
+
+    }
+
+    private void sendResponse(SAMLObject samlObject , HttpServletResponse response, SamlPrincipal principal, Credential signingCredential) throws MessageEncodingException {
         Endpoint endpoint = SamlBuilder.buildSAMLObject(Endpoint.class, SingleSignOnService.DEFAULT_ELEMENT_NAME);
         endpoint.setLocation(principal.getAssertionConsumerServiceUrl());
 
         HttpServletResponseAdapter outTransport = new HttpServletResponseAdapter(response,false);
+        BasicSAMLMessageContext<SAMLObject, SAMLObject, SAMLObject> messageContext = new BasicSAMLMessageContext<>();
 
-        BasicSAMLMessageContext messageContext = new BasicSAMLMessageContext<>();
         messageContext.setOutboundMessageTransport(outTransport);
         messageContext.setPeerEntityEndpoint(endpoint);
-        messageContext.setOutboundSAMLMessage(authResponse);
+        messageContext.setOutboundSAMLMessage(samlObject);
         messageContext.setOutboundSAMLMessageSigningCredential(signingCredential);
         messageContext.setOutboundMessageIssuer(samlProperties.getEntityId());
         messageContext.setRelayState(principal.getRelayState());
         encoder.encode(messageContext);
-
     }
 
     private Credential resolveCredential(String entityId) throws SecurityException {
@@ -153,5 +190,9 @@ public class SamlAuthHandler {
         validatorSuites = Stream.of("saml2-core-schema-validator","saml2-core-spec-validator")
                 .map(Configuration::getValidatorSuite)
                 .collect(Collectors.toList());
+    }
+
+    private void initSaml() {
+        SingleLogoutProfile singleLogoutProfile = new SingleLogoutProfileImpl();
     }
 }

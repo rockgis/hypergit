@@ -7,6 +7,9 @@ import com.goodmit.hypergit.security.saml.SamlPrincipalFactory;
 import com.goodmit.hypergit.security.saml.SamlResponseFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.opensaml.DefaultBootstrap;
+import org.opensaml.PaosBootstrap;
+import org.opensaml.saml2.metadata.SingleSignOnService;
+import org.opensaml.saml2.metadata.impl.SingleSignOnServiceBuilder;
 import org.opensaml.xml.ConfigurationException;
 import org.opensaml.xml.parse.XMLParserException;
 import org.springframework.beans.FatalBeanException;
@@ -15,6 +18,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.saml.key.JKSKeyManager;
+import org.springframework.security.saml.websso.SingleLogoutProfileImpl;
 import org.springframework.util.ResourceUtils;
 
 import java.io.FileNotFoundException;
@@ -35,7 +39,7 @@ public class SamlConfiguration  {
         return beanFactory -> {
             try {
                 log.info("Initialize open saml...");
-                DefaultBootstrap.bootstrap();
+                PaosBootstrap.bootstrap();
             } catch (ConfigurationException e) {
                 throw new FatalBeanException("Error invoking OpenSAML bootstrap", e);
             }
@@ -64,13 +68,18 @@ public class SamlConfiguration  {
     }
 
     @Bean
-    public SamlAuthHandler samlAuthHandler(SamlProperties samlProperties,JKSKeyManager keyManager) throws XMLParserException {
+    public SamlAuthHandler samlAuthHandler(SamlProperties samlProperties, JKSKeyManager keyManager, SingleSignOnService singleSignOnService) throws XMLParserException {
         return new SamlAuthHandler(samlProperties,keyManager);
     }
 
     @Bean
     public SamlPrincipalFactory samlPrincipalFactory(SamlProperties samlProperties) {
         return LocalSamlPrincipalFactory.builder().nameIdType(samlProperties.getNameIDType()).build();
+    }
+
+    @Bean
+    public SingleSignOnService singleSignOnService() {
+        return new SingleSignOnServiceBuilder().buildObject();
     }
 
 }

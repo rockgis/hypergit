@@ -7,6 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
 import org.opensaml.Configuration;
 import org.opensaml.saml2.core.*;
+import org.opensaml.saml2.core.impl.IssuerBuilder;
+import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.xml.XMLObjectBuilderFactory;
 import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.schema.XSAny;
@@ -146,6 +148,14 @@ public class SamlBuilder {
 
     public static void signAssertion(SignableXMLObject signableXMLObject, Credential signingCredential)
             throws MarshallingException, SignatureException {
+        Signature signature = buildSignature(signingCredential);
+        signableXMLObject.setSignature(signature);
+
+        Configuration.getMarshallerFactory().getMarshaller(signableXMLObject).marshall(signableXMLObject);
+        Signer.signObject(signature);
+    }
+
+    public static Signature buildSignature(Credential signingCredential) {
         Signature signature = buildSAMLObject(Signature.class,Signature.DEFAULT_ELEMENT_NAME);
 
         signature.setSigningCredential(signingCredential);
@@ -153,10 +163,7 @@ public class SamlBuilder {
                 Configuration.getGlobalSecurityConfiguration().getSignatureAlgorithmURI(signingCredential));
         signature.setCanonicalizationAlgorithm(SignatureConstants.ALGO_ID_C14N_EXCL_OMIT_COMMENTS);
 
-        signableXMLObject.setSignature(signature);
-
-        Configuration.getMarshallerFactory().getMarshaller(signableXMLObject).marshall(signableXMLObject);
-        Signer.signObject(signature);
+        return signature;
     }
 
     public static String randomSAMLId() {

@@ -1,10 +1,13 @@
 package com.goodmit.hypergit.security.saml.web;
 
+import com.goodmit.hypergit.security.saml.SamlBuilder;
 import com.goodmit.hypergit.security.saml.config.SamlConfiguration;
 import com.goodmit.hypergit.security.saml.config.SamlProperties;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.opensaml.saml2.metadata.EntityDescriptor;
+import org.opensaml.saml2.metadata.KeyDescriptor;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -40,5 +43,10 @@ public class SamlController {
     @GetMapping("/error")
     public String error() {
         return "error";
+    }
+
+    @GetMapping("/metadata")
+    public String getIDPMetadata() {
+        return "";
     }
 }
