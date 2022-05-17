@@ -1,11 +1,8 @@
 package com.goodmit.hypergit.security.saml.config;
 
-import com.goodmit.hypergit.global.util.security.KeyStoreType;
 import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConstructorBinding;
 
@@ -19,11 +16,6 @@ public class SamlProperties {
     private final String entityId;
     private final int expired;
     private final int clockSkew;
-
-    private final String keyUrl;
-    private final String keyPassphrase;
-    private final String keyAlias;
-    private final KeyStoreType keyType;
 
     private final String nameIDType;
 

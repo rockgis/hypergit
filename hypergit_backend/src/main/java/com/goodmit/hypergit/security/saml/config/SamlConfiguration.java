@@ -1,12 +1,12 @@
 package com.goodmit.hypergit.security.saml.config;
 
-import com.goodmit.hypergit.global.util.security.KeyStoreLocator;
+import com.goodmit.hypergit.security.key.KeyConfig;
+import com.goodmit.hypergit.security.key.KeyService;
 import com.goodmit.hypergit.security.saml.LocalSamlPrincipalFactory;
 import com.goodmit.hypergit.security.saml.SamlAuthHandler;
 import com.goodmit.hypergit.security.saml.SamlPrincipalFactory;
 import com.goodmit.hypergit.security.saml.SamlResponseFilter;
 import lombok.extern.slf4j.Slf4j;
-import org.opensaml.DefaultBootstrap;
 import org.opensaml.PaosBootstrap;
 import org.opensaml.saml2.metadata.SingleSignOnService;
 import org.opensaml.saml2.metadata.impl.SingleSignOnServiceBuilder;
@@ -17,20 +17,12 @@ import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.security.saml.key.JKSKeyManager;
-import org.springframework.security.saml.websso.SingleLogoutProfileImpl;
-import org.springframework.util.ResourceUtils;
-
-import java.io.FileNotFoundException;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.UnrecoverableKeyException;
-import java.security.spec.InvalidKeySpecException;
-import java.util.Collections;
 
 @Slf4j
 @Configuration
+@Import(value = {KeyConfig.class})
 @EnableConfigurationProperties(value = {SamlProperties.class})
 public class SamlConfiguration  {
 
@@ -47,20 +39,6 @@ public class SamlConfiguration  {
     }
 
     @Bean
-    public JKSKeyManager keyManager(SamlProperties samlProperties)
-            throws NoSuchAlgorithmException, InvalidKeySpecException, KeyStoreException, UnrecoverableKeyException, FileNotFoundException {
-        String keyAlias = samlProperties.getKeyAlias();
-        String keyPassword = samlProperties.getKeyPassphrase();
-        KeyStore keyStore = KeyStoreLocator.createKeyStore(
-                ResourceUtils.getFile(samlProperties.getKeyUrl()).toPath(),
-                keyPassword,
-                samlProperties.getKeyType());
-        KeyStoreLocator.addPrivateKey(keyStore,keyAlias,keyPassword);
-        return new JKSKeyManager(keyStore, Collections.singletonMap(keyAlias,keyPassword),keyAlias);
-    }
-
-
-    @Bean
     public SamlResponseFilter samlResponseFilter(SamlProperties samlProperties,
                                                  SamlAuthHandler samlAuthHandler,
                                                  SamlPrincipalFactory samlPrincipalFactory) {
@@ -68,18 +46,12 @@ public class SamlConfiguration  {
     }
 
     @Bean
-    public SamlAuthHandler samlAuthHandler(SamlProperties samlProperties, JKSKeyManager keyManager, SingleSignOnService singleSignOnService) throws XMLParserException {
-        return new SamlAuthHandler(samlProperties,keyManager);
+    public SamlAuthHandler samlAuthHandler(SamlProperties samlProperties, KeyService keyService) throws XMLParserException {
+        return new SamlAuthHandler(samlProperties,keyService);
     }
 
     @Bean
     public SamlPrincipalFactory samlPrincipalFactory(SamlProperties samlProperties) {
         return LocalSamlPrincipalFactory.builder().nameIdType(samlProperties.getNameIDType()).build();
     }
-
-    @Bean
-    public SingleSignOnService singleSignOnService() {
-        return new SingleSignOnServiceBuilder().buildObject();
-    }
-
 }

@@ -1,17 +1,14 @@
 package com.goodmit.hypergit.security.saml.web;
 
-import com.goodmit.hypergit.security.saml.SamlBuilder;
 import com.goodmit.hypergit.security.saml.config.SamlConfiguration;
-import com.goodmit.hypergit.security.saml.config.SamlProperties;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.opensaml.saml2.metadata.EntityDescriptor;
-import org.opensaml.saml2.metadata.KeyDescriptor;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.ldap.userdetails.LdapUserDetailsImpl;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,9 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @Import({SamlConfiguration.class})
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
+@CrossOrigin
 public class SamlController {
-
-    private final SamlProperties samlProperties;
 
     @GetMapping("/")
     public String metaData() {

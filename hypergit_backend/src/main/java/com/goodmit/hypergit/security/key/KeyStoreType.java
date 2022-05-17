@@ -1,4 +1,4 @@
-package com.goodmit.hypergit.global.util.security;
+package com.goodmit.hypergit.security.key;
 
 import java.util.Optional;
 import java.util.stream.Stream;

@@ -1,5 +1,6 @@
 package com.goodmit.hypergit.security.saml;
 
+import com.goodmit.hypergit.security.key.KeyService;
 import com.goodmit.hypergit.security.saml.config.SamlProperties;
 import com.goodmit.hypergit.security.saml.dao.SamlPrincipal;
 import lombok.AccessLevel;
@@ -16,9 +17,7 @@ import org.opensaml.saml2.binding.decoding.HTTPRedirectDeflateDecoder;
 import org.opensaml.saml2.binding.encoding.HTTPPostSimpleSignEncoder;
 import org.opensaml.saml2.core.*;
 import org.opensaml.saml2.metadata.Endpoint;
-import org.opensaml.saml2.metadata.SingleLogoutService;
 import org.opensaml.saml2.metadata.SingleSignOnService;
-import org.opensaml.saml2.metadata.impl.SingleLogoutServiceImpl;
 import org.opensaml.saml2.metadata.provider.MetadataProviderException;
 import org.opensaml.ws.message.decoder.MessageDecodingException;
 import org.opensaml.ws.message.encoder.MessageEncodingException;
@@ -30,10 +29,8 @@ import org.opensaml.ws.transport.http.HttpServletResponseAdapter;
 import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.parse.StaticBasicParserPool;
 import org.opensaml.xml.parse.XMLParserException;
-import org.opensaml.xml.security.CriteriaSet;
 import org.opensaml.xml.security.SecurityException;
 import org.opensaml.xml.security.credential.Credential;
-import org.opensaml.xml.security.criteria.EntityIDCriteria;
 import org.opensaml.xml.signature.SignatureException;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.ValidatorSuite;
@@ -58,13 +55,13 @@ public class SamlAuthHandler {
     private List<ValidatorSuite> validatorSuites;
     private SecurityPolicyResolver resolver;
 
-    private KeyManager keyManager;
+    private KeyService keyService;
 
     private SingleSignOnService singleSignOnService;
 
-    public SamlAuthHandler(SamlProperties samlProperties, KeyManager keyManager) throws XMLParserException {
+    public SamlAuthHandler(SamlProperties samlProperties, KeyService keyService) throws XMLParserException {
         this.samlProperties = samlProperties;
-        this.keyManager = keyManager;
+        this.keyService = keyService;
         initDecoder();
         initEncoder();
         initPolicyResolver();
@@ -81,7 +78,7 @@ public class SamlAuthHandler {
     public void sendAuthnResponse(SamlPrincipal principal, HttpServletResponse response)
             throws SecurityException, MarshallingException, SignatureException, MessageEncodingException {
         Status status = SamlBuilder.buildStatus(StatusCode.SUCCESS_URI);
-        Credential signingCredential = resolveCredential(samlProperties.getKeyAlias());
+        Credential signingCredential = keyService.resolveCredential();
         Issuer issuer = SamlBuilder.buildIssuer(samlProperties.getEntityId());
 
         Response authResponse = SamlBuilder.buildSAMLObject(Response.class,Response.DEFAULT_ELEMENT_NAME);
@@ -90,7 +87,7 @@ public class SamlAuthHandler {
         authResponse.setIssueInstant(DateTime.now());
         authResponse.setInResponseTo(principal.getRequestID());
 
-        Assertion assertion = SamlBuilder.buildAssertion(principal, status, samlProperties.getEntityId(),samlProperties.getKeyPassphrase());
+        Assertion assertion = SamlBuilder.buildAssertion(principal, status, samlProperties.getEntityId(),keyService.getPassphrase());
         SamlBuilder.signAssertion(assertion,signingCredential);
 
         authResponse.getAssertions().add(assertion);
@@ -108,7 +105,7 @@ public class SamlAuthHandler {
 
     public void sendLogoutResponse(SamlPrincipal principal,HttpServletResponse response) throws SecurityException, MarshallingException, SignatureException, MessageEncodingException {
         Status status = SamlBuilder.buildStatus(StatusCode.SUCCESS_URI);
-        Credential signingCredential = resolveCredential(samlProperties.getKeyAlias());
+        Credential signingCredential = keyService.resolveCredential();
         Issuer issuer = SamlBuilder.buildIssuer(samlProperties.getEntityId());
 
         LogoutResponse logoutResponse = SamlBuilder.buildSAMLObject(LogoutResponse.class,LogoutResponse.DEFAULT_ELEMENT_NAME);
@@ -140,9 +137,7 @@ public class SamlAuthHandler {
         encoder.encode(messageContext);
     }
 
-    private Credential resolveCredential(String entityId) throws SecurityException {
-        return keyManager.resolveSingle(new CriteriaSet(new EntityIDCriteria(entityId)));
-    }
+
 
     private SAMLMessageContext decodeMessageContext(HttpServletRequest request, HttpServletResponse response) throws MessageDecodingException, SecurityException {
         SAMLMessageContext messageContext = new SAMLMessageContext();
