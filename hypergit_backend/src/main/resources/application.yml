@@ -40,11 +40,6 @@ logging:
   level:
     root: info
 
-management:
-  endpoint:
-    web:
-      exposure:
-        include: "*"
 ---
 spring:
   config:
@@ -55,7 +50,6 @@ spring:
       ldif: classpath:test.ldif
       base-dn: dc=springframework,dc=org
       port: 8389
-
 
 server:
   port: 9090

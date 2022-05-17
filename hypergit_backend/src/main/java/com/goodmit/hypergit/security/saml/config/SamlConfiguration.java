@@ -8,8 +8,6 @@ import com.goodmit.hypergit.security.saml.SamlPrincipalFactory;
 import com.goodmit.hypergit.security.saml.SamlResponseFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.opensaml.PaosBootstrap;
-import org.opensaml.saml2.metadata.SingleSignOnService;
-import org.opensaml.saml2.metadata.impl.SingleSignOnServiceBuilder;
 import org.opensaml.xml.ConfigurationException;
 import org.opensaml.xml.parse.XMLParserException;
 import org.springframework.beans.FatalBeanException;
@@ -18,7 +16,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.security.saml.key.JKSKeyManager;
 
 @Slf4j
 @Configuration
