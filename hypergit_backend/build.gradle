@@ -24,17 +24,16 @@ repositories {
 
 bootRun {
     String activeProfile = System.properties['spring.profiles.active']
-    def propertise = [
+    def properties = [
             "spring.profiles.active": activeProfile,
             "java.net.preferIPv4Addresses": true
     ]
-    systemProperties(propertise)
+    systemProperties(properties)
 }
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.security.extensions:spring-security-saml2-core:1.0.10.RELEASE'
     implementation 'org.projectlombok:lombok:1.18.24'
     implementation 'commons-io:commons-io:2.11.0'
