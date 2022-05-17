@@ -34,10 +34,6 @@ saml:
     entityId: hypergitSaml
     expired: 300
     clockSkew: 300
-    keyUrl: classpath:keys/saml.p12
-    keyPassphrase: test
-    keyType: PKCS12
-    keyAlias: hypergit
     nameIDType: urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified
 
 logging:
