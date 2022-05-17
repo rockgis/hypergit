@@ -52,7 +52,7 @@ objectclass: inetOrgPerson
 cn: Bob Hamilton
 sn: Hamilton
 uid: bob
-userPassword: bobspassword
+userPassword: $2a$12$V9fmdkGAQwSBItuLykwoBe8hc6Uh3mm2Gi753t2TwRuuNv57vC2Va
 
 dn: uid=joe,ou=otherpeople,dc=springframework,dc=org
 objectclass: top

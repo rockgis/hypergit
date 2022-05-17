@@ -13,14 +13,21 @@ spring:
 server:
   servlet:
     session:
-      #session delete when app restart
+#      session delete when app restart
       persistent: false
       cookie:
         name: hypergit
         max-age: 3660
         http-only: true
         secure: true
-        
+
+security:
+  key:
+    path: classpath:keys/saml.p12
+    passphrase: test
+    type: PKCS12
+    alias: hypergit
+
 saml:
   idp:
     authUrl: /sso
@@ -37,6 +44,11 @@ logging:
   level:
     root: info
 
+management:
+  endpoint:
+    web:
+      exposure:
+        include: "*"
 ---
 spring:
   config:
@@ -47,6 +59,7 @@ spring:
       ldif: classpath:test.ldif
       base-dn: dc=springframework,dc=org
       port: 8389
+
 
 server:
   port: 9090
