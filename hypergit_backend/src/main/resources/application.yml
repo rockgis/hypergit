@@ -39,6 +39,12 @@ saml:
 logging:
   level:
     root: info
+---
+spring:
+  config:
+    activate:
+      on-profile: production
+
 
 ---
 spring:
@@ -53,6 +59,11 @@ spring:
 
 server:
   port: 9090
+
+ad:
+  url: ldap://10.200.101.19:389
+  domain: GOODMIT.COM
+  rootDn: OU=Users,OU=PlatformDivision,DC=GOODMIT,DC=COM
 
 ---
 spring:

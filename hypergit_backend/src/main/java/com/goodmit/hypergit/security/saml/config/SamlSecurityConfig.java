@@ -14,7 +14,7 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
 @Slf4j
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 @EnableWebSecurity
-@Order(1)
+@Order(2)
 public class SamlSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @NonNull
