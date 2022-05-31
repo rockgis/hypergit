@@ -2,17 +2,13 @@ package com.goodmit.hypergit.security.saml;
 
 import com.goodmit.hypergit.security.saml.config.SamlProperties;
 import com.goodmit.hypergit.security.saml.dao.SamlPrincipal;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.SneakyThrows;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.opensaml.saml2.core.LogoutRequest;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.saml.context.SAMLMessageContext;
-import org.springframework.security.saml.util.SAMLUtil;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -30,7 +26,8 @@ public class SamlResponseFilter extends OncePerRequestFilter {
 
     private SamlPrincipalFactory samlPrincipalFactory;
 
-    public SamlResponseFilter(@NonNull SamlProperties samlProperties,@NonNull SamlAuthHandler samlAuthHandler,@NonNull SamlPrincipalFactory samlPrincipalFactory){
+    @Builder
+    protected SamlResponseFilter(@NonNull SamlProperties samlProperties,@NonNull SamlAuthHandler samlAuthHandler,@NonNull SamlPrincipalFactory samlPrincipalFactory){
         this.samlProperties = samlProperties;
         this.samlAuthHandler = samlAuthHandler;
         this.samlPrincipalFactory = samlPrincipalFactory;
@@ -41,7 +38,6 @@ public class SamlResponseFilter extends OncePerRequestFilter {
     @SneakyThrows
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) {
-        log.info("======> saml filter");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         SAMLMessageContext messageContext = samlAuthHandler.extractSAMLMessageContext(request, response);
         if(!messageContext.getInboundMessageIssuer().equals(samlProperties.getEntityId())) {
@@ -74,12 +70,8 @@ public class SamlResponseFilter extends OncePerRequestFilter {
             return false;
         }
 
-        if(Objects.isNull(authentication) ||
-                authentication instanceof AnonymousAuthenticationToken ||
-                !authentication.isAuthenticated()) {
-            return false;
-        }
-
-        return true;
+        return !Objects.isNull(authentication) &&
+                !(authentication instanceof AnonymousAuthenticationToken) &&
+                authentication.isAuthenticated();
     }
 }

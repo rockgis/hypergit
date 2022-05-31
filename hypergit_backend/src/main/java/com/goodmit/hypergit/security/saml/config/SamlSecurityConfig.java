@@ -24,15 +24,21 @@ public class SamlSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.authorizeRequests(request->{
-                    request.antMatchers(samlProperties.getAuthUrl()).authenticated();
-                    request.anyRequest().authenticated();
-                })
+        http.cors().disable().csrf().disable().authorizeRequests()
+//                .antMatchers("/").permitAll()
+                .antMatchers("/error").permitAll()
+                .anyRequest().authenticated()
+                .and()
                 .addFilterAfter(samlResponseFilter, FilterSecurityInterceptor.class)
-                .formLogin()
+                .formLogin().permitAll()
+                .failureUrl("/login?error=true")
                 .and()
                 .logout()
-                .invalidateHttpSession(true);
+                .logoutUrl("/logout")
+                .invalidateHttpSession(true)
+                .deleteCookies()
+                .clearAuthentication(true)
+                .permitAll();
 
     }
 

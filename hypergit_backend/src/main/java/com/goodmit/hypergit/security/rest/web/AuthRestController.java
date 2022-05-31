@@ -1,12 +1,10 @@
 package com.goodmit.hypergit.security.rest.web;
 
-import com.goodmit.hypergit.security.rest.RestSecurityConfig;
 import com.goodmit.hypergit.security.rest.TokenProvider;
 import com.goodmit.hypergit.security.rest.web.dto.TokenRequest;
 import lombok.Builder;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +23,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 
 @Slf4j
-@Import({RestSecurityConfig.class})
+//@Import({RestSecurityConfig.class})
 @RequestMapping("/api")
 public class AuthRestController {
 

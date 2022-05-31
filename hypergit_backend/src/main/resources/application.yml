@@ -17,13 +17,13 @@ server:
       persistent: false
       cookie:
         name: hypergit
-        max-age: 3660
+        max-age: 36600
         http-only: true
-        secure: true
 
 security:
   key:
-    path: classpath:keys/saml.p12
+    path: keys/saml.p12
+#    path: classpath:keys/saml.p12
     passphrase: test
     type: PKCS12
     alias: hypergit
@@ -35,16 +35,18 @@ saml:
     expired: 300
     clockSkew: 300
     nameIDType: urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified
+    ssoBindings:
+      - post
+      - redirect
 
 logging:
   level:
-    root: info
+    root: debug
 ---
 spring:
   config:
     activate:
       on-profile: production
-
 
 ---
 spring:
@@ -72,4 +74,5 @@ spring:
       on-profile: develop
 server:
   port: 10010
+
 ---

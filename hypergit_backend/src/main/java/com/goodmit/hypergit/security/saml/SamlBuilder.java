@@ -7,8 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
 import org.opensaml.Configuration;
 import org.opensaml.saml2.core.*;
-import org.opensaml.saml2.core.impl.IssuerBuilder;
-import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.xml.XMLObjectBuilderFactory;
 import org.opensaml.xml.io.MarshallingException;
 import org.opensaml.xml.schema.XSAny;
@@ -29,7 +27,7 @@ public class SamlBuilder {
         builderFactory = Configuration.getBuilderFactory();
     }
 
-    static <T> T buildSAMLObject(@NonNull final Class<T> objectClass, QName qName) {
+    public static <T> T buildSAMLObject(@NonNull final Class<T> objectClass, QName qName) {
         return objectClass.cast(builderFactory.getBuilder(qName).buildObject(qName));
     }
 
@@ -82,6 +80,7 @@ public class SamlBuilder {
         assertion.setIssueInstant(time);
         return assertion;
     }
+
 
     private static AttributeStatement buildAttributeStatement(List<SamlAttribute> attributes,String nameIdType) {
         AttributeStatement attributeStatement = buildSAMLObject(AttributeStatement.class,AttributeStatement.DEFAULT_ELEMENT_NAME);

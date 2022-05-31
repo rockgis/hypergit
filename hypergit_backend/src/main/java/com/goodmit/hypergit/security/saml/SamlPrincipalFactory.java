@@ -24,7 +24,7 @@ public abstract class SamlPrincipalFactory {
         return SamlPrincipal.builder()
                 .nameID(authentication.getName())
                 .nameIDType(nameIdType)
-                .attributes(attributes)
+//                .attributes(attributes)
                 .serviceProviderEntityID(authnRequest.getIssuer().getValue())
                 .requestID(authnRequest.getID())
                 .assertionConsumerServiceUrl(authnRequest.getAssertionConsumerServiceURL())

@@ -24,7 +24,8 @@ public class KeyConfig {
         String keyAlias = keyProperties.getAlias();
         String keyPassword = keyProperties.getPassphrase();
         KeyStore keyStore = KeyStoreLocator.createKeyStore(
-                ResourceUtils.getFile(keyProperties.getPath()).toPath(),
+//                ResourceUtils.getFile(keyProperties.getPath()).toPath(),
+                keyProperties.getPath(),
                 keyPassword,
                 keyProperties.getType());
         KeyStoreLocator.addPrivateKey(keyStore,keyAlias,keyPassword);

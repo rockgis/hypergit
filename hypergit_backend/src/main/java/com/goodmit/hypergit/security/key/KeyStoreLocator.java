@@ -2,8 +2,10 @@ package com.goodmit.hypergit.security.key;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.ClassPathResource;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.*;
@@ -31,10 +33,10 @@ public class KeyStoreLocator {
         }
     }
 
-    public static KeyStore createKeyStore(Path keyFile, String keyPassword, KeyStoreType type) {
+    public static KeyStore createKeyStore(String keyFile, String keyPassword, KeyStoreType type) {
         try {
             KeyStore keyStore = KeyStore.getInstance(type.name());
-            keyStore.load((keyFile == null)? null: Files.newInputStream(keyFile),keyPassword.toCharArray());
+            keyStore.load((keyFile == null)? null: new ClassPathResource(keyFile).getInputStream(),keyPassword.toCharArray());
             return keyStore;
         } catch (KeyStoreException | IOException | NoSuchAlgorithmException | CertificateException e) {
             throw new RuntimeException(e);

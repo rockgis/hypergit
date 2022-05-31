@@ -4,6 +4,7 @@ import com.goodmit.hypergit.security.key.KeyService;
 import com.goodmit.hypergit.security.saml.config.SamlProperties;
 import com.goodmit.hypergit.security.saml.dao.SamlPrincipal;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 import org.joda.time.DateTime;
 import org.opensaml.Configuration;
@@ -36,7 +37,6 @@ import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.ValidatorSuite;
 import org.springframework.security.saml.SAMLConstants;
 import org.springframework.security.saml.context.SAMLMessageContext;
-import org.springframework.security.saml.key.KeyManager;
 import org.springframework.security.saml.util.VelocityFactory;
 import org.springframework.security.saml.websso.SingleLogoutProfile;
 import org.springframework.security.saml.websso.SingleLogoutProfileImpl;
@@ -57,9 +57,8 @@ public class SamlAuthHandler {
 
     private KeyService keyService;
 
-    private SingleSignOnService singleSignOnService;
-
-    public SamlAuthHandler(SamlProperties samlProperties, KeyService keyService) throws XMLParserException {
+    @Builder
+    protected SamlAuthHandler(SamlProperties samlProperties, KeyService keyService) throws XMLParserException {
         this.samlProperties = samlProperties;
         this.keyService = keyService;
         initDecoder();
@@ -97,7 +96,7 @@ public class SamlAuthHandler {
         sendResponse(authResponse,response,principal,signingCredential);
     }
 
-    public void sendLogoutResponse(SAMLMessageContext samlMessageContext) throws SAMLException, SecurityException, MessageEncodingException, MetadataProviderException {
+    public void sendLogoutResponse(SAMLMessageContext samlMessageContext) throws SAMLException, MessageEncodingException, MetadataProviderException {
         SingleLogoutProfile singleLogoutProfile = new SingleLogoutProfileImpl();
         singleLogoutProfile.sendLogoutResponse(samlMessageContext,StatusCode.SUCCESS_URI,"");
 
