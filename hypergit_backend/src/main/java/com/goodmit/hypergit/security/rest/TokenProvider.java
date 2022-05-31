@@ -25,7 +25,7 @@ public class TokenProvider {
 
     private final static long ACCESS_TOKEN_VALID_TIME=2 * 60 * 60 * 1000L;
 
-    public String generateToken(@NonNull Authentication authentication) throws UnrecoverableKeyException, KeyStoreException, NoSuchAlgorithmException {
+    public String generateToken(@NonNull Authentication authentication) {
         Claims claims = Jwts.claims().setSubject(String.valueOf(authentication.getPrincipal()));
         DateTime now = DateTime.now();
         return Jwts.builder()
@@ -42,7 +42,7 @@ public class TokenProvider {
     }
 
     public boolean validateToken(@NonNull String token) {
-        Claims claims = null;
+        Claims claims;
         try {
             claims = getClaims(token);
         } catch (UnrecoverableKeyException | KeyStoreException | NoSuchAlgorithmException e) {

@@ -18,17 +18,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.UnrecoverableKeyException;
 
 @Slf4j
 //@Import({RestSecurityConfig.class})
 @RequestMapping("/api")
 public class AuthRestController {
 
-    private AuthenticationManager authenticationManager;
-    private TokenProvider tokenProvider;
+    private final AuthenticationManager authenticationManager;
+    private final TokenProvider tokenProvider;
 
     @Builder
     protected AuthRestController(@NonNull AuthenticationManager authenticationManager,@NonNull TokenProvider tokenProvider) {
@@ -39,7 +36,7 @@ public class AuthRestController {
     @RequestMapping(value = "/auth",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> auth(HttpServletRequest request
             , HttpServletResponse response
-            , @RequestBody TokenRequest tokenRequest) throws UnrecoverableKeyException, KeyStoreException, NoSuchAlgorithmException {
+            , @RequestBody TokenRequest tokenRequest) {
 
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(tokenRequest.getId(), tokenRequest.getPassword()));

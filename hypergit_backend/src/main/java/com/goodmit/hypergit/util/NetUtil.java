@@ -8,7 +8,7 @@ import java.util.Enumeration;
 
 public class NetUtil {
     public static String getLocalAddress() {
-        Enumeration<NetworkInterface> ifaces = null;
+        Enumeration<NetworkInterface> ifaces;
         try {
             ifaces = NetworkInterface.getNetworkInterfaces();
         } catch (SocketException e) {

@@ -4,9 +4,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.saml.key.JKSKeyManager;
-import org.springframework.util.ResourceUtils;
 
-import java.io.FileNotFoundException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
@@ -20,7 +18,7 @@ public class KeyConfig {
 
     @Bean
     public JKSKeyManager keyManager(KeyProperties keyProperties)
-            throws NoSuchAlgorithmException, InvalidKeySpecException, KeyStoreException, UnrecoverableKeyException, FileNotFoundException {
+            throws NoSuchAlgorithmException, InvalidKeySpecException, KeyStoreException, UnrecoverableKeyException {
         String keyAlias = keyProperties.getAlias();
         String keyPassword = keyProperties.getPassphrase();
         KeyStore keyStore = KeyStoreLocator.createKeyStore(

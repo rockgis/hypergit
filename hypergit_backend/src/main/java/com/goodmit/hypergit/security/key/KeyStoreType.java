@@ -8,7 +8,9 @@ public enum KeyStoreType {
     PKCS12,
     JCEKS;
     public static KeyStoreType fromString(String keyType) {
-        Optional<KeyStoreType> optional =Stream.of(values()).filter(stroeType->stroeType.toString().equalsIgnoreCase(keyType)).findFirst();
+        Optional<KeyStoreType> optional =Stream.of(values())
+                .filter(stroeType->stroeType.toString().equalsIgnoreCase(keyType))
+                .findFirst();
         return optional.orElse(JKS);
     }
 }

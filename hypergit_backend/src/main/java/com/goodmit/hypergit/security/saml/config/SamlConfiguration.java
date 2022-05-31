@@ -22,8 +22,6 @@ import org.springframework.security.saml.SAMLBootstrap;
 import org.springframework.security.saml.key.JKSKeyManager;
 import org.springframework.security.saml.metadata.MetadataGenerator;
 
-import java.net.UnknownHostException;
-
 @Slf4j
 @Configuration
 @Import(value = {KeyConfig.class})
@@ -62,7 +60,7 @@ public class SamlConfiguration  {
     }
 
     @Bean
-    public MetadataGenerator metadataGenerator(SamlProperties samlProperties, JKSKeyManager keyManager, @Value("${server.port}") String port) throws UnknownHostException {
+    public MetadataGenerator metadataGenerator(SamlProperties samlProperties, @Value("${server.port}") String port) {
         MetadataGenerator metadataGenerator = IdpMetadataGenerator.builder()
                 .sloURL(samlProperties.getAuthUrl())
                 .ssoURL(samlProperties.getAuthUrl())

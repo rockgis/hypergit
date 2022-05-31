@@ -59,7 +59,6 @@ public class IdpMetadataGenerator extends MetadataGenerator {
         idpssoDescriptor.addSupportedProtocol(SAMLConstants.SAML20P_NS);
         idpssoDescriptor.getNameIDFormats().addAll(getNameIDFormat(includedNameID));
 
-        int index = 0;
         addSingleSignOnService(idpssoDescriptor,mapAliases(getBindingsSSO()));
         addSingleLogoutService(idpssoDescriptor, mapAliases(getBindingsSLO()));
         // Build extensions
