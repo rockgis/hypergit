@@ -31,6 +31,25 @@ bootRun {
     systemProperties(properties)
 }
 
+task archives(type: Tar) {
+
+    into("hypergit/libs") {
+        from bootJar
+    }
+
+    into("hypergit/keys") {
+        from "${buildDir}/resources/main/keys"
+    }
+
+    into("hypergit/config") {
+        from "${buildDir}/resources/main/application.yml"
+    }
+
+    destinationDirectory = file('build/distributions')
+    extension 'tgz'
+    compression = Compression.GZIP
+}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
