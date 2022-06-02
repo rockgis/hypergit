@@ -1,4 +1,4 @@
-package com.goodmit.hypergit.security.saml.web;
+package com.goodmit.hypergit.security.saml.application.controller;
 
 import com.goodmit.hypergit.security.saml.application.SAMLService;
 import lombok.Builder;

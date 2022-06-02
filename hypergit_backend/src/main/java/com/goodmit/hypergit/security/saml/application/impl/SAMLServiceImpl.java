@@ -1,5 +1,6 @@
 package com.goodmit.hypergit.security.saml.application.impl;
 
+import com.goodmit.hypergit.security.key.KeyService;
 import com.goodmit.hypergit.security.saml.application.SAMLService;
 import com.goodmit.hypergit.security.saml.config.SamlProperties;
 import com.goodmit.hypergit.security.saml.metadata.BindingType;
@@ -24,19 +25,19 @@ public class SAMLServiceImpl implements SAMLService {
 
     private final MetadataGenerator metadataGenerator;
     private final SamlProperties samlProperties;
-    private final JKSKeyManager keyManager;
+    private final KeyService keyService;
 
     @Builder
-    protected SAMLServiceImpl(SamlProperties samlProperties, MetadataGenerator metadataGenerator, JKSKeyManager keyManager) {
+    protected SAMLServiceImpl(SamlProperties samlProperties, MetadataGenerator metadataGenerator, KeyService keyService) {
         this.metadataGenerator = metadataGenerator;
         this.samlProperties = samlProperties;
-        this.keyManager = keyManager;
+        this.keyService = keyService;
     }
 
     @Override
     public String getIDPMetadata() {
         metadataGenerator.setEntityId(samlProperties.getEntityId());
-        metadataGenerator.setKeyManager(keyManager);
+        metadataGenerator.setKeyManager(keyService.getKeyManager());
         Collection<String> bindingsSSO = samlProperties.getSsoBindings().stream().map(BindingType::getBindingUri).collect(Collectors.toList());
         Collection<String> bindingsSLO = samlProperties.getSloBindings().stream().map(BindingType::getBindingUri).collect(Collectors.toList());
 
@@ -44,13 +45,13 @@ public class SAMLServiceImpl implements SAMLService {
         metadataGenerator.setBindingsSLO(bindingsSLO);
 
         metadataGenerator.setNameID(Arrays.asList(samlProperties.getNameIDType()));
-        metadataGenerator.setKeyManager(keyManager);
+        metadataGenerator.setKeyManager(keyService.getKeyManager());
 
         EntityDescriptor generatedDescriptor = metadataGenerator.generateMetadata();
 
         try {
             MetadataManager metadataManager = getMetadataMgr(generatedDescriptor);
-            return SAMLUtil.getMetadataAsString(metadataManager, keyManager , generatedDescriptor, null);
+            return SAMLUtil.getMetadataAsString(metadataManager, keyService.getKeyManager(), generatedDescriptor, null);
         } catch (MarshallingException | MetadataProviderException e) {
             throw new RuntimeException(e);
         }
@@ -61,7 +62,7 @@ public class SAMLServiceImpl implements SAMLService {
         memoryProvider.initialize();
 
         MetadataManager metadataManager = new CachingMetadataManager(Arrays.asList(memoryProvider));
-        metadataManager.setKeyManager(keyManager);
+        metadataManager.setKeyManager(keyService.getKeyManager());
 
         metadataManager.setHostedSPName(generatedDescriptor.getEntityID());
         metadataManager.refreshMetadata();

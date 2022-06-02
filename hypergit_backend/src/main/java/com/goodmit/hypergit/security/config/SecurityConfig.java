@@ -57,7 +57,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         authenticationProvider.setUseAuthenticationRequestCredentials(true);
         auth.authenticationProvider(authenticationProvider);
 
-
     }
 
     @Override

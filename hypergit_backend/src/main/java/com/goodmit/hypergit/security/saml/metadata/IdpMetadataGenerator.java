@@ -1,6 +1,6 @@
 package com.goodmit.hypergit.security.saml.metadata;
 
-import com.goodmit.hypergit.security.saml.SamlBuilder;
+import com.goodmit.hypergit.security.saml.auth.SamlBuilder;
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 import org.opensaml.common.xml.SAMLConstants;

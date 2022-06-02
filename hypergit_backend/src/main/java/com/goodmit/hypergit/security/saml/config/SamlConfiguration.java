@@ -2,14 +2,14 @@ package com.goodmit.hypergit.security.saml.config;
 
 import com.goodmit.hypergit.security.key.KeyConfig;
 import com.goodmit.hypergit.security.key.KeyService;
-import com.goodmit.hypergit.security.saml.LocalSamlPrincipalFactory;
-import com.goodmit.hypergit.security.saml.SamlAuthHandler;
-import com.goodmit.hypergit.security.saml.SamlPrincipalFactory;
-import com.goodmit.hypergit.security.saml.SamlResponseFilter;
+import com.goodmit.hypergit.security.saml.auth.LocalSamlPrincipalFactory;
+import com.goodmit.hypergit.security.saml.auth.SamlAuthHandler;
+import com.goodmit.hypergit.security.saml.auth.SamlPrincipalFactory;
+import com.goodmit.hypergit.security.saml.auth.SamlResponseFilter;
 import com.goodmit.hypergit.security.saml.application.SAMLService;
 import com.goodmit.hypergit.security.saml.application.impl.SAMLServiceImpl;
 import com.goodmit.hypergit.security.saml.metadata.IdpMetadataGenerator;
-import com.goodmit.hypergit.security.saml.web.SamlController;
+import com.goodmit.hypergit.security.saml.application.controller.SamlController;
 import lombok.extern.slf4j.Slf4j;
 import org.opensaml.xml.parse.StaticBasicParserPool;
 import org.opensaml.xml.parse.XMLParserException;
@@ -19,7 +19,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.saml.SAMLBootstrap;
-import org.springframework.security.saml.key.JKSKeyManager;
 import org.springframework.security.saml.metadata.MetadataGenerator;
 
 @Slf4j
@@ -77,11 +76,11 @@ public class SamlConfiguration  {
     }
 
     @Bean
-    public SAMLService samlService(SamlProperties samlProperties, MetadataGenerator metadataGenerator, JKSKeyManager keyManager) {
+    public SAMLService samlService(SamlProperties samlProperties, MetadataGenerator metadataGenerator, KeyService keyService) {
         return SAMLServiceImpl.builder()
                 .metadataGenerator(metadataGenerator)
                 .samlProperties(samlProperties)
-                .keyManager(keyManager)
+                .keyService(keyService)
                 .build();
     }
 

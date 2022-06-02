@@ -1,4 +1,4 @@
-package com.goodmit.hypergit.security.saml.dao;
+package com.goodmit.hypergit.security.saml.auth.dao;
 
 import lombok.Getter;
 import lombok.NonNull;

@@ -1,6 +1,6 @@
 package com.goodmit.hypergit.security.saml.config;
 
-import com.goodmit.hypergit.security.saml.SamlResponseFilter;
+import com.goodmit.hypergit.security.saml.auth.SamlResponseFilter;
 import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

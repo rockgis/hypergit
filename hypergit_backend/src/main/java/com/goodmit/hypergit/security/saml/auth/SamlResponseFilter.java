@@ -1,7 +1,7 @@
-package com.goodmit.hypergit.security.saml;
+package com.goodmit.hypergit.security.saml.auth;
 
 import com.goodmit.hypergit.security.saml.config.SamlProperties;
-import com.goodmit.hypergit.security.saml.dao.SamlPrincipal;
+import com.goodmit.hypergit.security.saml.auth.dao.SamlPrincipal;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.opensaml.saml2.core.LogoutRequest;

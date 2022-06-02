@@ -1,6 +1,6 @@
-package com.goodmit.hypergit.security.saml;
+package com.goodmit.hypergit.security.saml.auth;
 
-import com.goodmit.hypergit.security.saml.dao.SamlAttribute;
+import com.goodmit.hypergit.security.saml.auth.dao.SamlAttribute;
 import lombok.Builder;
 import org.springframework.security.core.Authentication;
 

@@ -1,6 +1,7 @@
 package com.goodmit.hypergit.security.key;
 
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.opensaml.xml.security.CriteriaSet;
 import org.opensaml.xml.security.SecurityException;
@@ -16,6 +17,7 @@ import java.security.UnrecoverableKeyException;
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class KeyService {
     private final KeyProperties keyProperties;
+    @Getter
     private final JKSKeyManager keyManager;
 
     public Credential resolveCredential() throws SecurityException {
