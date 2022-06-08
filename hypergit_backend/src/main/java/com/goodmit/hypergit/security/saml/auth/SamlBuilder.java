@@ -16,6 +16,7 @@ import org.opensaml.xml.signature.*;
 
 import javax.xml.namespace.QName;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -84,7 +85,7 @@ public class SamlBuilder {
 
     private static AttributeStatement buildAttributeStatement(List<SamlAttribute> attributes,String nameIdType) {
         AttributeStatement attributeStatement = buildSAMLObject(AttributeStatement.class,AttributeStatement.DEFAULT_ELEMENT_NAME);
-        attributes.forEach(entry->attributeStatement.getAttributes().add(buildAttribute(entry.getName(),entry.getValues(),nameIdType)));
+        attributes.forEach(entry -> attributeStatement.getAttributes().add(buildAttribute(entry.getName(), entry.getValues(), nameIdType)));
         return attributeStatement;
     }
 

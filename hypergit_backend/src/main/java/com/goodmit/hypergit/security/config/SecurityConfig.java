@@ -1,12 +1,13 @@
 package com.goodmit.hypergit.security.config;
 
-import com.goodmit.hypergit.security.ad.config.ADProperties;
+import com.goodmit.hypergit.security.authn.HAuthnProvider;
+import com.goodmit.hypergit.security.authn.ad.ADConfig;
 import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -19,18 +20,17 @@ import org.springframework.security.ldap.authentication.ad.ActiveDirectoryLdapAu
 
 @Slf4j
 @EnableWebSecurity
-@EnableConfigurationProperties(value = {ADProperties.class})
+@Import(value = {ADConfig.class})
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @NonNull
-    private ADProperties adProperties;
+    private ActiveDirectoryLdapAuthenticationProvider adAuthProvider;
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .cors().disable()
-                .httpBasic().disable();
+        http.httpBasic().disable();
     }
 
     @Override
@@ -47,15 +47,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .passwordCompare();
       */
-        ActiveDirectoryLdapAuthenticationProvider authenticationProvider =
-                new ActiveDirectoryLdapAuthenticationProvider(
-                        adProperties.getDomain(),
-                        adProperties.getUrl(),
-                        adProperties.getRootDn()
-                );
-        authenticationProvider.setConvertSubErrorCodesToExceptions(true);
-        authenticationProvider.setUseAuthenticationRequestCredentials(true);
-        auth.authenticationProvider(authenticationProvider);
+
+        auth.authenticationProvider(authnProvider());
 
     }
 
@@ -75,4 +68,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+
+    @Bean
+    public HAuthnProvider authnProvider() {
+        return HAuthnProvider.builder()
+                .adAuthProvider(adAuthProvider)
+                .build();
+    }
 }

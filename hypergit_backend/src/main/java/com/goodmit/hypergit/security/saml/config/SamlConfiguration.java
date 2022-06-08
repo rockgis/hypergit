@@ -68,12 +68,12 @@ public class SamlConfiguration  {
         return metadataGenerator;
     }
 
-    @Bean
-    public SamlController samlController(SAMLService samlService) {
-        return SamlController.builder()
-                .samlService(samlService)
-                .build();
-    }
+//    @Bean
+//    public SamlController samlController(SAMLService samlService) {
+//        return SamlController.builder()
+//                .samlService(samlService)
+//                .build();
+//    }
 
     @Bean
     public SAMLService samlService(SamlProperties samlProperties, MetadataGenerator metadataGenerator, KeyService keyService) {

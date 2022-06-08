@@ -9,6 +9,7 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.saml.context.SAMLMessageContext;
+import org.springframework.security.saml.util.SAMLUtil;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -38,6 +39,7 @@ public class SamlResponseFilter extends OncePerRequestFilter {
     @SneakyThrows
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) {
+        log.info("START SAML AUTHENTICATION");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         SAMLMessageContext messageContext = samlAuthHandler.extractSAMLMessageContext(request, response);
         if(!messageContext.getInboundMessageIssuer().equals(samlProperties.getEntityId())) {
@@ -52,11 +54,13 @@ public class SamlResponseFilter extends OncePerRequestFilter {
 //            SamlPrincipal samlPrincipal = samlPrincipalFactory.createLogoutSamlPrincipal(messageContext);
 //            samlAuthHandler.sendLogoutResponse(samlPrincipal,response);
 //            samlAuthHandler.sendLogoutResponse(messageContext);
-            SecurityContextHolder.clearContext();
+//            SecurityContextHolder.clearContext();
+            response.sendRedirect("/login");
         } else {
             SamlPrincipal samlPrincipal = samlPrincipalFactory.createAuthSamlPrincipal(messageContext,authentication);
             samlAuthHandler.sendAuthnResponse(samlPrincipal,response);
         }
+        log.info("SEND SAML RESPONSE");
 
     }
 

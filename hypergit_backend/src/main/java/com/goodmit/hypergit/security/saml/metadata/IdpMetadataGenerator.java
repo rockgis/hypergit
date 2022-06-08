@@ -41,7 +41,7 @@ public class IdpMetadataGenerator extends MetadataGenerator {
 
         validateRequiredAttributes(entityId, entityBaseURL);
 
-        EntityDescriptor descriptor = SamlBuilder.buildSAMLObject(EntityDescriptor.class,EntityDescriptor.ELEMENT_QNAME);
+        EntityDescriptor descriptor = SamlBuilder.buildSAMLObject(EntityDescriptor.class,EntityDescriptor.DEFAULT_ELEMENT_NAME);
         descriptor.setEntityID(entityId);
 
         IDPSSODescriptor ssoDescriptor = buildIDPSSODescriptor(entityBaseURL, entityAlias, isRequestSigned(), includedNameID);
@@ -57,6 +57,7 @@ public class IdpMetadataGenerator extends MetadataGenerator {
                 SamlBuilder.buildSAMLObject(IDPSSODescriptor.class,IDPSSODescriptor.DEFAULT_ELEMENT_NAME);
         idpssoDescriptor.setWantAuthnRequestsSigned(requestSigned);
         idpssoDescriptor.addSupportedProtocol(SAMLConstants.SAML20P_NS);
+
         idpssoDescriptor.getNameIDFormats().addAll(getNameIDFormat(includedNameID));
 
         addSingleSignOnService(idpssoDescriptor,mapAliases(getBindingsSSO()));

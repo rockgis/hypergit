@@ -9,9 +9,9 @@ import java.util.List;
 
 public class LocalSamlPrincipalFactory extends SamlPrincipalFactory{
 
-    private static final String KEY_USER_NAME="User.Username";
-    private static final String KEY_USER_EMAIL="User.Email";
-    private static final String KEY_USER_FI="User.FederationIdentifier";
+    private static final String KEY_USER_NAME="uid";
+    private static final String KEY_USER_EMAIL="email";
+    private static final String KEY_USER_FI="cn";
 
     @Builder
     protected LocalSamlPrincipalFactory(String nameIdType) {
@@ -23,7 +23,7 @@ public class LocalSamlPrincipalFactory extends SamlPrincipalFactory{
         return Arrays.asList(
                 new SamlAttribute(KEY_USER_NAME,authentication.getName()),
                 new SamlAttribute(KEY_USER_EMAIL,"test@test.com"),
-                new SamlAttribute(KEY_USER_FI,"test@test.com")
+                new SamlAttribute(KEY_USER_FI,authentication.getName())
         );
     }
 }

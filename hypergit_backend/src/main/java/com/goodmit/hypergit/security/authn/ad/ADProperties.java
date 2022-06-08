@@ -1,4 +1,4 @@
-package com.goodmit.hypergit.security.ad.config;
+package com.goodmit.hypergit.security.authn.ad;
 
 import lombok.AccessLevel;
 import lombok.Getter;

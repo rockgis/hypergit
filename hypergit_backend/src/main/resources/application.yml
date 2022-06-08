@@ -17,7 +17,7 @@ server:
       persistent: false
       cookie:
         name: hypergit
-        max-age: 36600
+        max-age: 3660
         http-only: true
 
 security:
@@ -38,10 +38,13 @@ saml:
     ssoBindings:
       - post
       - redirect
+    slo-bindings:
+      - post
+      - redirect
 
 logging:
   level:
-    root: debug
+    root: DEBUG
 ---
 spring:
   config:

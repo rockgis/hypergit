@@ -17,28 +17,29 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
 @Order(2)
 public class SamlSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @NonNull
-    private SamlResponseFilter samlResponseFilter;
-    @NonNull private SamlProperties samlProperties;
+    @NonNull private SamlResponseFilter samlResponseFilter;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.cors().disable().csrf().disable().authorizeRequests()
+        http.csrf().disable()
+                .authorizeRequests()
 //                .antMatchers("/").permitAll()
-                .antMatchers("/error").permitAll()
-                .anyRequest().authenticated()
+                    .antMatchers("/error").permitAll()
+                    .anyRequest().authenticated()
                 .and()
                 .addFilterAfter(samlResponseFilter, FilterSecurityInterceptor.class)
-                .formLogin().permitAll()
-                .failureUrl("/login?error=true")
+                    .formLogin().permitAll()
+                    .failureUrl("/login?error=true")
+                    .defaultSuccessUrl("/")
                 .and()
                 .logout()
-                .logoutUrl("/logout")
-                .invalidateHttpSession(true)
-                .deleteCookies()
-                .clearAuthentication(true)
-                .permitAll();
+                    .logoutUrl("/logout")
+                    .logoutSuccessUrl("/login")
+                    .invalidateHttpSession(true)
+                    .deleteCookies()
+                    .clearAuthentication(true)
+                    .permitAll();
 
     }
 
