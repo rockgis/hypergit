@@ -1,5 +1,6 @@
 package com.goodmit.hypergit.security.saml.config;
 
+import com.goodmit.hypergit.security.saml.key.KeyProperties;
 import com.goodmit.hypergit.security.saml.metadata.BindingType;
 import com.goodmit.hypergit.util.NetUtil;
 import lombok.Getter;
@@ -23,10 +24,12 @@ public class SamlProperties {
     private final int clockSkew;
     private final String nameIDType;
     private final String bindingAddress;
+
+    private final KeyProperties key;
     private final List<BindingType> ssoBindings;
     private final List<BindingType> sloBindings;
     protected SamlProperties(String authUrl, @NonNull String entityId, int expired,
-                             int clockSkew, String nameIDType, String bindingAddress,
+                             int clockSkew, String nameIDType, String bindingAddress, KeyProperties key,
                              @NonNull List<BindingType> ssoBindings, List<BindingType> sloBindings) {
 
         this.authUrl = authUrl;
@@ -34,6 +37,7 @@ public class SamlProperties {
         this.expired = expired;
         this.clockSkew = clockSkew;
         this.nameIDType = nameIDType;
+        this.key = key;
 
         this.ssoBindings = ssoBindings;
         this.sloBindings = Objects.isNull(sloBindings)? Collections.emptyList():sloBindings;

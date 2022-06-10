@@ -1,8 +1,7 @@
-package com.goodmit.hypergit.security.key;
+package com.goodmit.hypergit.security.saml.key;
 
-import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.opensaml.xml.security.CriteriaSet;
 import org.opensaml.xml.security.SecurityException;
 import org.opensaml.xml.security.credential.Credential;
@@ -14,11 +13,16 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 
-@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class KeyService {
     private final KeyProperties keyProperties;
     @Getter
     private final JKSKeyManager keyManager;
+
+    @Builder
+    protected KeyService(KeyProperties keyProperties, JKSKeyManager keyManager) {
+        this.keyProperties = keyProperties;
+        this.keyManager = keyManager;
+    }
 
     public Credential resolveCredential() throws SecurityException {
         return keyManager.resolveSingle(new CriteriaSet(new EntityIDCriteria(keyProperties.getAlias())));

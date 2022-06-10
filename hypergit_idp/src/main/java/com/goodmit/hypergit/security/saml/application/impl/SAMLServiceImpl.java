@@ -1,6 +1,6 @@
 package com.goodmit.hypergit.security.saml.application.impl;
 
-import com.goodmit.hypergit.security.key.KeyService;
+import com.goodmit.hypergit.security.saml.key.KeyService;
 import com.goodmit.hypergit.security.saml.application.SAMLService;
 import com.goodmit.hypergit.security.saml.config.SamlProperties;
 import com.goodmit.hypergit.security.saml.metadata.BindingType;
@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.saml2.metadata.provider.MetadataProviderException;
 import org.opensaml.xml.io.MarshallingException;
-import org.springframework.security.saml.key.JKSKeyManager;
 import org.springframework.security.saml.metadata.CachingMetadataManager;
 import org.springframework.security.saml.metadata.MetadataGenerator;
 import org.springframework.security.saml.metadata.MetadataManager;

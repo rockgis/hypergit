@@ -20,14 +20,6 @@ server:
         max-age: 3660
         http-only: true
 
-security:
-  key:
-    path: keys/saml.p12
-#    path: classpath:keys/saml.p12
-    passphrase: test
-    type: PKCS12
-    alias: hypergit
-
 saml:
   idp:
     authUrl: /sso
@@ -35,6 +27,12 @@ saml:
     expired: 300
     clockSkew: 300
     nameIDType: urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified
+    key:
+      path: keys/saml.p12
+      #    path: classpath:keys/saml.p12
+      passphrase: test
+      type: PKCS12
+      alias: hypergit
     ssoBindings:
       - post
       - redirect
@@ -44,7 +42,7 @@ saml:
 
 logging:
   level:
-    root: DEBUG
+    root: INFO
 ---
 spring:
   config:

@@ -1,4 +1,4 @@
-package com.goodmit.hypergit.security.key;
+package com.goodmit.hypergit.security.saml.key;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;

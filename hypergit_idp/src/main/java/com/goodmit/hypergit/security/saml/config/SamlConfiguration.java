@@ -1,15 +1,15 @@
 package com.goodmit.hypergit.security.saml.config;
 
-import com.goodmit.hypergit.security.key.KeyConfig;
-import com.goodmit.hypergit.security.key.KeyService;
+import com.goodmit.hypergit.security.saml.key.KeyProperties;
+import com.goodmit.hypergit.security.saml.key.KeyService;
 import com.goodmit.hypergit.security.saml.auth.LocalSamlPrincipalFactory;
 import com.goodmit.hypergit.security.saml.auth.SamlAuthHandler;
 import com.goodmit.hypergit.security.saml.auth.SamlPrincipalFactory;
 import com.goodmit.hypergit.security.saml.auth.SamlResponseFilter;
 import com.goodmit.hypergit.security.saml.application.SAMLService;
 import com.goodmit.hypergit.security.saml.application.impl.SAMLServiceImpl;
+import com.goodmit.hypergit.security.saml.key.KeyStoreLocator;
 import com.goodmit.hypergit.security.saml.metadata.IdpMetadataGenerator;
-import com.goodmit.hypergit.security.saml.application.controller.SamlController;
 import lombok.extern.slf4j.Slf4j;
 import org.opensaml.xml.parse.StaticBasicParserPool;
 import org.opensaml.xml.parse.XMLParserException;
@@ -17,13 +17,16 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.security.saml.SAMLBootstrap;
+import org.springframework.security.saml.key.JKSKeyManager;
 import org.springframework.security.saml.metadata.MetadataGenerator;
+
+import java.security.*;
+import java.security.spec.InvalidKeySpecException;
+import java.util.Collections;
 
 @Slf4j
 @Configuration
-@Import(value = {KeyConfig.class})
 @EnableConfigurationProperties(value = {SamlProperties.class})
 public class SamlConfiguration  {
 
@@ -90,6 +93,28 @@ public class SamlConfiguration  {
         StaticBasicParserPool parserPool = new StaticBasicParserPool();
         parserPool.initialize();
         return parserPool;
+    }
+
+    @Bean
+    public JKSKeyManager keyManager(SamlProperties samlProperties)
+            throws NoSuchAlgorithmException, InvalidKeySpecException, KeyStoreException, UnrecoverableKeyException {
+        String keyAlias = samlProperties.getKey().getAlias();
+        String keyPassword = samlProperties.getKey().getPassphrase();
+        KeyStore keyStore = KeyStoreLocator.createKeyStore(
+//                ResourceUtils.getFile(keyProperties.getPath()).toPath(),
+                samlProperties.getKey().getPath(),
+                keyPassword,
+                samlProperties.getKey().getType());
+        KeyStoreLocator.addPrivateKey(keyStore,keyAlias,keyPassword);
+        return new JKSKeyManager(keyStore, Collections.singletonMap(keyAlias,keyPassword),keyAlias);
+    }
+
+    @Bean
+    public KeyService keyService(SamlProperties samlProperties, JKSKeyManager keyManager) {
+        return KeyService.builder()
+                .keyProperties(samlProperties.getKey())
+                .keyManager(keyManager)
+                .build();
     }
 
 }
