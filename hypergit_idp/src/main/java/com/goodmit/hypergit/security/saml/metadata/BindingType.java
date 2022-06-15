@@ -2,6 +2,9 @@ package com.goodmit.hypergit.security.saml.metadata;
 
 import lombok.Getter;
 import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.xml.parse.ParserPool;
+import org.springframework.security.saml.processor.*;
+import org.springframework.security.saml.util.VelocityFactory;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,5 +25,24 @@ public enum BindingType {
 
     static List<String> getAllBindingUriList() {
         return Arrays.stream(values()).map(BindingType::getBindingUri).collect(Collectors.toList());
+    }
+
+    public SAMLBinding createSAMLBinding(ParserPool parserPool) {
+
+        SAMLBinding samlBinding;
+        switch (this) {
+            case SOAP:
+                samlBinding = new HTTPSOAP11Binding(parserPool);
+                break;
+            case POST:
+                samlBinding = new HTTPPostBinding(parserPool,VelocityFactory.getEngine());
+                break;
+            case REDIRECT:
+            default:
+                samlBinding = new HTTPRedirectDeflateBinding(parserPool);
+                break;
+        }
+
+        return samlBinding;
     }
 }

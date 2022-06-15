@@ -1,15 +1,16 @@
 package com.goodmit.hypergit.security.saml.config;
 
-import com.goodmit.hypergit.security.saml.key.KeyProperties;
-import com.goodmit.hypergit.security.saml.key.KeyService;
+import com.goodmit.hypergit.security.saml.application.SAMLService;
+import com.goodmit.hypergit.security.saml.application.impl.SAMLServiceImpl;
 import com.goodmit.hypergit.security.saml.auth.LocalSamlPrincipalFactory;
 import com.goodmit.hypergit.security.saml.auth.SamlAuthHandler;
 import com.goodmit.hypergit.security.saml.auth.SamlPrincipalFactory;
 import com.goodmit.hypergit.security.saml.auth.SamlResponseFilter;
-import com.goodmit.hypergit.security.saml.application.SAMLService;
-import com.goodmit.hypergit.security.saml.application.impl.SAMLServiceImpl;
+import com.goodmit.hypergit.security.saml.key.KeyService;
 import com.goodmit.hypergit.security.saml.key.KeyStoreLocator;
+import com.goodmit.hypergit.security.saml.metadata.BindingType;
 import com.goodmit.hypergit.security.saml.metadata.IdpMetadataGenerator;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.opensaml.xml.parse.StaticBasicParserPool;
 import org.opensaml.xml.parse.XMLParserException;
@@ -19,11 +20,23 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.saml.SAMLBootstrap;
 import org.springframework.security.saml.key.JKSKeyManager;
+import org.springframework.security.saml.key.KeyManager;
 import org.springframework.security.saml.metadata.MetadataGenerator;
+import org.springframework.security.saml.processor.HTTPSOAP11Binding;
+import org.springframework.security.saml.processor.SAMLBinding;
+import org.springframework.security.saml.processor.SAMLProcessor;
+import org.springframework.security.saml.processor.SAMLProcessorImpl;
 
-import java.security.*;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableKeyException;
 import java.security.spec.InvalidKeySpecException;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Configuration
@@ -62,12 +75,19 @@ public class SamlConfiguration  {
     }
 
     @Bean
-    public MetadataGenerator metadataGenerator(SamlProperties samlProperties, @Value("${server.port}") String port) {
+    public MetadataGenerator metadataGenerator(SamlProperties samlProperties, @Value("${server.port}") String port, KeyManager keyManager) {
         MetadataGenerator metadataGenerator = IdpMetadataGenerator.builder()
                 .sloURL(samlProperties.getAuthUrl())
                 .ssoURL(samlProperties.getAuthUrl())
                 .build();
         metadataGenerator.setEntityBaseURL("http://"+ samlProperties.getBindingAddress()+":"+port);
+        metadataGenerator.setEntityId(samlProperties.getEntityId());
+        metadataGenerator.setKeyManager(keyManager);
+        Collection<String> bindingsSSO = samlProperties.getSsoBindings().stream().map(BindingType::getBindingUri).collect(Collectors.toList());
+        Collection<String> bindingsSLO = samlProperties.getSloBindings().stream().map(BindingType::getBindingUri).collect(Collectors.toList());
+        metadataGenerator.setBindingsSSO(bindingsSSO);
+        metadataGenerator.setBindingsSLO(bindingsSLO);
+        metadataGenerator.setNameID(Arrays.asList(samlProperties.getNameIDType()));
         return metadataGenerator;
     }
 
@@ -88,8 +108,9 @@ public class SamlConfiguration  {
     }
 
 
+    @SneakyThrows
     @Bean
-    public StaticBasicParserPool parserPool() throws XMLParserException {
+    public StaticBasicParserPool parserPool()  {
         StaticBasicParserPool parserPool = new StaticBasicParserPool();
         parserPool.initialize();
         return parserPool;
@@ -115,6 +136,14 @@ public class SamlConfiguration  {
                 .keyProperties(samlProperties.getKey())
                 .keyManager(keyManager)
                 .build();
+    }
+
+    @Bean
+    public SAMLProcessor samlSSOProcessor(SamlProperties samlProperties) {
+        List list = samlProperties.getSsoBindings()
+                .stream().map(bindingType -> bindingType.createSAMLBinding(parserPool()))
+                .collect(Collectors.toList());;
+        return new SAMLProcessorImpl(list);
     }
 
 }

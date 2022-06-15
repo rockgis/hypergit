@@ -1,7 +1,7 @@
 package com.goodmit.hypergit.security.saml.auth;
 
-import com.goodmit.hypergit.security.saml.config.SamlProperties;
 import com.goodmit.hypergit.security.saml.auth.dao.SamlPrincipal;
+import com.goodmit.hypergit.security.saml.config.SamlProperties;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.opensaml.saml2.core.LogoutRequest;
@@ -9,7 +9,6 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.saml.context.SAMLMessageContext;
-import org.springframework.security.saml.util.SAMLUtil;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -39,7 +38,7 @@ public class SamlResponseFilter extends OncePerRequestFilter {
     @SneakyThrows
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) {
-        log.info("START SAML AUTHENTICATION");
+        log.info("START SAML AUTHENTICATION : {}",request.getMethod());
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         SAMLMessageContext messageContext = samlAuthHandler.extractSAMLMessageContext(request, response);
         if(!messageContext.getInboundMessageIssuer().equals(samlProperties.getEntityId())) {

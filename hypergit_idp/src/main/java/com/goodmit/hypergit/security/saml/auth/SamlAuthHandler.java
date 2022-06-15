@@ -1,11 +1,12 @@
 package com.goodmit.hypergit.security.saml.auth;
 
-import com.goodmit.hypergit.security.saml.key.KeyService;
-import com.goodmit.hypergit.security.saml.config.SamlProperties;
 import com.goodmit.hypergit.security.saml.auth.dao.SamlPrincipal;
+import com.goodmit.hypergit.security.saml.config.SamlProperties;
+import com.goodmit.hypergit.security.saml.key.KeyService;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
 import org.opensaml.Configuration;
 import org.opensaml.common.SAMLException;
@@ -47,8 +48,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SamlAuthHandler {
+
     private SamlProperties samlProperties;
     private SAMLMessageDecoder decoder;
     private SAMLMessageEncoder encoder;
@@ -135,8 +138,6 @@ public class SamlAuthHandler {
         messageContext.setRelayState(principal.getRelayState());
         encoder.encode(messageContext);
     }
-
-
 
     private SAMLMessageContext decodeMessageContext(HttpServletRequest request, HttpServletResponse response) throws MessageDecodingException, SecurityException {
         SAMLMessageContext messageContext = new SAMLMessageContext();

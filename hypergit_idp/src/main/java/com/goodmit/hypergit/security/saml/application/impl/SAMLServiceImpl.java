@@ -35,19 +35,7 @@ public class SAMLServiceImpl implements SAMLService {
 
     @Override
     public String getIDPMetadata() {
-        metadataGenerator.setEntityId(samlProperties.getEntityId());
-        metadataGenerator.setKeyManager(keyService.getKeyManager());
-        Collection<String> bindingsSSO = samlProperties.getSsoBindings().stream().map(BindingType::getBindingUri).collect(Collectors.toList());
-        Collection<String> bindingsSLO = samlProperties.getSloBindings().stream().map(BindingType::getBindingUri).collect(Collectors.toList());
-
-        metadataGenerator.setBindingsSSO(bindingsSSO);
-        metadataGenerator.setBindingsSLO(bindingsSLO);
-
-        metadataGenerator.setNameID(Arrays.asList(samlProperties.getNameIDType()));
-        metadataGenerator.setKeyManager(keyService.getKeyManager());
-
         EntityDescriptor generatedDescriptor = metadataGenerator.generateMetadata();
-
         try {
             MetadataManager metadataManager = getMetadataMgr(generatedDescriptor);
             return SAMLUtil.getMetadataAsString(metadataManager, keyService.getKeyManager(), generatedDescriptor, null);
