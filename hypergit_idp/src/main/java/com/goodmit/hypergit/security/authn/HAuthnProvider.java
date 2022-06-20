@@ -34,7 +34,7 @@ public class HAuthnProvider implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         Authentication authn = adAuthProvider.authenticate(authentication);
-
+        log.info("-----> {}",authn.toString());
         UserDetails user = users.stream().filter(userDetails -> userDetails.getUsername().equals(authn.getName())
                 && userDetails.getPassword().equals(authn.getCredentials()))
                 .findFirst().orElse(null);

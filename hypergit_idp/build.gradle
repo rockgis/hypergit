@@ -45,6 +45,10 @@ task archives(type: Tar) {
         from "${buildDir}/resources/main/application.yml"
     }
 
+    into("hypergit/bin") {
+        from "${buildDir}/resources/main/script/"
+    }
+
     destinationDirectory = file('build/distributions')
     extension 'tgz'
     compression = Compression.GZIP

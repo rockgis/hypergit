@@ -21,6 +21,11 @@ public class SamlAttribute {
         this.values.add(value);
     }
 
+    public SamlAttribute(@NonNull String name, @NonNull List values) {
+        this.name = name;
+        this.values.addAll(values);
+    }
+
     public String getValue() {
         return String.join(", ",values);
     }

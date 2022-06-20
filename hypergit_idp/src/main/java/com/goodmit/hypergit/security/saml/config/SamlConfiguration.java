@@ -22,10 +22,9 @@ import org.springframework.security.saml.SAMLBootstrap;
 import org.springframework.security.saml.key.JKSKeyManager;
 import org.springframework.security.saml.key.KeyManager;
 import org.springframework.security.saml.metadata.MetadataGenerator;
-import org.springframework.security.saml.processor.HTTPSOAP11Binding;
-import org.springframework.security.saml.processor.SAMLBinding;
 import org.springframework.security.saml.processor.SAMLProcessor;
 import org.springframework.security.saml.processor.SAMLProcessorImpl;
+import org.springframework.util.StringUtils;
 
 import java.security.KeyStore;
 import java.security.KeyStoreException;
@@ -76,11 +75,16 @@ public class SamlConfiguration  {
 
     @Bean
     public MetadataGenerator metadataGenerator(SamlProperties samlProperties, @Value("${server.port}") String port, KeyManager keyManager) {
+
         MetadataGenerator metadataGenerator = IdpMetadataGenerator.builder()
                 .sloURL(samlProperties.getAuthUrl())
                 .ssoURL(samlProperties.getAuthUrl())
                 .build();
-        metadataGenerator.setEntityBaseURL("http://"+ samlProperties.getBindingAddress()+":"+port);
+
+        String baseUrl = StringUtils.hasText(samlProperties.getBindingAddress()) && samlProperties.getBindingAddress().startsWith("http")?
+                samlProperties.getBindingAddress():"http://" + samlProperties.getBindingAddress() + ":" + port;
+
+        metadataGenerator.setEntityBaseURL(baseUrl);
         metadataGenerator.setEntityId(samlProperties.getEntityId());
         metadataGenerator.setKeyManager(keyManager);
         Collection<String> bindingsSSO = samlProperties.getSsoBindings().stream().map(BindingType::getBindingUri).collect(Collectors.toList());
@@ -91,12 +95,6 @@ public class SamlConfiguration  {
         return metadataGenerator;
     }
 
-//    @Bean
-//    public SamlController samlController(SAMLService samlService) {
-//        return SamlController.builder()
-//                .samlService(samlService)
-//                .build();
-//    }
 
     @Bean
     public SAMLService samlService(SamlProperties samlProperties, MetadataGenerator metadataGenerator, KeyService keyService) {

@@ -10,6 +10,8 @@ spring:
   config:
     activate:
       on-profile: common
+  pid:
+    file: ./pid/hypergitIdp.pid
 server:
   servlet:
     session:
@@ -34,16 +36,13 @@ saml:
       type: PKCS12
       alias: hypergit
     ssoBindings:
-      - artifact
-      - post
       - redirect
     slo-bindings:
-      - post
       - redirect
 
 logging:
   level:
-    root: INFO
+    root: info
 ---
 spring:
   config:
@@ -63,6 +62,14 @@ spring:
 
 server:
   port: 9090
+  tomcat:
+    accesslog:
+      enabled: true
+      directory: /dev
+      prefix: stdout
+      buffered: false
+      suffix: ""
+      file-date-format: ""
 
 ad:
   url: ldap://10.200.101.19:389
@@ -75,6 +82,13 @@ spring:
     activate:
       on-profile: develop
 server:
-  port: 10010
+  port: 9090
 
+saml:
+  idp:
+    bindingAddress: saml91.goodmit.com
+ad:
+  url: ldap://10.200.101.19:389
+  domain: GOODMIT.COM
+  rootDn: OU=Users,OU=PlatformDivision,DC=GOODMIT,DC=COM
 ---
