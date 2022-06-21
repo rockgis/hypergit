@@ -140,7 +140,7 @@ public class SamlConfiguration  {
     public SAMLProcessor samlSSOProcessor(SamlProperties samlProperties) {
         List list = samlProperties.getSsoBindings()
                 .stream().map(bindingType -> bindingType.createSAMLBinding(parserPool()))
-                .collect(Collectors.toList());;
+                .collect(Collectors.toList());
         return new SAMLProcessorImpl(list);
     }
 

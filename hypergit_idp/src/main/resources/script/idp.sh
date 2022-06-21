@@ -2,14 +2,14 @@
 
 SCRIPT_BIN="${BASH_SOURCE-$0}"
 SCRIPT_BIN="$(dirname "${SCRIPT_BIN}")"
-SCIRPT_HOME="$(cd "${SCRIPT_BIN}/.."; pwd)"
-LIB_PATH=$SCIRPT_HOME/libs
+SCRIPT_HOME="$(cd "${SCRIPT_BIN}/.."; pwd)"
+LIB_PATH=$SCRIPT_HOME/libs
 
 addParameter()
 {
 
   if [ -z "$JVAV_PARAMETER" ]; then
-    JAVA_PARAMETER="-Djava.net.preferIPv4Stack=true"
+    JAVA_PARAMETER="-Djava.net.preferIPv4Stack=true -Dlogging.config=$SCRIPT_HOME/config/logback-spring.xml"
   fi
   JAVA_PARAMETER=$JAVA_PARAMETER" "$1
 }
@@ -20,7 +20,7 @@ start()
 }
 stop() {
   echo "stop application"
-  kill $(cat "$SCIRPT_HOME"/pid/hypergitIdp.pid)
+  kill $(cat "$SCRIPT_HOME"/pid/hypergitIdp.pid)
 }
 
 helpFunction()
