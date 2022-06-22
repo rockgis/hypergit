@@ -96,6 +96,8 @@ server:
 saml:
   idp:
     bindingAddress: saml91.goodmit.com
+    key:
+      path: file:./keys/saml.p12
 ad:
   url: ldap://10.200.101.19:389
   domain: GOODMIT.COM

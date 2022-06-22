@@ -27,7 +27,7 @@ public class LocalSamlPrincipalFactory extends SamlPrincipalFactory{
         return Arrays.asList(
                 new SamlAttribute(KEY_USER_NAME,authentication.getName()),
                 new SamlAttribute(KEY_USER_EMAIL,"test@test.com"),
-                new SamlAttribute(KEY_USER_FI, "Configurator")
+                new SamlAttribute(KEY_USER_FI, "admin")
         );
     }
 }
