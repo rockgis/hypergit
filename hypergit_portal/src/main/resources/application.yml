@@ -1,1 +1,29 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/hypergit?serverTimezone=UTC&characterEncoding=UTF-8
+    username: root
+    password: dldPwns!@09
 
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      format_sql: true
+      ddl-auto: create
+
+server:
+  error:
+    include-exception: true # 오류 응답에 exception의 내용을 포함할지 여부
+    include-stacktrace: always # 오류 응답에 stacktrace 내용을 포함할 지 여부
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
