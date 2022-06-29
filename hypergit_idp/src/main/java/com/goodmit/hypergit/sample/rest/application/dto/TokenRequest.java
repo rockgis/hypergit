@@ -1,4 +1,4 @@
-package com.goodmit.hypergit.global.security.rest.application.dto;
+package com.goodmit.hypergit.sample.rest.application.dto;
 
 import lombok.*;
 import org.springframework.boot.context.properties.ConstructorBinding;

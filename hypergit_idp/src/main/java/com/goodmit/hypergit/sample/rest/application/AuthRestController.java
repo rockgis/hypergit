@@ -1,7 +1,7 @@
-package com.goodmit.hypergit.global.security.rest.application;
+package com.goodmit.hypergit.sample.rest.application;
 
-import com.goodmit.hypergit.global.security.rest.TokenProvider;
-import com.goodmit.hypergit.global.security.rest.application.dto.TokenRequest;
+import com.goodmit.hypergit.sample.rest.TokenProvider;
+import com.goodmit.hypergit.sample.rest.application.dto.TokenRequest;
 import lombok.Builder;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;

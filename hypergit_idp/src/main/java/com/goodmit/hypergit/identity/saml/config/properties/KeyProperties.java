@@ -1,5 +1,6 @@
-package com.goodmit.hypergit.identity.saml.key;
+package com.goodmit.hypergit.identity.saml.config.properties;
 
+import com.goodmit.hypergit.identity.saml.key.KeyStoreType;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

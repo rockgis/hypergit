@@ -1,6 +1,6 @@
-package com.goodmit.hypergit.global.security.rest;
+package com.goodmit.hypergit.sample.rest;
 
-import com.goodmit.hypergit.identity.saml.key.KeyService;
+import com.goodmit.hypergit.identity.saml.application.KeyService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

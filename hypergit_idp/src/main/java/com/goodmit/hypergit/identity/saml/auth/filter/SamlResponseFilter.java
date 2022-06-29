@@ -3,7 +3,7 @@ package com.goodmit.hypergit.identity.saml.auth.filter;
 import com.goodmit.hypergit.identity.saml.auth.SamlAuthHandler;
 import com.goodmit.hypergit.identity.saml.auth.SamlPrincipalFactory;
 import com.goodmit.hypergit.identity.saml.auth.dao.SamlPrincipal;
-import com.goodmit.hypergit.identity.saml.config.SamlProperties;
+import com.goodmit.hypergit.identity.saml.config.properties.SamlProperties;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.opensaml.saml2.core.LogoutRequest;
@@ -29,12 +29,13 @@ public class SamlResponseFilter extends OncePerRequestFilter {
     private SamlPrincipalFactory samlPrincipalFactory;
 
     @Builder
-    protected SamlResponseFilter(@NonNull SamlProperties samlProperties,@NonNull SamlAuthHandler samlAuthHandler,@NonNull SamlPrincipalFactory samlPrincipalFactory){
+    protected SamlResponseFilter(@NonNull SamlProperties samlProperties,
+                                 @NonNull SamlAuthHandler samlAuthHandler,
+                                 @NonNull SamlPrincipalFactory samlPrincipalFactory){
         this.samlProperties = samlProperties;
         this.samlAuthHandler = samlAuthHandler;
         this.samlPrincipalFactory = samlPrincipalFactory;
     }
-
 
     //process saml url
     @SneakyThrows

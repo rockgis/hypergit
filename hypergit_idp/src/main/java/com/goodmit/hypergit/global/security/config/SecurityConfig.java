@@ -1,16 +1,14 @@
 package com.goodmit.hypergit.global.security.config;
 
 import com.goodmit.hypergit.global.security.authn.HAuthnProvider;
-import com.goodmit.hypergit.global.security.authn.ad.ADConfig;
 import com.goodmit.hypergit.identity.saml.auth.filter.SamlResponseFilter;
 import com.goodmit.hypergit.identity.saml.config.SamlConfiguration;
-import lombok.AccessLevel;
 import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -18,22 +16,19 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.ldap.authentication.ad.ActiveDirectoryLdapAuthenticationProvider;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 
 @Slf4j
 @EnableWebSecurity
-@Import(value = {ADConfig.class, SamlConfiguration.class})
-@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
+@Import(value = {SamlConfiguration.class, AuthnConfig.class})
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private ActiveDirectoryLdapAuthenticationProvider adAuthProvider;
     private SamlResponseFilter samlResponseFilter;
+    private AuthenticationProvider authnProvider;
 
-    private SecurityConfig(
-            @NonNull ActiveDirectoryLdapAuthenticationProvider adAuthProvider,
-            @NonNull SamlResponseFilter samlResponseFilter) {
-        this.adAuthProvider = adAuthProvider;
+    protected SecurityConfig(@NonNull HAuthnProvider authnProvider,
+                             @NonNull SamlResponseFilter samlResponseFilter) {
+        this.authnProvider = authnProvider;
         this.samlResponseFilter = samlResponseFilter;
     }
 
@@ -83,7 +78,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .passwordCompare();
      */
-        auth.authenticationProvider(authnProvider());
+        auth.authenticationProvider(authnProvider);
 
 
     }
@@ -102,14 +97,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
-
-
-    @Bean
-    public HAuthnProvider authnProvider() {
-        return HAuthnProvider.builder()
-                .adAuthProvider(adAuthProvider)
-                .build();
     }
 
 }

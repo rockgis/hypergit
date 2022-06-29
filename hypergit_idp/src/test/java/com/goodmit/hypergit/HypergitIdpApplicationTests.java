@@ -1,7 +1,7 @@
 package com.goodmit.hypergit;
 
 import com.goodmit.hypergit.identity.saml.application.SAMLService;
-import com.goodmit.hypergit.identity.saml.config.SamlProperties;
+import com.goodmit.hypergit.identity.saml.config.properties.SamlProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;

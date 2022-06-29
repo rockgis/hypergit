@@ -2,7 +2,7 @@ package com.goodmit.hypergit.global.util.security;
 
 import com.goodmit.hypergit.identity.saml.key.KeyStoreLocator;
 import com.goodmit.hypergit.identity.saml.key.KeyStoreType;
-import com.goodmit.hypergit.identity.saml.config.SamlProperties;
+import com.goodmit.hypergit.identity.saml.config.properties.SamlProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.bouncycastle.util.io.pem.PemObject;

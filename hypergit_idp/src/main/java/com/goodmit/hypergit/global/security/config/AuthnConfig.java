@@ -1,21 +1,32 @@
-package com.goodmit.hypergit.global.security.authn.ad;
+package com.goodmit.hypergit.global.security.config;
 
-import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import com.goodmit.hypergit.global.security.authn.HAuthnProvider;
+import com.goodmit.hypergit.global.security.authn.properties.ADProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.ldap.authentication.ad.ActiveDirectoryLdapAuthenticationProvider;
 
-@Slf4j
-@EnableWebSecurity
+@Configuration
 @EnableConfigurationProperties(value = {ADProperties.class})
-@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
-public class ADConfig {
+public class AuthnConfig {
+
+    private ADProperties adProperties;
+
+    protected AuthnConfig(ADProperties adProperties) {
+        this.adProperties = adProperties;
+    }
 
     @Bean
-    public ActiveDirectoryLdapAuthenticationProvider adAuthProvider(ADProperties adProperties) {
+    public HAuthnProvider authnProvider() {
+        return HAuthnProvider.builder()
+                .adAuthProvider(adAuthProvider())
+                .build();
+    }
+
+    @Bean
+    public AuthenticationProvider adAuthProvider() {
         ActiveDirectoryLdapAuthenticationProvider authenticationProvider =
                 new ActiveDirectoryLdapAuthenticationProvider(
                         adProperties.getDomain(),
@@ -26,6 +37,4 @@ public class ADConfig {
         authenticationProvider.setUseAuthenticationRequestCredentials(true);
         return authenticationProvider;
     }
-
 }
-

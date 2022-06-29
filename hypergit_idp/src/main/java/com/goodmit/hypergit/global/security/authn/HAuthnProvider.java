@@ -20,30 +20,15 @@ import java.util.stream.Collectors;
 public class HAuthnProvider implements AuthenticationProvider {
     private final AuthenticationProvider adAuthProvider;
 
-    private List<UserDetails> users;
 
     @Builder
-    private HAuthnProvider(@NonNull ActiveDirectoryLdapAuthenticationProvider adAuthProvider) {
+    private HAuthnProvider(@NonNull AuthenticationProvider adAuthProvider) {
         this.adAuthProvider = adAuthProvider;
-        users = new ArrayList<>();
-        users.add(User.builder().roles("ADMIN").username("samltest").password("git08021!").build());
-        users.add(User.builder().roles("USER").username("saml").password("git08021!").build());
-
     }
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        Authentication authn = adAuthProvider.authenticate(authentication);
-        UserDetails user = users.stream().filter(userDetails -> userDetails.getUsername().equals(authn.getName())
-                && userDetails.getPassword().equals(authn.getCredentials()))
-                .findFirst().orElse(null);
-
-
-        List<String> authorizes = user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
-        AuthorityUtils.createAuthorityList(authorizes.toArray(new String[authorizes.size()]));
-
-        authn.getAuthorities();
-        return authn;
+        return adAuthProvider.authenticate(authentication);
     }
 
     @Override

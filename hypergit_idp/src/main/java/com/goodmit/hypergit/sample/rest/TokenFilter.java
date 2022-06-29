@@ -1,4 +1,4 @@
-package com.goodmit.hypergit.global.security.rest;
+package com.goodmit.hypergit.sample.rest;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;

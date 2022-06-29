@@ -1,8 +1,8 @@
 package com.goodmit.hypergit.identity.saml.auth;
 
 import com.goodmit.hypergit.identity.saml.auth.dao.SamlPrincipal;
-import com.goodmit.hypergit.identity.saml.config.SamlProperties;
-import com.goodmit.hypergit.identity.saml.key.KeyService;
+import com.goodmit.hypergit.identity.saml.config.properties.SamlProperties;
+import com.goodmit.hypergit.identity.saml.application.KeyService;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.NoArgsConstructor;

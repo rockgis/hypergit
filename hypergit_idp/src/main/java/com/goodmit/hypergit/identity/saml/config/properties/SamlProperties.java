@@ -1,6 +1,5 @@
-package com.goodmit.hypergit.identity.saml.config;
+package com.goodmit.hypergit.identity.saml.config.properties;
 
-import com.goodmit.hypergit.identity.saml.key.KeyProperties;
 import com.goodmit.hypergit.identity.saml.metadata.BindingType;
 import com.goodmit.hypergit.util.NetUtil;
 import lombok.Getter;
