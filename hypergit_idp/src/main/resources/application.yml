@@ -12,6 +12,7 @@ spring:
       on-profile: common
   pid:
     file: ./pid/hypergitIdp.pid
+
 server:
   servlet:
     session:
@@ -31,6 +32,25 @@ server:
       suffix: .log
       file-date-format: .yyyy-MM-dd
 
+authdb:
+  hikari:
+    jdbc-url: jdbc:mysql://10.200.101.15:3307/hypergit
+    username: rockgis
+    password: dldPwns!@09
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    idle-timeout: 10000
+    maximum-pool-size: 10
+    minimum-idle: 5
+    pool-name: authenpool
+    connection-init-sql: SELECT 1
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database: mysql
+    properties:
+      hibernate:
+        format_sql: true
+
 saml:
   idp:
     authUrl: /sso
@@ -46,12 +66,18 @@ saml:
       alias: hypergit
     ssoBindings:
       - redirect
-    slo-bindings:
+    sloBindings:
       - redirect
 
 logging:
   level:
     root: info
+    org:
+      hibernate:
+        SQL: debug
+  com:
+    zaxxer:
+      hikari: debug
 ---
 spring:
   config:

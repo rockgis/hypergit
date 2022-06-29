@@ -4,9 +4,9 @@
     <property name="LOG_FILE_NAME" value="hypergit_idp"/>
     <property name="ERR_LOG_FILE_NAME" value="hypergit_idp_error"/>
     <property name="CONSOLE_LOG_PATTERN"
-              value="%highlight(%-5level) %date [%thread] %cyan([%C{0} :: %M :: %L]) - %msg%n"/>
+              value="%date [%highlight(%-5level)] [%thread] %cyan([%C{0} :: %M :: %L]) - %msg%n"/>
     <property name="FILE_LOG_PATTERN"
-              value="%-5level %date [%thread] [%C{0} :: %M :: %L] - %msg%n"/>
+              value="%date [%-5level] [%thread] [%C{0} :: %M :: %L] - %msg%n"/>
 
     <!-- log level from application.yml -->
     <springProperty scope="context" name="LOG_LEVEL" source="log.level.root"/>
@@ -61,9 +61,8 @@
             <appender-ref ref="CONSOLE"/>
         </springProfile>
         <springProfile name="prod,dev">
-            <appender-ref ref="CONSOLE"/>
-<!--            <appender-ref ref="FILE"/>-->
-<!--            <appender-ref ref="ERROR"/>-->
+            <appender-ref ref="FILE"/>
+            <appender-ref ref="ERROR"/>
         </springProfile>
     </root>
 </configuration>
