@@ -1,4 +1,4 @@
-package com.goodmit.hypergit.sample.repository.entity;
+package com.goodmit.hypergit.repository.entity;
 
 import lombok.AccessLevel;
 import lombok.Getter;

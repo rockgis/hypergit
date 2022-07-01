@@ -1,5 +1,6 @@
 package com.goodmit.hypergit.global.config;
 
+import com.goodmit.hypergit.global.security.authn.LoginAuditListener;
 import com.goodmit.hypergit.sample.repository.MemberDSLRepository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.zaxxer.hikari.HikariDataSource;
@@ -26,7 +27,7 @@ import java.util.Map;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(
-        basePackages = {"com.goodmit.hypergit.sample.repository"},
+        basePackages = {"com.goodmit.hypergit.repository"},
         entityManagerFactoryRef = "authEntityMgrFactory",
         transactionManagerRef = "authTransactionMgr"
 )
@@ -51,7 +52,7 @@ public class AuthDBConfig {
                         new HibernateSettings());
 
         return builder.dataSource(authDatasource())
-                .packages("com.goodmit.hypergit.sample.repository.entity")
+                .packages( "com.goodmit.hypergit.repository.entity")
                 .properties(properties)
                 .build();
     }
@@ -70,7 +71,7 @@ public class AuthDBConfig {
     }
 
     @Bean
-    @ConfigurationProperties(prefix = "authdb.jps.hibernate")
+    @ConfigurationProperties(prefix = "authdb.jpa.hibernate")
     public HibernateProperties hibernateProperties() {
         return new HibernateProperties();
     }
@@ -84,5 +85,6 @@ public class AuthDBConfig {
     public MemberDSLRepository memberCustomRepository(JPAQueryFactory jpaQueryFactory) {
         return new MemberDSLRepository(jpaQueryFactory);
     }
+
 
 }

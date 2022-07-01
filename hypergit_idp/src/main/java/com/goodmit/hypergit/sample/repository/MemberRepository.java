@@ -1,6 +1,6 @@
 package com.goodmit.hypergit.sample.repository;
 
-import com.goodmit.hypergit.sample.repository.entity.Member;
+import com.goodmit.hypergit.repository.entity.Member;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;

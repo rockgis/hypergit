@@ -1,6 +1,6 @@
 package com.goodmit.hypergit.sample.repository;
 
-import com.goodmit.hypergit.sample.repository.entity.Member;
+import com.goodmit.hypergit.repository.entity.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

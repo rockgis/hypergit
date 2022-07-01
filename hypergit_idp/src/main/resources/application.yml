@@ -31,26 +31,6 @@ server:
       buffered: false
       suffix: .log
       file-date-format: .yyyy-MM-dd
-
-authdb:
-  hikari:
-    jdbc-url: jdbc:mysql://10.200.101.15:3307/hypergit
-    username: rockgis
-    password: dldPwns!@09
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    type: com.zaxxer.hikari.HikariDataSource
-    idle-timeout: 10000
-    maximum-pool-size: 10
-    minimum-idle: 5
-    pool-name: authenpool
-    connection-init-sql: SELECT 1
-  jpa:
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    database: mysql
-    properties:
-      hibernate:
-        format_sql: true
-
 saml:
   idp:
     authUrl: /sso
@@ -69,15 +49,31 @@ saml:
     sloBindings:
       - redirect
 
+authdb:
+  hikari:
+    type: com.zaxxer.hikari.HikariDataSource
+    idle-timeout: 10000
+    maximum-pool-size: 10
+    minimum-idle: 5
+    pool-name: authenpool
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+    hibernate:
+      connection:
+        provider_class: com.zaxxer.hikari.hibernate.HikariConnectionProvider
+
 logging:
   level:
-    root: info
+    root: debug
     org:
       hibernate:
         SQL: debug
-  com:
-    zaxxer:
-      hikari: debug
+    com.zaxxer.hikari.HikariConfig: DEBUG
+    com.zaxxer.hikari: trace
+    org.thymeleaf: info
+
 ---
 spring:
   config:
@@ -123,9 +119,23 @@ saml:
   idp:
     bindingAddress: saml91.goodmit.com
     key:
-      path: file:./keys/saml.p12
+      path: keys/saml.p12
+#      path: file:./keys/saml.p12
 ad:
   url: ldap://10.200.101.19:389
   domain: GOODMIT.COM
   rootDn: OU=Users,OU=PlatformDivision,DC=GOODMIT,DC=COM
+
+authdb:
+  hikari:
+    jdbc-url: jdbc:mysql://10.200.101.15:3307/hypergit
+    username: rockgis
+    password: dldPwns!@09
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database: mysql
+    properties:
+      hibernate:
+        format_sql: true
 ---
