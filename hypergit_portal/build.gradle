@@ -16,6 +16,36 @@ configurations {
 
 repositories {
     mavenCentral()
+    maven {
+        url "https://build.shibboleth.net/nexus/content/repositories/releases/"
+    }
+    maven {
+        url "https://nexus.uiscloud.com/repository/maven-public/"
+    }
+}
+
+task archives(type: Tar) {
+
+    into("hypergit/libs") {
+        from bootJar
+    }
+
+    into("hypergit/keys") {
+        from "${buildDir}/resources/main/keys"
+    }
+
+    into("hypergit/config") {
+        from "${buildDir}/resources/main/application.yml"
+        from "${buildDir}/resources/main/logback-spring.xml"
+    }
+
+    into("hypergit/bin") {
+        from "${buildDir}/resources/main/script/"
+    }
+
+    destinationDirectory = file('build/distributions')
+    extension 'tgz'
+    compression = Compression.GZIP
 }
 
 dependencies {

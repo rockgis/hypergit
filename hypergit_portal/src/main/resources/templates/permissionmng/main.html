@@ -9,6 +9,27 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="/lib/plugins/fontawesome-free/css/all.min.css">
+  <!-- daterange picker -->
+  <link rel="stylesheet" href="/lib/plugins/daterangepicker/daterangepicker.css">
+  <!-- iCheck for checkboxes and radio inputs -->
+  <link rel="stylesheet" href="/lib/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Bootstrap Color Picker -->
+  <link rel="stylesheet" href="/lib/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+  <!-- Tempusdominus Bootstrap 4 -->
+  <link rel="stylesheet" href="/lib/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="/lib/plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="/lib/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+  <!-- Bootstrap4 Duallistbox -->
+  <link rel="stylesheet" href="/lib/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
+  <!-- BS Stepper -->
+  <link rel="stylesheet" href="/lib/plugins/bs-stepper/css/bs-stepper.min.css">
+  <!-- dropzonejs -->
+  <link rel="stylesheet" href="/lib/plugins/dropzone/min/dropzone.min.css">
+  <!-- jsGrid -->
+  <link rel="stylesheet" href="/lib/plugins/jsgrid/jsgrid.min.css">
+  <link rel="stylesheet" href="/lib/plugins/jsgrid/jsgrid-theme.min.css">
+
   <!-- jsGrid -->
   <link rel="stylesheet" href="/lib/plugins/jsgrid/jsgrid.min.css">
   <link rel="stylesheet" href="/lib/plugins/jsgrid/jsgrid-theme.min.css">
@@ -47,9 +68,65 @@
 
     <!-- Main content -->
     <section class="content">
+      <!-- Horizontal Form -->
+      <!-- /.card -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title"><i class="fas fa-plug "></i>   사용권한관리</h3>
+          <h3 class="card-title"><i class="fas fa-user-secret"></i>  사용권한 관리</h3>
+        </div>
+        <div class="card-body">
+          <table class="table table-bordered">
+            <tbody>
+            <tr>
+              <td colspan="2">
+                <div class="form-group row">
+                  <label for="inputwebname" class="col-sm-2 col-form-label">앱</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputwebname" placeholder="앱명">
+                  </div>
+                </div>
+              </td>
+
+            </tr>
+            <tr>
+              <td>
+                <div class="form-group row">
+                  <label for="inputwebname" class="col-sm-2 col-form-label">사용자명</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputwebname" placeholder="앱명">
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="form-group row">
+                  <label for="useyn" class="col-sm-2 col-form-label">부서</label>
+                  <div class="col-sm-10">
+                    <select id="useyn" class="form-control select2" style="width: 100%;">
+                      <option selected="selected" value="A" >전체</option>
+                      <option value="Y">Y</option>
+                      <option value="N">N</option>
+                    </select>
+                  </div>
+                </div>
+              </td>
+
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+      <div class="card">
+        <div class="card-header">
+          <!-- this row will not appear when printing -->
+          <div class="row no-print">
+            <div class="col-12">
+              <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> 조회</button>
+              <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
+                <i class="fas fa-download"></i> 초기화</button>
+            </div>
+          </div>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -80,6 +157,16 @@
 <script src="/lib/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="/lib/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Select2 -->
+<script src="/lib/plugins/select2/js/select2.full.min.js"></script>
+<!-- Bootstrap4 Duallistbox -->
+<script src="/lib/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+<!-- InputMask -->
+<script src="/lib/plugins/moment/moment.min.js"></script>
+<script src="/lib/plugins/inputmask/jquery.inputmask.min.js"></script>
+<!-- date-range-picker -->
+<script src="/lib/plugins/daterangepicker/daterangepicker.js"></script>
+
 <!-- jsGrid -->
 <script src="/lib/plugins/jsgrid/demos/db.js"></script>
 <script src="/lib/plugins/jsgrid/jsgrid.min.js"></script>
@@ -101,11 +188,12 @@
       data: db.clients,
 
       fields: [
-        { name: "Name", type: "text", width: 150 },
-        { name: "Age", type: "number", width: 50 },
-        { name: "Address", type: "text", width: 200 },
-        { name: "Country", type: "select", items: db.countries, valueField: "Id", textField: "Name" },
-        { name: "Married", type: "checkbox", title: "Is Married" }
+        { name: "check", title: "", type: "checkbox", width: 20},
+        { name: "ID", title: "번호" , type: "number", width: 40 },
+        { name: "Age", title: "앱명" , type: "text" },
+        { name: "Address", title: "부서" , type: "text" },
+        { name: "Age", title: "이름" , type: "text" },
+        { name: "Age", title: "이메일" , type: "text" }
       ]
     });
   });

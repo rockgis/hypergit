@@ -9,9 +9,6 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="/lib/plugins/fontawesome-free/css/all.min.css">
-  <!-- jsGrid -->
-  <link rel="stylesheet" href="/lib/plugins/jsgrid/jsgrid.min.css">
-  <link rel="stylesheet" href="/lib/plugins/jsgrid/jsgrid-theme.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="/lib/AdminLTE/css/adminlte.min.css">
 </head>
@@ -49,13 +46,60 @@
     <section class="content">
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title"><i class="far fa-calendar-alt"></i>  정책관리</h3>
+          <h3 class="card-title"><i class="fa-thin fa-align-justify"></i>  인증정책</h3>
         </div>
-        <!-- /.card-header -->
         <div class="card-body">
-          <div id="jsGrid1"></div>
+          <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">인증 허용 횟수</label>
+            <div class="col-sm-5">
+              <input type="email" class="form-control" id="inputEmail3" placeholder="5">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title"><i class="fa-thin fa-align-justify"></i> 장기 미사용 정책</h3>
+        </div>
+        <div class="card-body">
+          <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">장기 미사용 정기준(일)</label>
+            <div class="col-sm-5">
+              <input type="email" class="form-control" id="inputEmail3" placeholder="15">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title"><i class="fa-thin fa-align-justify"></i>  통합정보 관리 시스템 연결 정보</h3>
+        </div>
+        <div class="card-body">
+          <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">서버 정보</label>
+            <div class="col-sm-10">
+              <input type="email" class="form-control" id="inputEmail3" placeholder="10.200.101.10">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+            <div class="col-sm-10">
+              <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+            </div>
+          </div>
         </div>
         <!-- /.card-body -->
+        <div class="card-footer">
+          <!-- this row will not appear when printing -->
+          <div class="row no-print">
+            <div class="col-12">
+              <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i>초기화</button>
+              <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
+                <i class="fas fa-download"></i> 저장</button>
+
+            </div>
+          </div>
+        </div>
       </div>
       <!-- /.card -->
     </section>
@@ -80,9 +124,8 @@
 <script src="/lib/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="/lib/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- jsGrid -->
-<script src="/lib/plugins/jsgrid/demos/db.js"></script>
-<script src="/lib/plugins/jsgrid/jsgrid.min.js"></script>
+<!-- bs-custom-file-input -->
+<script src="/lib/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 <!-- AdminLTE App -->
 <script src="/lib/AdminLTE/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
@@ -91,23 +134,7 @@
 
 <script>
   $(function () {
-    $("#jsGrid1").jsGrid({
-      height: "100%",
-      width: "100%",
 
-      sorting: true,
-      paging: true,
-
-      data: db.clients,
-
-      fields: [
-        { name: "Name", type: "text", width: 150 },
-        { name: "Age", type: "number", width: 50 },
-        { name: "Address", type: "text", width: 200 },
-        { name: "Country", type: "select", items: db.countries, valueField: "Id", textField: "Name" },
-        { name: "Married", type: "checkbox", title: "Is Married" }
-      ]
-    });
   });
 </script>
 </body>

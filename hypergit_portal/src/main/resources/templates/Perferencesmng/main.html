@@ -9,6 +9,23 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="/lib/plugins/fontawesome-free/css/all.min.css">
+  <!-- daterange picker -->
+  <link rel="stylesheet" href="/lib/plugins/daterangepicker/daterangepicker.css">
+  <!-- iCheck for checkboxes and radio inputs -->
+  <link rel="stylesheet" href="/lib/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Bootstrap Color Picker -->
+  <link rel="stylesheet" href="/lib/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+  <!-- Tempusdominus Bootstrap 4 -->
+  <link rel="stylesheet" href="/lib/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="/lib/plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="/lib/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+  <!-- Bootstrap4 Duallistbox -->
+  <link rel="stylesheet" href="/lib/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
+  <!-- BS Stepper -->
+  <link rel="stylesheet" href="/lib/plugins/bs-stepper/css/bs-stepper.min.css">
+  <!-- dropzonejs -->
+  <link rel="stylesheet" href="/lib/plugins/dropzone/min/dropzone.min.css">
   <!-- jsGrid -->
   <link rel="stylesheet" href="/lib/plugins/jsgrid/jsgrid.min.css">
   <link rel="stylesheet" href="/lib/plugins/jsgrid/jsgrid-theme.min.css">
@@ -47,16 +64,113 @@
 
     <!-- Main content -->
     <section class="content">
+      <!-- Horizontal Form -->
+      <!-- /.card -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title"><i class="fas fa-cog"></i>   환경 설정</h3>
+          <h3 class="card-title"><i class="fas fa-user-secret"></i>  공지사항</h3>
         </div>
-        <!-- /.card-header -->
         <div class="card-body">
-          <div id="jsGrid1"></div>
+          <form action="/board/search" method="GET">
+          <table class="table table-bordered">
+            <tbody>
+            <tr>
+              <td>
+                <div class="form-group row">
+                  <label for="inputwebname" class="col-sm-2 col-form-label">제목</label>
+                  <div class="col-sm-10">
+                        <input class="form-control" name="keyword" type="text" placeholder="검색어를 입력해주세요">
+                  </div>
+                </div>
+              </td>
+              <td>
+                <div class="form-group row">
+                  <label for="inputwebname" class="col-sm-2 col-form-label">사용자</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputwebname" placeholder="사용자">
+                  </div>
+                </div>
+              </td>
+
+              <td>
+                <div class="form-group row">
+                  <label for="inputwebname" class="col-sm-2 col-form-label">조회기간</label>
+                  <div class="col-sm-10">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="far fa-clock"></i></span>
+                      </div>
+                      <input type="text" class="form-control float-right" id="reservationtime">
+                    </div>
+                  </div>
+                </div>
+              </td>
+
+            </tr>
+            </tbody>
+          </table>
+          </form>
         </div>
         <!-- /.card-body -->
       </div>
+
+      <div class="card">
+        <div class="card-header">
+          <!-- this row will not appear when printing -->
+          <div class="row no-print">
+            <div class="col-12">
+              <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> 조회</button>
+              <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
+                <i class="fas fa-download"></i> 초기화</button>
+              <button th:onclick="|location.href='@{/post}'|"  type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
+                <i class="fas fa-download"></i> 글쓰기</button>
+            </div>
+
+          </div>
+        </div>
+        <!-- /.card-header -->
+        <div class="card-body">
+          <table class="table table-bordered">
+            <thead>
+            <tr>
+              <th width="10%">번호</th>
+              <th>글제목</th>
+              <th width="20%">작성자</th>
+              <th width="20%">작성일</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- CONTENTS !-->
+            <tr th:each="board : ${boardList}">
+              <td>
+                <span th:text="${board.id}"></span>
+              </td>
+              <td>
+                <a th:href="@{'/post/' + ${board.id}}">
+                  <span th:text="${board.title}"></span>
+                </a>
+              </td>
+              <td>
+                <span th:text="${board.writer}"></span>
+              </td>
+              <td>
+                <span th:text="${#temporals.format(board.createdDate, 'yyyy-MM-dd HH:mm')}"></span>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer clearfix">
+          <div>
+            Pages:
+            <span th:each="pageNum : ${pageList}" th:inline="text">
+                                        <a th:href="@{'/?page=' + ${pageNum}}">[[${pageNum}]]</a>
+                                    </span>
+          </div>
+        </div>
+       </div>
+      <!-- /.card -->
       <!-- /.card -->
     </section>
     <!-- /.content -->
@@ -80,8 +194,17 @@
 <script src="/lib/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="/lib/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Select2 -->
+<script src="/lib/plugins/select2/js/select2.full.min.js"></script>
+<!-- Bootstrap4 Duallistbox -->
+<script src="/lib/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+<!-- InputMask -->
+<script src="/lib/plugins/moment/moment.min.js"></script>
+<script src="/lib/plugins/inputmask/jquery.inputmask.min.js"></script>
+<!-- date-range-picker -->
+<script src="/lib/plugins/daterangepicker/daterangepicker.js"></script>
 <!-- jsGrid -->
-<script src="/lib/plugins/jsgrid/demos/db.js"></script>
+<script src="/js/jsgrid/perferencesmng.js"></script>
 <script src="/lib/plugins/jsgrid/jsgrid.min.js"></script>
 <!-- AdminLTE App -->
 <script src="/lib/AdminLTE/js/adminlte.min.js"></script>
@@ -91,23 +214,15 @@
 
 <script>
   $(function () {
-    $("#jsGrid1").jsGrid({
-      height: "100%",
-      width: "100%",
 
-      sorting: true,
-      paging: true,
-
-      data: db.clients,
-
-      fields: [
-        { name: "Name", type: "text", width: 150 },
-        { name: "Age", type: "number", width: 50 },
-        { name: "Address", type: "text", width: 200 },
-        { name: "Country", type: "select", items: db.countries, valueField: "Id", textField: "Name" },
-        { name: "Married", type: "checkbox", title: "Is Married" }
-      ]
+    $('#reservationtime').daterangepicker({
+      timePicker: true,
+      timePickerIncrement: 30,
+      locale: {
+        format: 'YYYY-MM-DD hh:mm A'
+      }
     });
+
   });
 </script>
 </body>

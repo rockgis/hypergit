@@ -1,25 +1,55 @@
+---
 spring:
+  profiles:
+    group:
+      local: common, loc
+      dev: common, develop
+      prod: common
+---
+spring:
+  config:
+    activate:
+      on-profile: common
+  pid:
+    file: ./pid/hypergitPortal.pid
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/hypergit?serverTimezone=UTC&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3306/hypergit?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: root
     password: dldPwns!@09
-
-  jpa:
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    open-in-view: false
-    show-sql: true
-    hibernate:
-      format_sql: true
-      ddl-auto: create
+    jpa:
+      database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+      open-in-view: false
+      show-sql: true
+      hibernate:
+        format_sql: true
+        ddl-auto: create
 
 server:
+  servlet:
+    session:
+      #      session delete when app restart
+      persistent: false
+      cookie:
+        name: hypergit
+        max-age: 3660
+        http-only: true
+  tomcat:
+    basedir: .
+    accesslog:
+      enabled: true
+      directory: logs
+      prefix: access_log
+      buffered: false
+      suffix: .log
+      file-date-format: .yyyy-MM-dd
   error:
     include-exception: true # 오류 응답에 exception의 내용을 포함할지 여부
     include-stacktrace: always # 오류 응답에 stacktrace 내용을 포함할 지 여부
 
 logging:
   level:
+    root: info
     org:
       hibernate:
         SQL: DEBUG
@@ -27,3 +57,39 @@ logging:
           descriptor:
             sql:
               BasicBinder: TRACE
+
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: production
+
+---
+spring:
+  config:
+    activate:
+      on-profile: loc
+
+server:
+  port: 9091
+  tomcat:
+    accesslog:
+      enabled: true
+      directory: /dev
+      prefix: stdout
+      buffered: false
+      suffix: ""
+      file-date-format: ""
+
+---
+spring:
+  config:
+    activate:
+      on-profile: develop
+server:
+  port: 9091
+---
+
+

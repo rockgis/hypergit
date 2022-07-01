@@ -26,4 +26,13 @@ public class PermissionmngController {
         return "permissionmng/main.html";
     }
 
+    @GetMapping("/admin/permissionmng/search")
+    public String search(@RequestParam(value="keyword") String keyword, Model model) {
+        List<BoardDto> boardDtoList = boardService.searchPosts(keyword);
+
+        model.addAttribute("boardList", boardDtoList);
+
+        return "permissionmng/main.html";
+    }
+
 }

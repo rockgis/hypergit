@@ -15,17 +15,6 @@ public class BoardController {
     private BoardService boardService;
 
     /* 게시글 목록 */
-    @GetMapping("/admin/list")
-    public String adminlist(Model model, @RequestParam(value="page", defaultValue = "1") Integer pageNum) {
-        List<BoardDto> boardList = boardService.getBoardlist(pageNum);
-        Integer[] pageList = boardService.getPageList(pageNum);
-
-        model.addAttribute("boardList", boardList);
-        model.addAttribute("pageList", pageList);
-
-        return "board/list.html";
-    }
-
     @GetMapping("/list")
     public String list(Model model, @RequestParam(value="page", defaultValue = "1") Integer pageNum) {
         List<BoardDto> boardList = boardService.getBoardlist(pageNum);
@@ -47,7 +36,6 @@ public class BoardController {
         return "board/detail.html";
     }
 
-
     /* 게시글 쓰기 */
     @GetMapping("/post")
     public String write() {
@@ -58,9 +46,8 @@ public class BoardController {
     public String write(BoardDto boardDto) {
         boardService.savePost(boardDto);
 
-        return "redirect:/";
+        return "redirect:/admin/perferencesmng";
     }
-
 
     /* 게시글 수정 */
     @GetMapping("/post/edit/{no}")
@@ -75,7 +62,7 @@ public class BoardController {
     public String update(BoardDto boardDTO) {
         boardService.savePost(boardDTO);
 
-        return "redirect:/";
+        return "redirect:/admin/perferencesmng";
     }
 
     /* 게시글 삭제 */
@@ -83,7 +70,7 @@ public class BoardController {
     public String delete(@PathVariable("no") Long no) {
         boardService.deletePost(no);
 
-        return "redirect:/";
+        return "redirect:/admin/perferencesmng";
     }
 
     @GetMapping("/board/search")
