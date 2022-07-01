@@ -1,7 +1,7 @@
 package com.goodmit.hypergit.global.config;
 
-import com.goodmit.hypergit.global.security.authn.LoginAuditListener;
-import com.goodmit.hypergit.sample.repository.MemberDSLRepository;
+import com.goodmit.hypergit.global.security.authn.AuthenticationEvents;
+import com.goodmit.hypergit.repository.LoginAuditRepo;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;
@@ -11,12 +11,15 @@ import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.security.authentication.AuthenticationEventPublisher;
+import org.springframework.security.authentication.DefaultAuthenticationEventPublisher;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -82,9 +85,14 @@ public class AuthDBConfig {
     }
 
     @Bean
-    public MemberDSLRepository memberCustomRepository(JPAQueryFactory jpaQueryFactory) {
-        return new MemberDSLRepository(jpaQueryFactory);
+    public AuthenticationEventPublisher authenticationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
+        return new DefaultAuthenticationEventPublisher(applicationEventPublisher);
     }
 
-
+    @Bean
+    public AuthenticationEvents authenticationEvents(LoginAuditRepo loginAuditRepo) {
+        return AuthenticationEvents.builder()
+                .loginAuditRepo(loginAuditRepo)
+                .build();
+    }
 }

@@ -10,8 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import java.util.Objects;
-
 public class DBUserDetailService implements UserDetailsService {
 
     private final MemberRepository memberRepository;

@@ -31,6 +31,9 @@ server:
       buffered: false
       suffix: .log
       file-date-format: .yyyy-MM-dd
+management:
+  endpoints:
+    enabled-by-default: false
 saml:
   idp:
     authUrl: /sso

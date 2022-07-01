@@ -78,6 +78,8 @@ dependencies {
     implementation 'commons-io:commons-io:2.11.0'
     implementation 'mysql:mysql-connector-java'
 
+    implementation 'org.jadira.usertype:usertype.core:6.0.1.GA'
+
     //jwt
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
 

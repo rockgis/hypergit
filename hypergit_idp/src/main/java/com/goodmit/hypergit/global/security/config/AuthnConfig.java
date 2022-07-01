@@ -53,6 +53,7 @@ public class AuthnConfig {
                 .build();
     }
 
+
     @Bean
     public AuthenticationProvider dbUserAuthProvider() {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
