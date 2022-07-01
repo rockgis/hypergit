@@ -75,63 +75,57 @@
           <h3 class="card-title"><i class="fas fa-user-secret"></i>  사용권한 관리</h3>
         </div>
         <div class="card-body">
-          <table class="table table-bordered">
-            <tbody>
-            <tr>
-              <td colspan="2">
-                <div class="form-group row">
-                  <label for="inputwebname" class="col-sm-2 col-form-label">앱</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputwebname" placeholder="앱명">
-                  </div>
-                </div>
-              </td>
+          <div class="container-fluid">
+            <form action="/board/search" method="POST">
 
-            </tr>
-            <tr>
-              <td>
-                <div class="form-group row">
-                  <label for="inputwebname" class="col-sm-2 col-form-label">사용자명</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputwebname" placeholder="앱명">
+              <div class="row">
+                <div class="col-md-12 ">
+                  <div class="row">
+                    <div class="col-4">
+                      <div class="form-group">
+                        <label>앱 </label>
+                        <input class="form-control" name="keyword" type="text" placeholder="검색어를 입력해주세요">
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="form-group">
+                        <label>사용자명</label>
+                        <input class="form-control" name="keyword" type="text" placeholder="검색어를 입력해주세요">
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="form-group">
+                        <label>부서</label>
+                        <select class="form-control select2" style="width: 100%;">
+                          <option selected="selected" value="A" >전체</option>
+                          <option value="Y">Y</option>
+                          <option value="N">N</option>
+                        </select>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </td>
-              <td>
-                <div class="form-group row">
-                  <label for="useyn" class="col-sm-2 col-form-label">부서</label>
-                  <div class="col-sm-10">
-                    <select id="useyn" class="form-control select2" style="width: 100%;">
-                      <option selected="selected" value="A" >전체</option>
-                      <option value="Y">Y</option>
-                      <option value="N">N</option>
-                    </select>
-                  </div>
-                </div>
-              </td>
+                  <div class="form-group">
+                    목록 :  200건 1/10
+                    <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> 조회</button>
+                    <button type="button" class="btn btn-secondary float-right" style="margin-right: 5px;">
+                      <i class="fas fa-download"></i> 초기화</button>
+                    <button type="button" class="btn btn-danger float-right" style="margin-right: 5px;">
+                      <i class="fas fa-download"></i> 삭제</button>
+                    <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
+                      <i class="fas fa-download"></i> 등록</button>
+                    <button type="button" class="btn btn-secondary float-right" style="margin-right: 5px;">
+                      <i class="fas fa-download"></i> 잠금해제</button>
 
-            </tr>
-            </tbody>
-          </table>
-        </div>
-        <!-- /.card-body -->
-      </div>
-      <!-- /.card -->
-      <div class="card">
-        <div class="card-header">
-          <!-- this row will not appear when printing -->
-          <div class="row no-print">
-            <div class="col-12">
-              <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> 조회</button>
-              <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
-                <i class="fas fa-download"></i> 초기화</button>
+                  </div>
+
+                </div>
+              </div>
+            </form>
+
+            <div class="row">
+              <div id="jsGrid1"></div>
             </div>
           </div>
-        </div>
-        <!-- /.card-header -->
-        <div class="card-body">
-          <div id="jsGrid1"></div>
-        </div>
         <!-- /.card-body -->
       </div>
       <!-- /.card -->

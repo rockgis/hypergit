@@ -72,101 +72,88 @@
           <h3 class="card-title"><i class="fas fa-user-secret"></i>  권한 감사</h3>
         </div>
         <div class="card-body">
-          <table class="table table-bordered">
-            <tbody>
-            <tr>
-              <td>
-                <div class="form-group row">
-                  <label for="inputwebname" class="col-sm-2 col-form-label">앱</label>
-                  <div class="col-sm-10">
-                    <select id="useyn" class="form-control select2" style="width: 100%;">
-                      <option selected="selected" value="A" >전체</option>
-                      <option value="Y">Y</option>
-                      <option value="N">N</option>
-                    </select>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <div class="form-group row">
-                  <label for="inputwebname" class="col-sm-2 col-form-label">사용권한</label>
-                  <div class="col-sm-10">
-                    <select id="useyn" class="form-control select2" style="width: 100%;">
-                      <option selected="selected" value="A" >전체</option>
-                      <option value="Y">Y</option>
-                      <option value="N">N</option>
-                    </select>
-                  </div>
-                </div>
-              </td>
-              <td>
-                <div class="form-group row">
-                  <label for="inputwebname" class="col-sm-2 col-form-label">타입</label>
-                  <div class="col-sm-10">
-                    <select id="useyn" class="form-control select2" style="width: 100%;">
-                      <option selected="selected" value="A" >전체</option>
-                      <option value="Y">Y</option>
-                      <option value="N">N</option>
-                    </select>
-                  </div>
-                </div>
-              </td>
-
-            </tr>
-            <tr>
-              <td>
-                <div class="form-group row">
-                  <label for="useyn" class="col-sm-2 col-form-label">사용자/그룹명</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputwebname" placeholder="앱명">
-                  </div>
-                </div>
-              </td>
-              <td>
-                <div class="form-group row">
-                  <label for="useyn" class="col-sm-2 col-form-label">권한부여자</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" id="inputwebname" placeholder="앱명">
-                  </div>
-                </div>
-              </td>
-              <td>
-                <div class="form-group row">
-                  <label for="inputwebname" class="col-sm-2 col-form-label">조회기간</label>
-                  <div class="col-sm-10">
-                    <div class="input-group">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="far fa-clock"></i></span>
+          <div class="container-fluid">
+            <form action="/board/search" method="POST">
+              <div class="row">
+                <div class="col-md-12 ">
+                  <div class="row">
+                    <div class="col-4">
+                      <div class="form-group">
+                        <label>앱</label>
+                        <input class="form-control" name="keyword" type="text" placeholder="검색어를 입력해주세요">
                       </div>
-                      <input type="text" class="form-control float-right" id="reservationtime">
+                    </div>
+                    <div class="col-4">
+                      <div class="form-group">
+                        <label>사용권한</label>
+                        <select id="useyn" class="form-control select2" style="width: 100%;">
+                          <option selected="selected" value="A" >전체</option>
+                          <option value="Y">Y</option>
+                          <option value="N">N</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-4">
+                      <div class="form-group">
+                        <label>타입</label>
+                        <select id="useyn" class="form-control select2" style="width: 100%;">
+                          <option selected="selected" value="A" >전체</option>
+                          <option value="Y">Y</option>
+                          <option value="N">N</option>
+                        </select>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </td>
+              </div>
 
+              <div class="row">
+                <div class="col-md-12 ">
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="form-group">
+                        <label>사용자/그룹명</label>
+                        <input class="form-control" name="keyword" type="text" placeholder="검색어를 입력해주세요">
+                      </div>
+                    </div>
 
-            </tr>
-            </tbody>
-          </table>
-        </div>
-        <!-- /.card-body -->
-      </div>
-      <!-- /.card -->
-      <div class="card">
-        <div class="card-header">
-          <!-- this row will not appear when printing -->
-          <div class="row no-print">
-            <div class="col-12">
-              <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> 조회</button>
-              <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
-                <i class="fas fa-download"></i> 초기화</button>
+                    <div class="col-6">
+                      <div class="form-group">
+                        <label>조회 기간</label>
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="far fa-clock"></i></span>
+                          </div>
+                          <input type="text" class="form-control float-right" id="reservationtime">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    목록 :  200건 1/10
+                    <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> 조회</button>
+                    <button type="button" class="btn btn-secondary float-right" style="margin-right: 5px;">
+                      <i class="fas fa-download"></i> 초기화</button>
+                    <button type="button" class="btn btn-danger float-right" style="margin-right: 5px;">
+                      <i class="fas fa-download"></i> 삭제</button>
+                    <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
+                      <i class="fas fa-download"></i> 등록</button>
+                    <button type="button" class="btn btn-secondary float-right" style="margin-right: 5px;">
+                      <i class="fas fa-download"></i> 잠금해제</button>
+
+                  </div>
+
+                </div>
+              </div>
+            </form>
+
+            <div class="row">
+              <div id="jsGrid1"></div>
             </div>
           </div>
-        </div>
-        <!-- /.card-header -->
-        <div class="card-body">
-          <div id="jsGrid1"></div>
-        </div>
+
+
+
         <!-- /.card-body -->
       </div>
       <!-- /.card -->

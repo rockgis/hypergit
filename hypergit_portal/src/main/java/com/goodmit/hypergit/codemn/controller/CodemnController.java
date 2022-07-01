@@ -1,4 +1,4 @@
-package com.goodmit.hypergit.permissionmng.controller;
+package com.goodmit.hypergit.codemn.controller;
 
 import com.goodmit.hypergit.board.dto.BoardDto;
 import com.goodmit.hypergit.board.service.BoardService;
@@ -11,11 +11,11 @@ import java.util.List;
 
 @Controller
 @AllArgsConstructor
-public class PermissionmngController {
+public class CodemnController {
     private BoardService boardService;
 
     /* Main Page */
-    @GetMapping("/admin/permissionmng")
+    @GetMapping("/admin/codemn")
     public String list(Model model, @RequestParam(value="page", defaultValue = "1") Integer pageNum) {
         List<BoardDto> boardList = boardService.getBoardlist(pageNum);
         Integer[] pageList = boardService.getPageList(pageNum);
@@ -23,18 +23,7 @@ public class PermissionmngController {
         model.addAttribute("boardList", boardList);
         model.addAttribute("pageList", pageList);
 
-        return "permissionmng/main.html";
+        return "codemn/main.html";
     }
-
-    @GetMapping("/admin/permissionmng/search")
-    public String search(@RequestParam(value="keyword") String keyword, Model model) {
-        List<BoardDto> boardDtoList = boardService.searchPosts(keyword);
-
-        model.addAttribute("boardList", boardDtoList);
-
-        return "permissionmng/main.html";
-    }
-
-    //<!-- Sendmail 기능 -->
 
 }
