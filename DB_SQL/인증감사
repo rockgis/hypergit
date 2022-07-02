@@ -34,10 +34,10 @@ CREATE TABLE GITTD0003
     USR_NM      VARCHAR(30) COMMENT '사용자명',
     USR_EN      VARCHAR(30) COMMENT '사용자ID',
     UG_CT       INT COMMENT '사용권한 부여 이력',
-    RG_EN       VARCHAR(30) COMMENT '등록사번',
-    RG_DT       TIMESTAMP(6) COMMENT '등록일시',
-    ALT_EN      VARCHAR(30) COMMENT '수정사번',
-    ALT_DT      TIMESTAMP(6) COMMENT '수정일시'
+     RGEN   VARCHAR(30) COMMENT '등록사번',
+        CREATED_DATE       TIMESTAMP COMMENT '등록일시',
+        ALTEN  VARCHAR(30) COMMENT '수정사번',
+        MODIFIED_DATE      TIMESTAMP COMMENT '수정일시'
 );
 
 ALTER TABLE GITTD0003 COMMENT='권한감사';

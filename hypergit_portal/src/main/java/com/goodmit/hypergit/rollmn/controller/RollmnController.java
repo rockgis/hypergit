@@ -1,7 +1,7 @@
 package com.goodmit.hypergit.rollmn.controller;
 
-import com.goodmit.hypergit.board.dto.BoardDto;
-import com.goodmit.hypergit.board.service.BoardService;
+import com.goodmit.hypergit.rollmn.dto.Gittf0001Dto;
+import com.goodmit.hypergit.rollmn.service.Gittf0001Service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,15 +12,15 @@ import java.util.List;
 @Controller
 @AllArgsConstructor
 public class RollmnController {
-    private BoardService boardService;
+    private Gittf0001Service gittf0001Service;
 
     /* Main Page */
     @GetMapping("/admin/rollmn")
     public String list(Model model, @RequestParam(value="page", defaultValue = "1") Integer pageNum) {
-        List<BoardDto> boardList = boardService.getBoardlist(pageNum);
-        Integer[] pageList = boardService.getPageList(pageNum);
+        List<Gittf0001Dto> gittf0001List = gittf0001Service.getGittf0001list(pageNum);
+        Integer[] pageList = gittf0001Service.getPageList(pageNum);
 
-        model.addAttribute("boardList", boardList);
+        model.addAttribute("gitta0001List", gittf0001List);
         model.addAttribute("pageList", pageList);
 
         return "rollmn/main.html";
