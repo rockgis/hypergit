@@ -20,8 +20,14 @@ public class RollmnController {
         List<Gittf0001Dto> gittf0001List = gittf0001Service.getGittf0001list(pageNum);
         Integer[] pageList = gittf0001Service.getPageList(pageNum);
 
+
+        // 총 게시글 갯수
+        double  count = Double.valueOf(gittf0001Service.getGitta001Count());
+        Integer postsTotalCount = (int) count;
+
         model.addAttribute("gitta0001List", gittf0001List);
         model.addAttribute("pageList", pageList);
+        model.addAttribute("postsTotalCount", postsTotalCount);
 
         return "rollmn/main.html";
     }

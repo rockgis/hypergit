@@ -74,8 +74,6 @@ public class Gitta0001Service {
     }
 
     public Integer[] getPageList(Integer curPageNum) {
-        Integer[] pageList = new Integer[BLOCK_PAGE_NUM_COUNT];
-
         // 총 게시글 갯수
         Double postsTotalCount = Double.valueOf(this.getGitta001Count());
 
@@ -86,6 +84,8 @@ public class Gitta0001Service {
         Integer blockLastPageNum = (totalLastPageNum > curPageNum + BLOCK_PAGE_NUM_COUNT)
                 ? curPageNum + BLOCK_PAGE_NUM_COUNT
                 : totalLastPageNum;
+
+        Integer[] pageList = new Integer[blockLastPageNum];
 
         // 페이지 시작 번호 조정
         curPageNum = (curPageNum <= 3) ? 1 : curPageNum - 2;

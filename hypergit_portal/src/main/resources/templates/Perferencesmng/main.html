@@ -72,50 +72,19 @@
         </div>
         <div class="card-body">
           <div class="container-fluid">
-            <form action="/board/search" method="POST">
               <div class="row">
                 <div class="col-md-12 ">
-                  <div class="row">
-                    <div class="col-4">
-                      <div class="form-group">
-                        <label>제목</label>
-                        <input class="form-control" name="keyword" type="text" placeholder="검색어를 입력해주세요">
-                      </div>
-                    </div>
-                    <div class="col-3">
-                      <div class="form-group">
-                        <label>사용자</label>
-                        <input class="form-control" name="keyword" type="text" placeholder="검색어를 입력해주세요">
-                      </div>
-                    </div>
-                    <div class="col-5">
-                      <div class="form-group">
-                        <label>조회기간</label>
-                        <div class="input-group">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="far fa-clock"></i></span>
-                          </div>
-                          <input type="text" class="form-control float-right" id="reservationtime">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                    <div class="form-group">
-                        목록 :  200건 1/10
-                        <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> 조회</button>
-                        <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
-                          <i class="fas fa-download"></i> 초기화</button>
-                        <button th:onclick="|location.href='@{/post}'|"  type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
-                          <i class="fas fa-download"></i> 글쓰기</button>
 
-                    </div>
+                  <div class="form-group">
+                    목록 : [[${postsTotalCount}]]  건
+                    <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#modal-lg"><i class="far fas fa-search"></i> 조회</button>
+                    <button type="button" th:onclick="|location.href='@{/post}'|"  class="btn btn-primary float-right" style="margin-right: 5px;">
+                      <i class="fas fa-edit"></i> 등록</button>
+                  </div>
 
                 </div>
               </div>
-            </form>
-          </div>
-
-          <div class="row">
+            <div class="row">
             <table class="table table-hover text-nowrap">
             <thead>
             <tr>
@@ -145,18 +114,24 @@
             </tr>
             </tbody>
           </table>
+          </div>
         </div>
         <!-- /.card-body -->
         <div class="card-footer clearfix">
-          <div>
-            Pages:
-            <span th:each="pageNum : ${pageList}" th:inline="text">
-                                        <a th:href="@{'/?page=' + ${pageNum}}">[[${pageNum}]]</a>
-                                    </span>
-          </div>
+
+          <span th:if="${postsTotalCount} > 0 "> Pages:</span>
+          <span th:if="${postsTotalCount} == 0 "> 데이터가 없습니다.</span>
+
+          <ul class="pagination pagination-sm m-0 float-right">
+            <li class="page-item"><a class="page-link" th:href="@{'/admin/perferencesmng?page=1'}">&laquo;</a></li>
+            <li class="page-item" th:each="pageNum : ${pageList}" th:inline="text">
+              <a  class="page-link" th:href="@{'/admin/perferencesmng?page=' + ${pageNum}}">[[${pageNum}]]</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+          </ul>
+
         </div>
        </div>
-      <!-- /.card -->
       <!-- /.card -->
     </section>
     <!-- /.content -->
@@ -174,6 +149,68 @@
 </div>
 <!-- ./wrapper -->
 
+<!-- /.modal
+<div class="modal fade" id="modal-xl">
+  <div class="modal-dialog modal-xl">-->
+<div class="modal fade" id="modal-lg">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Search</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/board/search" method="POST">
+          <div class="row">
+            <div class="col-md-12 ">
+              <div class="row">
+                <div class="col-4">
+                  <div class="form-group">
+                    <label>제목</label>
+                    <input class="form-control" name="keyword" type="text" placeholder="검색어를 입력해주세요">
+                  </div>
+                </div>
+                <div class="col-5">
+                  <div class="form-group">
+                    <label>조회기간</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="far fa-clock"></i></span>
+                      </div>
+                      <input type="text" class="form-control float-right" id="reservationtime">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <div class="row">
+          <div class="col-md-12 ">
+            <div class="form-group">
+              <button type="button" class="btn btn-danger float-right" style="margin-right: 5px;" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-secondary float-right" style="margin-right: 5px;">
+                <i class="fas fa-ellipsis-h"></i> 초기화</button>
+              <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;"><i class="fas fa-search"></i>  Search</button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
 
 <!-- jQuery -->

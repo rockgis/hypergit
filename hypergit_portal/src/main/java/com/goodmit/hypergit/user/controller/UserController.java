@@ -21,8 +21,15 @@ public class UserController {
         List<Gitta0001Dto> gitta0001List = gitta0001Service.getGitta0001list(pageNum);
         Integer[] pageList = gitta0001Service.getPageList(pageNum);
 
+        double  count = Double.valueOf(gitta0001Service.getGitta001Count());
+        Integer postsTotalCount = (int) count;
+
         model.addAttribute("gitta0001List", gitta0001List);
         model.addAttribute("pageList", pageList);
+        model.addAttribute("postsTotalCount", postsTotalCount);
+
+
+
         return "admin/userlist";
     }
 
