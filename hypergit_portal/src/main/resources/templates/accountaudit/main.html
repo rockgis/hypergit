@@ -76,88 +76,74 @@
         </div>
         <div class="card-body">
           <div class="container-fluid">
-            <form action="/board/search" method="POST">
+            <div class="container-fluid">
               <div class="row">
                 <div class="col-md-12 ">
-                  <div class="row">
-                    <div class="col-4">
-                      <div class="form-group">
-                        <label>사번</label>
-                        <input class="form-control" name="keyword" type="text" placeholder="검색어를 입력해주세요">
-                      </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="form-group">
-                        <label>사용자명</label>
-                        <input class="form-control" name="keyword" type="text" placeholder="검색어를 입력해주세요">
-                      </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="form-group">
-                        <label>Email</label>
-                        <input class="form-control" name="keyword" type="text" placeholder="검색어를 입력해주세요">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-md-12 ">
-                  <div class="row">
-                    <div class="col-4">
-                      <div class="form-group">
-                        <label>부서</label>
-                        <input class="form-control" name="keyword" type="text" placeholder="검색어를 입력해주세요">
-                      </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="form-group">
-                        <label>조회 기간</label>
-                        <div class="input-group">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="far fa-clock"></i></span>
-                          </div>
-                          <input type="text" class="form-control float-right" id="reservationtime">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-4">
-                      <div class="form-group">
-                        <label>활동</label>
-                        <select id="useyn" class="form-control select2" style="width: 100%;">
-                          <option selected="selected" value="A" >전체</option>
-                          <option value="Y">Y</option>
-                          <option value="N">N</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
                   <div class="form-group">
-                    목록 :  200건 1/10
-                    <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> 조회</button>
-                    <button type="button" class="btn btn-secondary float-right" style="margin-right: 5px;">
-                      <i class="fas fa-download"></i> 초기화</button>
+                    목록 : [[${postsTotalCount}]]  건
+                    <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#modal-xl"><i class="far fas fa-search"></i> 조회</button>
                     <button type="button" class="btn btn-danger float-right" style="margin-right: 5px;">
-                      <i class="fas fa-download"></i> 삭제</button>
+                      <i class="fas fa-copy"></i> 삭제</button>
                     <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
-                      <i class="fas fa-download"></i> 등록</button>
+                      <i class="fas fa-edit"></i> 등록</button>
                     <button type="button" class="btn btn-secondary float-right" style="margin-right: 5px;">
-                      <i class="fas fa-download"></i> 잠금해제</button>
+                      <i class=" far fa-plus-square"></i> 잠금해제</button>
+                    <button type="button" class="btn btn-secondary float-right" style="margin-right: 5px;">
+                      <i class="fas fa-download"></i> 다운로드</button>
 
                   </div>
 
                 </div>
               </div>
-            </form>
 
-            <div class="row">
-              <div id="jsGrid1"></div>
+              <div class="row">
+                <table class="table table-hover text-nowrap">
+                  <thead>
+                  <tr>
+                    <th width="5%">번호</th>
+                    <th>시간</th>
+                    <th>부서</th>
+                    <th>이름</th>
+                    <th>사번</th>
+                    <th>이메일</th>
+                    <th>상태</th>
+                    <th>마지막 로그린 실패 시간</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <!-- CONTENTS !-->
+                  <tr th:each="gitta0001 : ${gitta0001List}">
+                    <td width="5%"><span th:text="${gitta0001.id}"></span></td>
+                    <td><<span th:text="${#temporals.format(gitta0001.createdDate, 'yyyy-MM-dd HH:mm')}"></span></td>
+                    <td><span th:text="${gitta0001.dcd}"></span></td>
+                    <td><span th:text="${gitta0001.usrNm}"></span></td>
+                    <td><span th:text="${gitta0001.usrPin}"></span></td>
+                    <td><span th:text="${gitta0001.emNm}"></span></td>
+                    <td><span th:text="${gitta0001.id}"></span></td>
+                    <td><<span th:text="${#temporals.format(gitta0001.createdDate, 'yyyy-MM-dd HH:mm')}"></span></td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer clearfix">
+
+              <span th:if="${postsTotalCount} > 0 "> Pages:</span>
+              <span th:if="${postsTotalCount} == 0 "> 데이터가 없습니다.</span>
+
+              <ul class="pagination pagination-sm m-0 float-right">
+                <li class="page-item"><a class="page-link" th:href="@{'/admin/perferencesmng?page=1'}">&laquo;</a></li>
+                <li class="page-item" th:each="pageNum : ${pageList}" th:inline="text">
+                  <a  class="page-link" th:href="@{'/admin/perferencesmng?page=' + ${pageNum}}">[[${pageNum}]]</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+              </ul>
+
             </div>
           </div>
-        <!-- /.card-body -->
-      </div>
-      <!-- /.card -->
+          <!-- /.card -->
+          <!-- /.card -->
     </section>
     <!-- /.content -->
   </div>
@@ -173,6 +159,103 @@
   <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
+
+<!-- /.modal
+<div class="modal fade" id="modal-lg">
+  <div class="modal-dialog modal-lg">-->
+<div class="modal fade" id="modal-xl">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Search</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/board/search" method="POST">
+          <div class="row">
+            <div class="col-md-12 ">
+              <div class="row">
+                <div class="col-4">
+                  <div class="form-group">
+                    <label>사번</label>
+                    <input class="form-control" name="keyword" type="text" placeholder="검색어를 입력해주세요">
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
+                    <label>사용자명</label>
+                    <input class="form-control" name="keyword" type="text" placeholder="검색어를 입력해주세요">
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
+                    <label>Email</label>
+                    <input class="form-control" name="keyword" type="text" placeholder="검색어를 입력해주세요">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12 ">
+              <div class="row">
+                <div class="col-4">
+                  <div class="form-group">
+                    <label>부서</label>
+                    <input class="form-control" name="keyword" type="text" placeholder="검색어를 입력해주세요">
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
+                    <label>조회 기간</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="far fa-clock"></i></span>
+                      </div>
+                      <input type="text" class="form-control float-right" id="reservationtime">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
+                    <label>활동</label>
+                    <select id="useyn" class="form-control select2" style="width: 100%;">
+                      <option selected="selected" value="A" >전체</option>
+                      <option value="Y">Y</option>
+                      <option value="N">N</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <div class="row">
+          <div class="col-md-12 ">
+            <div class="form-group">
+              <button type="button" class="btn btn-danger float-right" style="margin-right: 5px;" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-secondary float-right" style="margin-right: 5px;">
+                <i class="fas fa-ellipsis-h"></i> 초기화</button>
+              <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;"><i class="fas fa-search"></i>  Search</button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
 
 
@@ -207,27 +290,6 @@
       locale: {
         format: 'YYYY-MM-DD hh:mm A'
       }
-    })
-
-
-    $("#jsGrid1").jsGrid({
-      height: "100%",
-      width: "100%",
-
-      sorting: true,
-      paging: true,
-
-      data: db.clients,
-
-      fields: [
-        { name: "id", title: "번호" , type: "number", width: 40 },
-        { name: "Age", title: "시간" , type: "text" },
-        { name: "Address", title: "부서" , type: "text" },
-        { name: "name", title: "이름" , type: "text" },
-        { name: "Age", title: "이메일" , type: "text" },
-        { name: "Age", title: "상태" , type: "text" },
-        { name: "Address", title: "마지막 로그린 실패 시간" , type: "text" }
-      ]
     });
   });
 </script>
