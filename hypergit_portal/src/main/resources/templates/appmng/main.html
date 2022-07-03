@@ -109,20 +109,20 @@
                 </thead>
                 <tbody>
                 <!-- CONTENTS !-->
-                <tr th:each="gitta0001 : ${gitta0001List}">
+                <tr th:each="gittb0001 : ${gittb0001List}">
                   <td width="5%">
                     <input type="checkbox">
                   </td>
-                  <td width="5%"><span th:text="${gitta0001.id}"></span></td>
-                  <td><span th:text="${gitta0001.id}"></span></td>
-                  <td><span th:text="${gitta0001.dcd}"></span></td>
-                  <td><span th:text="${gitta0001.usrNm}"></span></td>
-                  <td><span th:text="${gitta0001.usrPin}"></span></td>
-                  <td><span th:text="${gitta0001.emNm}"></span></td>
-                  <td><span th:text="${gitta0001.id}"></span></td>
-                  <td><span th:text="${gitta0001.usd}"></span></td>
-                  <td><<span th:text="${#temporals.format(gitta0001.createdDate, 'yyyy-MM-dd HH:mm')}"></span></td>
-                  <td><span th:text="${gitta0001.altEn}"></span></td>
+                  <td width="5%"><span th:text="${gittb0001.id}"></span></td>
+                  <td><span th:text="${gittb0001.appNm}"></span></td>
+                  <td><span th:text="${gittb0001.dcd}"></span></td>
+                  <td><span th:text="${gittb0001.clNm}"></span></td>
+                  <td><span th:text="${gittb0001.pgeUrlAr}"></span></td>
+                  <td><span th:text="${gittb0001.seTf}"></span></td>
+                  <td><span th:text="${gittb0001.id}"></span></td>
+                  <td><span th:text="${gittb0001.bsTf}"></span></td>
+                  <td><<span th:text="${#temporals.format(gitta0001.modifiedDate, 'yyyy-MM-dd HH:mm')}"></span></td>
+                  <td><span th:text="${gittb0001.altEn}"></span></td>
                 </tr>
                 </tbody>
               </table>
