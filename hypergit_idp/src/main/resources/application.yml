@@ -122,7 +122,7 @@ saml:
 
 authdb:
   hikari:
-    jdbc-url: jdbc:mysql://10.200.101.15:3307/hypergit
+    jdbc-url: jdbc:mysql://10.200.101.15:3307/hypergit?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: rockgis
     password: dldPwns!@09
     driver-class-name: com.mysql.cj.jdbc.Driver
