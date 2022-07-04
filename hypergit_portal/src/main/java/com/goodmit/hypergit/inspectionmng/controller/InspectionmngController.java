@@ -5,6 +5,9 @@ import com.goodmit.hypergit.inspectionmng.dto.Gittd0001Dto;
 import com.goodmit.hypergit.inspectionmng.service.Gittd0001Service;
 import com.goodmit.hypergit.inspectionmng.dto.Gittd0002Dto;
 import com.goodmit.hypergit.inspectionmng.service.Gittd0002Service;
+
+import com.goodmit.hypergit.inspectionmng.dto.Gittd0003Dto;
+import com.goodmit.hypergit.inspectionmng.service.Gittd0003Service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +22,8 @@ public class InspectionmngController {
 
     private Gittd0001Service gittd0001Service;
     private Gittd0002Service gittd0002Service;
+
+    private Gittd0003Service gittd0003Service;
 
     /* 인증감사 */
     @GetMapping("/admin/inspectionmng")
@@ -55,13 +60,13 @@ public class InspectionmngController {
     /* 권한감사 */
     @GetMapping("/admin/authorityaudit")
     public String authorityaudit(Model model, @RequestParam(value="page", defaultValue = "1") Integer pageNum) {
-        List<Gittd0001Dto> gittd0001List = gittd0001Service.getGittd0001list(pageNum);
-        Integer[] pageList = gittd0001Service.getPageList(pageNum);
+        List<Gittd0003Dto> gittd0003List = gittd0003Service.getGittd0003list(pageNum);
+        Integer[] pageList = gittd0003Service.getPageList(pageNum);
 
-        double  count = Double.valueOf(gittd0001Service.getGittd001Count());
+        double  count = Double.valueOf(gittd0003Service.getGittd003Count());
         Integer postsTotalCount = (int) count;
 
-        model.addAttribute("gittd0001List", gittd0001List);
+        model.addAttribute("gittd0003List", gittd0003List);
         model.addAttribute("pageList", pageList);
         model.addAttribute("postsTotalCount", postsTotalCount);
 
