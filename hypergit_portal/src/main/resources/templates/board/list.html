@@ -58,14 +58,13 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <table id="board1" class="table table-bordered table-striped">
+                                <table class="table table-bordered">
                                     <thead>
                                     <tr>
                                         <th>번호</th>
                                         <th>글제목</th>
                                         <th>작성자</th>
                                         <th>작성일</th>
-                                        <th>CSS grade</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -84,35 +83,33 @@
                                         </td>
                                         <td>
                                             <span th:text="${#temporals.format(board.createdDate, 'yyyy-MM-dd HH:mm')}"></span>
-
                                         </td>
-                                        <td>X</td>
                                     </tr>
                                     </tbody>
-                                    <tfoot>
-                                    <tr>
-                                        <th>번호</th>
-                                        <th>글제목</th>
-                                        <th> <!-- 검색 form -->
-                                            <form action="/board/search" method="GET">
-                                                <div>
-                                                    <input name="keyword" type="text" placeholder="검색어를 입력해주세요">
-                                                </div>
-
-                                                <button>검색하기</button>
-                                            </form></th>
-                                        <th><div>
-        <span th:each="pageNum : ${pageList}" th:inline="text">
-            <a th:href="@{'/?page=' + ${pageNum}}">[[${pageNum}]]</a>
-        </span>
-                                        </div></th>
-                                        <th><a th:href="@{/post}">글쓰기</a></th>
-                                    </tr>
-                                    </tfoot>
                                 </table>
                             </div>
                             <!-- /.card-body -->
+                            <div class="card-footer clearfix">
+                                <div>
+                                    Pages:
+                                    <span th:each="pageNum : ${pageList}" th:inline="text">
+                                        <a th:href="@{'/?page=' + ${pageNum}}">[[${pageNum}]]</a>
+                                    </span>
+                                </div>
+
+                            </div>
                         </div>
+                        <!-- /.card -->
+
+                        <div class="card">
+                            <form action="/board/search" method="GET">
+                                <div>
+                                    <input name="keyword" type="text" placeholder="검색어를 입력해주세요">
+                                </div>
+
+                            </form>
+
+                            <a th:href="@{/post}">글쓰기</a>
                         <!-- /.card -->
                     </div>
                     <!-- /.col -->

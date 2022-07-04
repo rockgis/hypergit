@@ -20,8 +20,13 @@ public class PerferencesmngController {
         List<BoardDto> boardList = boardService.getBoardlist(pageNum);
         Integer[] pageList = boardService.getPageList(pageNum);
 
+        // 총 게시글 갯수
+        double  count = Double.valueOf(boardService.getBoardCount());
+        Integer postsTotalCount = (int) count;
+
         model.addAttribute("boardList", boardList);
         model.addAttribute("pageList", pageList);
+        model.addAttribute("postsTotalCount", postsTotalCount);
 
         return "perferencesmng/main.html";
     }

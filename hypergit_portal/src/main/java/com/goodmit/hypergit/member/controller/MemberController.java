@@ -12,12 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class MemberController {
     private MemberService memberService;
 
-    // 메인 페이지
-    @GetMapping("/admin/userlist")
-    public String index() {
-        return "admin/userlist";
-    }
-
     // 회원가입 페이지
     @GetMapping("/user/signup")
     public String dispSignup() {

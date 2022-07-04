@@ -20,6 +20,9 @@ repositories {
     maven {
         url "https://build.shibboleth.net/nexus/content/repositories/releases/"
     }
+    maven {
+        url "https://nexus.uiscloud.com/repository/maven-public/"
+    }
 }
 
 bootJar {

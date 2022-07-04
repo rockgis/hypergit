@@ -1,0 +1,35 @@
+CREATE TABLE GITTA0001
+(
+    ID         INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '등록순번',
+    DCD         VARCHAR(50) COMMENT '부서코드',
+    USR_NM      VARCHAR(30) COMMENT '사용자명',
+    USR_EN      VARCHAR(30) COMMENT '사용자ID',
+    USR_PIN     VARCHAR(30) COMMENT '사용자비밀번호',
+    EM_NM       CHAR(20) COMMENT '이메일',
+    AD_F        CHAR(1) COMMENT '관리자여부',
+    USD        VARCHAR(50) COMMENT '사용자여부',
+    SE_F        CHAR(1) COMMENT '사용유무',
+    EAR_EHF    CHAR(1)COMMENT '초기설정여부',
+    RG_EN       VARCHAR(30) COMMENT '등록사번',
+    CREATED_DATE       TIMESTAMP COMMENT '등록일시',
+    ALT_EN      VARCHAR(30) COMMENT '수정사번',
+    MODIFIED_DATE      TIMESTAMP COMMENT '수정일시'
+);
+
+ALTER TABLE GITTA0001 COMMENT='사용자관리';
+
+CREATE TABLE GITTA0002
+(
+    DCD     VARCHAR(30) COMMENT '부서코드',
+    DP_NM   VARCHAR(30) COMMENT '부서명',
+    QEE_SN  INT COMMENT '정렬순번',
+    SE_F    CHAR(1) COMMENT '사용유무',
+    RG_EN   VARCHAR(30) COMMENT '등록사번',
+    CREATED_DATE       TIMESTAMP COMMENT '등록일시',
+    ALT_EN  VARCHAR(30) COMMENT '수정사번',
+    MODIFIED_DATE      TIMESTAMP COMMENT '수정일시'
+);
+
+ALTER TABLE GITTA0002 COMMENT='부서관리';
+
+

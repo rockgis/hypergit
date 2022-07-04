@@ -23,7 +23,7 @@ public class MainController {
         model.addAttribute("boardList", boardList);
         model.addAttribute("pageList", pageList);
 
-        return "main/index.html";
+        return "main/user_main.html";
     }
 
 

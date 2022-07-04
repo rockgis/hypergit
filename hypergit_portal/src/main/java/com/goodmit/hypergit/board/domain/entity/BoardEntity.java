@@ -10,7 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-@Table(name = "board")
+@Table(name = "GITBOARD")
 public class BoardEntity extends TimeEntity {
 
     @Id
