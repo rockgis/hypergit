@@ -1,9 +1,7 @@
 package com.goodmit.hypergit.logmng.controller;
 
-import com.goodmit.hypergit.board.dto.BoardDto;
-import com.goodmit.hypergit.board.service.BoardService;
-import com.goodmit.hypergit.user.dto.Gitta0001Dto;
-import com.goodmit.hypergit.user.service.Gitta0001Service;
+import com.goodmit.hypergit.logmng.dto.Gitte0001Dto;
+import com.goodmit.hypergit.logmng.service.Gitte0001Service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,16 +12,16 @@ import java.util.List;
 @Controller
 @AllArgsConstructor
 public class LogmngController {
-    private Gitta0001Service gitta0001Service;
+    private Gitte0001Service gitte0001Service;
 
     /* Main Page */
     @GetMapping("/admin/logmng")
     public String list(Model model, @RequestParam(value="page", defaultValue = "1") Integer pageNum) {
 
-        List<Gitta0001Dto> gitta0001List = gitta0001Service.getGitta0001list(pageNum);
-        Integer[] pageList = gitta0001Service.getPageList(pageNum);
+        List<Gitte0001Dto> gitta0001List = gitte0001Service.getGitte0001list(pageNum);
+        Integer[] pageList = gitte0001Service.getPageList(pageNum);
 
-        double  count = Double.valueOf(gitta0001Service.getGitta001Count());
+        double  count = Double.valueOf(gitte0001Service.getGitte001Count());
         Integer postsTotalCount = (int) count;
 
         model.addAttribute("gitta0001List", gitta0001List);

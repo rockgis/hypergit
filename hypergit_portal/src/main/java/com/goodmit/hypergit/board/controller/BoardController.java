@@ -81,4 +81,22 @@ public class BoardController {
 
         return "board/list.html";
     }
+
+
+    /* Main Page */
+    @GetMapping("/admin/notice")
+    public String notice(Model model, @RequestParam(value="page", defaultValue = "1") Integer pageNum) {
+        List<BoardDto> boardList = boardService.getBoardlist(pageNum);
+        Integer[] pageList = boardService.getPageList(pageNum);
+
+        // 총 게시글 갯수
+        double  count = Double.valueOf(boardService.getBoardCount());
+        Integer postsTotalCount = (int) count;
+
+        model.addAttribute("boardList", boardList);
+        model.addAttribute("pageList", pageList);
+        model.addAttribute("postsTotalCount", postsTotalCount);
+
+        return "notice/main.html";
+    }
 }
