@@ -1,12 +1,14 @@
 package com.goodmit.hypergit.global.security.authn.properties;
 
 import lombok.Getter;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConstructorBinding;
 
 @Getter
 @ConstructorBinding
 @ConfigurationProperties(prefix = "ad")
+@ConditionalOnProperty(prefix = "ad")
 public class ADProperties {
 
     private String url;

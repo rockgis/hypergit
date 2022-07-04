@@ -4,6 +4,8 @@ import com.goodmit.hypergit.global.security.authn.HAuthnProvider;
 import com.goodmit.hypergit.global.security.authn.db.DBUserDetailService;
 import com.goodmit.hypergit.global.security.authn.properties.ADProperties;
 import com.goodmit.hypergit.repository.MemberRepository;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,11 +20,9 @@ import org.springframework.security.ldap.authentication.ad.ActiveDirectoryLdapAu
 @EnableConfigurationProperties(value = {ADProperties.class})
 public class AuthnConfig {
 
-    private ADProperties adProperties;
     private MemberRepository memberRepository;
 
-    protected AuthnConfig(ADProperties adProperties , MemberRepository memberRepository) {
-        this.adProperties = adProperties;
+    protected AuthnConfig(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
 
@@ -34,7 +34,8 @@ public class AuthnConfig {
     }
 
     @Bean
-    public AuthenticationProvider adAuthProvider() {
+    @ConditionalOnBean(value = {ADProperties.class})
+    public AuthenticationProvider adAuthProvider(ADProperties adProperties) {
         ActiveDirectoryLdapAuthenticationProvider authenticationProvider =
                 new ActiveDirectoryLdapAuthenticationProvider(
                         adProperties.getDomain(),

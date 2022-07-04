@@ -105,11 +105,6 @@ server:
       suffix: ""
       file-date-format: ""
 
-ad:
-  url: ldap://10.200.101.19:389
-  domain: GOODMIT.COM
-  rootDn: OU=Users,OU=PlatformDivision,DC=GOODMIT,DC=COM
-
 ---
 spring:
   config:
@@ -124,10 +119,6 @@ saml:
     key:
       path: keys/saml.p12
 #      path: file:./keys/saml.p12
-ad:
-  url: ldap://10.200.101.19:389
-  domain: GOODMIT.COM
-  rootDn: OU=Users,OU=PlatformDivision,DC=GOODMIT,DC=COM
 
 authdb:
   hikari:
@@ -142,3 +133,11 @@ authdb:
       hibernate:
         format_sql: true
 ---
+spring:
+  config:
+    activate:
+      on-profile: ad
+ad:
+  url: ldap://10.200.101.19:389
+  domain: GOODMIT.COM
+  rootDn: OU=Users,OU=PlatformDivision,DC=GOODMIT,DC=COM
