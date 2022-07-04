@@ -56,9 +56,4 @@ public class MemberController {
         return "/member/myinfo";
     }
 
-    // 어드민 페이지
-    @GetMapping("/admin")
-    public String dispAdmin() {
-        return "/member/admin";
-    }
 }

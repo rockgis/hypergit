@@ -1,19 +1,71 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>로그인 페이지</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>현대 캐피탈 BDP 인증 서비스</title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="/adminlte/plugins/fontawesome-free/css/all.min.css">
+    <!-- icheck bootstrap -->
+    <link rel="stylesheet" href="/adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="/adminlte/AdminLTE/css/adminlte.min.css">
 </head>
-<body>
-    <h1>로그인</h1>
-    <hr>
+<body class="hold-transition login-page">
+<div class="login-box">
+    <!-- /.login-logo -->
+    <div class="card card-outline card-primary">
+        <div class="card-header text-center">
+            <a href="/admin/" class="h1"><b>Admin</b></a>
+        </div>
+        <div class="card-body">
+            <p class="login-box-msg">Sign in to start your session</p>
 
-    <form action="/user/login" method="post">
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <form action="/user/login" method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                <div class="input-group mb-3">
+                    <input type="text" name="username" class="form-control"  placeholder="이메일 입력해주세요">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-envelope"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="password" name="password" class="form-control" placeholder="비밀번호">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-8">
+                        <img src="/img/logo/hycapital_logo.png" alt="Hyundai Capital" height="40px" style="opacity: .8">
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-4">
+                        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </form>
+            <!-- /.social-auth-links -->
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+</div>
+<!-- /.login-box -->
 
-        <input type="text" name="username" placeholder="이메일 입력해주세요">
-        <input type="password" name="password" placeholder="비밀번호">
-        <button type="submit">로그인</button>
-    </form>
+<!-- jQuery -->
+<script src="/adminlte/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/adminlte/AdminLTE/js/adminlte.min.js"></script>
 </body>
 </html>
