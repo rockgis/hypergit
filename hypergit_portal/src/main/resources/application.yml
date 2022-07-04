@@ -23,6 +23,17 @@ spring:
           auth: true
           starttls:
             enable: true
+  datasource:
+    hikari:
+      type: com.zaxxer.hikari.HikariDataSource
+    jpa:
+      generate-ddl: false
+      properties:
+        hibernate:
+          format_sql: true
+      hibernate:
+        connection:
+          provider_class: com.zaxxer.hikari.hibernate.HikariConnectionProvider
 
 server:
   servlet:
@@ -46,21 +57,6 @@ server:
     include-exception: true # 오류 응답에 exception의 내용을 포함할지 여부
     include-stacktrace: always # 오류 응답에 stacktrace 내용을 포함할 지 여부
 
-authdb:
-  hikari:
-    type: com.zaxxer.hikari.HikariDataSource
-    idle-timeout: 10000
-    maximum-pool-size: 10
-    minimum-idle: 5
-    pool-name: authenpool
-  jpa:
-    properties:
-      hibernate:
-        format_sql: true
-    hibernate:
-      connection:
-        provider_class: com.zaxxer.hikari.hibernate.HikariConnectionProvider
-
 logging:
   level:
     root: info
@@ -71,8 +67,9 @@ logging:
           descriptor:
             sql:
               BasicBinder: TRACE
-
-
+    com.zaxxer.hikari.HikariConfig: DEBUG
+    com.zaxxer.hikari: trace
+    org.thymeleaf: info
 
 ---
 spring:
@@ -126,9 +123,7 @@ spring:
       database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
       open-in-view: false
       show-sql: true
-      hibernate:
-        format_sql: true
-        ddl-auto: none
+
 ---
 spring:
   config:
@@ -142,8 +137,4 @@ spring:
     jpa:
       database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
       database: mysql
-      properties:
-        hibernate:
-          format_sql: true
-          ddl-auto: none
 ---

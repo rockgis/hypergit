@@ -15,9 +15,12 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
-@AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private MemberService memberService;
+
+    protected SecurityConfig(MemberService memberService) {
+        this.memberService =memberService;
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -36,25 +39,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 // 페이지 권한 설정
                 //.antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/admin/**").permitAll()
-                .antMatchers("/user/myinfo").hasRole("MEMBER")
-                .antMatchers("/**").permitAll()
+                    .antMatchers("/admin/**").permitAll()
+                    .antMatchers("/user/myinfo").hasRole("MEMBER")
+                    .antMatchers("/**").permitAll()
                 .and() // 로그인 설정
-                .formLogin()
-                .loginPage("/user/login")
-                .defaultSuccessUrl("/user/login/result")
-                .permitAll()
+                    .formLogin()
+                    .loginPage("/user/login")
+                    .defaultSuccessUrl("/user/login/result")
+                    .permitAll()
                 .and() // 로그아웃 설정
-                .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
-                .logoutSuccessUrl("/user/logout/result")
-                .invalidateHttpSession(true)
+                    .logout()
+                    .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
+                    .logoutSuccessUrl("/user/logout/result")
+                    .invalidateHttpSession(true)
                 .and()
-                .csrf()
-                .ignoringAntMatchers("/post")
+                    .csrf()
+                    .ignoringAntMatchers("/post")
                 .and()
                 // 403 예외처리 핸들링
-                .exceptionHandling().accessDeniedPage("/user/denied");
+                    .exceptionHandling().accessDeniedPage("/user/denied");
     }
 
     @Override
