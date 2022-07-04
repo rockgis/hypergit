@@ -2,7 +2,6 @@ package com.goodmit.hypergit.user.domain.entity;
 
 //'사용자관리'
 
-import com.goodmit.hypergit.board.domain.entity.TimeEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

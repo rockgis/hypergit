@@ -23,7 +23,7 @@ public class Gittd0001Service {
     private static final int PAGE_POST_COUNT = 10;       // 한 페이지에 존재하는 게시글 수
 
     @Transactional
-    public List<Gittd0001Dto> getGittc0001list(Integer pageNum) {
+    public List<Gittd0001Dto> getGittd0001list(Integer pageNum) {
         Page<Gittd0001Entity> page = gittd0001Repository.findAll(PageRequest.of(pageNum - 1, PAGE_POST_COUNT, Sort.by(Sort.Direction.DESC, "createdDate")));
 
         List<Gittd0001Entity> gitta0001Entities = page.getContent();
@@ -37,7 +37,7 @@ public class Gittd0001Service {
     }
 
     @Transactional
-    public Long getGittc001Count() {
+    public Long getGittd001Count() {
         return gittd0001Repository.count();
     }
 
@@ -62,7 +62,7 @@ public class Gittd0001Service {
     @Transactional
     public List<Gittd0001Dto> searchPosts(String keyword) {
 
-        List<Gittd0001Entity> gitta0001Entities = gittd0001Repository.findByAppNmContaining(keyword);
+        List<Gittd0001Entity> gitta0001Entities = gittd0001Repository.findByUgNmContaining(keyword);
         List<Gittd0001Dto> gittd0001DtoList = new ArrayList<>();
 
         if (gitta0001Entities.isEmpty()) return gittd0001DtoList;
@@ -76,7 +76,7 @@ public class Gittd0001Service {
 
     public Integer[] getPageList(Integer curPageNum) {
         // 총 게시글 갯수
-        Double postsTotalCount = Double.valueOf(this.getGittc001Count());
+        Double postsTotalCount = Double.valueOf(this.getGittd001Count());
 
         // 총 게시글 기준으로 계산한 마지막 페이지 번호 계산
         Integer totalLastPageNum = (int)(Math.ceil((postsTotalCount/PAGE_POST_COUNT)));
@@ -102,16 +102,12 @@ public class Gittd0001Service {
     private Gittd0001Dto convertEntityToDto(Gittd0001Entity gittd0001Entity) {
         return Gittd0001Dto.builder()
                 .id(gittd0001Entity.getId())
-                .gsnId(gittd0001Entity.getGsnId())
-                .appNm(gittd0001Entity.getAppNm())
-                .roleId(gittd0001Entity.getRoleId())
-                .ugId(gittd0001Entity.getUgId())
-                .usrDcd(gittd0001Entity.getUsrDcd())
+                .dcd(gittd0001Entity.getDcd())
                 .usrNm(gittd0001Entity.getUsrNm())
                 .usrEn(gittd0001Entity.getUsrEn())
                 .emNm(gittd0001Entity.getEmNm())
-                .rgEn(gittd0001Entity.getRgEn())
-                .altEn(gittd0001Entity.getAltEn())
+                .ugNm(gittd0001Entity.getUgNm())
+                .refUrlAr(gittd0001Entity.getRefUrlAr())
                 .createdDate(gittd0001Entity.getCreatedDate())
                 .build();
     }

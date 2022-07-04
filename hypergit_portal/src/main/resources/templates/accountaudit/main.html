@@ -112,15 +112,15 @@
                   </thead>
                   <tbody>
                   <!-- CONTENTS !-->
-                  <tr th:each="gitta0001 : ${gitta0001List}">
-                    <td width="5%"><span th:text="${gitta0001.id}"></span></td>
-                    <td><<span th:text="${#temporals.format(gitta0001.createdDate, 'yyyy-MM-dd HH:mm')}"></span></td>
-                    <td><span th:text="${gitta0001.dcd}"></span></td>
-                    <td><span th:text="${gitta0001.usrNm}"></span></td>
-                    <td><span th:text="${gitta0001.usrPin}"></span></td>
-                    <td><span th:text="${gitta0001.emNm}"></span></td>
-                    <td><span th:text="${gitta0001.id}"></span></td>
-                    <td><<span th:text="${#temporals.format(gitta0001.createdDate, 'yyyy-MM-dd HH:mm')}"></span></td>
+                  <tr th:each="gitta0002 : ${gittd0002List}">
+                    <td width="5%"><span th:text="${gitta0002.id}"></span></td>
+                    <td><<span th:text="${#temporals.format(gitta0002.createdDate, 'yyyy-MM-dd HH:mm')}"></span></td>
+                    <td><span th:text="${gitta0002.dcd}"></span></td>
+                    <td><span th:text="${gitta0002.usrNm}"></span></td>
+                    <td><span th:text="${gitta0002.usrPin}"></span></td>
+                    <td><span th:text="${gitta0002.emNm}"></span></td>
+                    <td><span th:text="${gitta0002.ugNm}"></span></td>
+                    <td><<span th:text="${${gitta0002.lfDt}}"></span></td>
                   </tr>
                   </tbody>
                 </table>
@@ -133,9 +133,9 @@
               <span th:if="${postsTotalCount} == 0 "> 데이터가 없습니다.</span>
 
               <ul class="pagination pagination-sm m-0 float-right">
-                <li class="page-item"><a class="page-link" th:href="@{'/admin/perferencesmng?page=1'}">&laquo;</a></li>
+                <li class="page-item"><a class="page-link" th:href="@{'/admin/accountaudit?page=1'}">&laquo;</a></li>
                 <li class="page-item" th:each="pageNum : ${pageList}" th:inline="text">
-                  <a  class="page-link" th:href="@{'/admin/perferencesmng?page=' + ${pageNum}}">[[${pageNum}]]</a>
+                  <a  class="page-link" th:href="@{'/admin/accountaudit?page=' + ${pageNum}}">[[${pageNum}]]</a>
                 </li>
                 <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
               </ul>

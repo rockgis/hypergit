@@ -2,7 +2,7 @@ package com.goodmit.hypergit.inspectionmng.domain.entity;
 
 //'사용자관리'
 
-import com.goodmit.hypergit.board.domain.entity.TimeEntity;
+import com.goodmit.hypergit.inspectionmng.domain.entity.TimeEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,27 +13,15 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-@Table(name = "GITTC0001")
+@Table(name = "GITTD0001")
 public class Gittd0001Entity extends TimeEntity  {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id; //'등록순번'
 
-    @Column(nullable = false)
-    private int gsnId; //    GSN_ID      INT NOT NULL COMMENT '앱코드',
-
     @Column(length = 50, nullable = false)
-    private String appNm; // APP_NM       VARCHAR(50) COMMENT '앱명',
-
-    @Column(length = 50, nullable = false)
-    private String roleId ;// ROLE_ID     VARCHAR(50) COMMENT '역할ID',
-
-    @Column(length = 50, nullable = false)
-    private String ugId ;//UG_ID       VARCHAR(50) COMMENT '사용자그룹ID',
-
-    @Column(length = 50, nullable = false)
-    private String usrDcd; //  USR_DCD         VARCHAR(50) COMMENT '부서코드',
+    private String dcd; // DCD         VARCHAR(50) COMMENT '부서코드',
 
     @Column(length = 30, nullable = false)
     private String usrNm; // USR_NM      VARCHAR(30) COMMENT '사용자명',
@@ -44,24 +32,20 @@ public class Gittd0001Entity extends TimeEntity  {
     @Column(columnDefinition ="char" , length = 20,  nullable = false)
     private String emNm; //EM_NM       CHAR(20) COMMENT '이메일',
 
-    @Column(length = 30, nullable = false)
-    private String rgEn;// '등록사번',
+    @Column(columnDefinition ="char" , length = 20, nullable = false)
+    private String ugNm;// UG_NM       CHAR(20) COMMENT '활동',
 
-    @Column(length = 30, nullable = false)
-    private String altEn;// '등록사번',
+    @Column(length = 200, nullable = false)
+    private String refUrlAr;// REF_URL_AR  VARCHAR(200) COMMENT 'ReferURL'
 
     @Builder
-    public Gittd0001Entity(Long id, int gsnId, String appNm, String roleId, String ugId, String usrDcd, String usrNm, String usrEn, String emNm, String rgEn, String altEn) {
+    public Gittd0001Entity(Long id, String  dcd, String usrNm, String usrEn, String emNm, String ugNm, String refUrlAr) {
         this.id = id;
-        this.gsnId = gsnId;
-        this.appNm = appNm;
-        this.roleId = roleId;
-        this.ugId = ugId;
-        this.usrDcd = usrDcd;
+        this.dcd = dcd;
         this.usrNm = usrNm;
         this.usrEn = usrEn;
         this.emNm = emNm;
-        this.rgEn = rgEn;
-        this.altEn = altEn;
+        this.ugNm = ugNm;
+        this.refUrlAr = refUrlAr;
     }
 }

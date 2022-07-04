@@ -1,9 +1,10 @@
 package com.goodmit.hypergit.inspectionmng.controller;
 
-import com.goodmit.hypergit.board.dto.BoardDto;
-import com.goodmit.hypergit.board.service.BoardService;
-import com.goodmit.hypergit.user.dto.Gitta0001Dto;
-import com.goodmit.hypergit.user.service.Gitta0001Service;
+
+import com.goodmit.hypergit.inspectionmng.dto.Gittd0001Dto;
+import com.goodmit.hypergit.inspectionmng.service.Gittd0001Service;
+import com.goodmit.hypergit.inspectionmng.dto.Gittd0002Dto;
+import com.goodmit.hypergit.inspectionmng.service.Gittd0002Service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,34 +17,19 @@ import java.util.List;
 public class InspectionmngController {
 
 
-    private Gitta0001Service gitta0001Service;
-
-    /* 인증감사 */
-    @GetMapping("/admin/inspection")
-    public String inspection(Model model, @RequestParam(value="page", defaultValue = "1") Integer pageNum) {
-        List<Gitta0001Dto> gitta0001List = gitta0001Service.getGitta0001list(pageNum);
-        Integer[] pageList = gitta0001Service.getPageList(pageNum);
-
-        double  count = Double.valueOf(gitta0001Service.getGitta001Count());
-        Integer postsTotalCount = (int) count;
-
-        model.addAttribute("gitta0001List", gitta0001List);
-        model.addAttribute("pageList", pageList);
-        model.addAttribute("postsTotalCount", postsTotalCount);
-
-        return "inspectionmng/main.html";
-    }
+    private Gittd0001Service gittd0001Service;
+    private Gittd0002Service gittd0002Service;
 
     /* 인증감사 */
     @GetMapping("/admin/inspectionmng")
     public String inspectionmng(Model model, @RequestParam(value="page", defaultValue = "1") Integer pageNum) {
-        List<Gitta0001Dto> gitta0001List = gitta0001Service.getGitta0001list(pageNum);
-        Integer[] pageList = gitta0001Service.getPageList(pageNum);
+        List<Gittd0001Dto> gittd0001List = gittd0001Service.getGittd0001list(pageNum);
+        Integer[] pageList = gittd0001Service.getPageList(pageNum);
 
-        double  count = Double.valueOf(gitta0001Service.getGitta001Count());
+        double  count = Double.valueOf(gittd0001Service.getGittd001Count());
         Integer postsTotalCount = (int) count;
 
-        model.addAttribute("gitta0001List", gitta0001List);
+        model.addAttribute("gittd0001List", gittd0001List);
         model.addAttribute("pageList", pageList);
         model.addAttribute("postsTotalCount", postsTotalCount);
 
@@ -53,13 +39,13 @@ public class InspectionmngController {
     /* 계정감사 */
     @GetMapping("/admin/accountaudit")
     public String accountaudit(Model model, @RequestParam(value="page", defaultValue = "1") Integer pageNum) {
-        List<Gitta0001Dto> gitta0001List = gitta0001Service.getGitta0001list(pageNum);
-        Integer[] pageList = gitta0001Service.getPageList(pageNum);
+        List<Gittd0002Dto> gittd0002List = gittd0002Service.getGittd0002list(pageNum);
+        Integer[] pageList = gittd0002Service.getPageList(pageNum);
 
-        double  count = Double.valueOf(gitta0001Service.getGitta001Count());
+        double  count = Double.valueOf(gittd0002Service.getGittd002Count());
         Integer postsTotalCount = (int) count;
 
-        model.addAttribute("gitta0001List", gitta0001List);
+        model.addAttribute("gittd0002List", gittd0002List);
         model.addAttribute("pageList", pageList);
         model.addAttribute("postsTotalCount", postsTotalCount);
 
@@ -69,13 +55,13 @@ public class InspectionmngController {
     /* 권한감사 */
     @GetMapping("/admin/authorityaudit")
     public String authorityaudit(Model model, @RequestParam(value="page", defaultValue = "1") Integer pageNum) {
-        List<Gitta0001Dto> gitta0001List = gitta0001Service.getGitta0001list(pageNum);
-        Integer[] pageList = gitta0001Service.getPageList(pageNum);
+        List<Gittd0001Dto> gittd0001List = gittd0001Service.getGittd0001list(pageNum);
+        Integer[] pageList = gittd0001Service.getPageList(pageNum);
 
-        double  count = Double.valueOf(gitta0001Service.getGitta001Count());
+        double  count = Double.valueOf(gittd0001Service.getGittd001Count());
         Integer postsTotalCount = (int) count;
 
-        model.addAttribute("gitta0001List", gitta0001List);
+        model.addAttribute("gittd0001List", gittd0001List);
         model.addAttribute("pageList", pageList);
         model.addAttribute("postsTotalCount", postsTotalCount);
 
@@ -85,13 +71,13 @@ public class InspectionmngController {
     /* 앱점속감사 */
     @GetMapping("/admin/appstoreaudit")
     public String list(Model model, @RequestParam(value="page", defaultValue = "1") Integer pageNum) {
-        List<Gitta0001Dto> gitta0001List = gitta0001Service.getGitta0001list(pageNum);
-        Integer[] pageList = gitta0001Service.getPageList(pageNum);
+        List<Gittd0001Dto> gittd0001List = gittd0001Service.getGittd0001list(pageNum);
+        Integer[] pageList = gittd0001Service.getPageList(pageNum);
 
-        double  count = Double.valueOf(gitta0001Service.getGitta001Count());
+        double  count = Double.valueOf(gittd0001Service.getGittd001Count());
         Integer postsTotalCount = (int) count;
 
-        model.addAttribute("gitta0001List", gitta0001List);
+        model.addAttribute("gittd0001List", gittd0001List);
         model.addAttribute("pageList", pageList);
         model.addAttribute("postsTotalCount", postsTotalCount);
 

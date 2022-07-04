@@ -2,6 +2,7 @@ package com.goodmit.hypergit.inspectionmng.domain.entity;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.Column;
@@ -12,10 +13,11 @@ import java.time.LocalDateTime;
 @Getter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class TimeEntity {
-
+public abstract class Time1Entity {
     @CreatedDate
     @Column(nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime createdDate;
 
+    @LastModifiedDate
+    private LocalDateTime modifiedDate;
 }
