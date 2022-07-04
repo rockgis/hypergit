@@ -144,13 +144,51 @@
           </div>
         </div>
         <div class="card-body">
-          Check the Header part you can find Legacy vesion of style.
-          <br>
-          Start creating your amazing application!
+          <div class="container-fluid">
+            <div class="row">
+              <table class="table table-hover text-nowrap">
+                <thead>
+                <tr>
+                  <th width="10%">번호</th>
+                  <th>글제목</th>
+                  <th width="20%">작성자</th>
+                  <th width="20%">작성일</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- CONTENTS !-->
+                <tr th:each="board : ${boardList}">
+                  <td>
+                    <span th:text="${board.id}"></span>
+                  </td>
+                  <td>
+                    <a th:href="@{'/post/' + ${board.id}}">
+                      <span th:text="${board.title}"></span>
+                    </a>
+                  </td>
+                  <td>
+                    <span th:text="${board.writer}"></span>
+                  </td>
+                  <td>
+                    <span th:text="${#temporals.format(board.createdDate, 'yyyy-MM-dd HH:mm')}"></span>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
         </div>
         <!-- /.card-body -->
         <div class="card-footer">
-          Footer
+          <span th:if="${postsTotalCount} > 0 "> 목록 : [[${postsTotalCount}]]  건</span>
+          <span th:if="${postsTotalCount} == 0 "> 데이터가 없습니다.</span>
+
+          <ul class="pagination pagination-sm m-0 float-right">
+            <li class="page-item"><a class="page-link" th:href="@{'/admin/accountaudit?page=1'}">&laquo;</a></li>
+            <li class="page-item" th:each="pageNum : ${pageList}" th:inline="text">
+              <a  class="page-link" th:href="@{'/admin/accountaudit?page=' + ${pageNum}}">[[${pageNum}]]</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+          </ul>
         </div>
         <!-- /.card-footer-->
       </div>
