@@ -2,8 +2,8 @@
 spring:
   profiles:
     group:
-      local: common, loc
-      dev: common, develop
+      local: common, locdb, loc
+      dev: common, devdb, develop
       prod: common
 ---
 spring:
@@ -12,18 +12,6 @@ spring:
       on-profile: common
   pid:
     file: ./pid/hypergitPortal.pid
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/hypergit?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-    username: root
-    password: dldPwns!@09
-    jpa:
-      database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-      open-in-view: false
-      show-sql: true
-      hibernate:
-        format_sql: true
-        ddl-auto: none
   mail:
     host: smtp.gmail.com
     port: 587
@@ -101,6 +89,45 @@ spring:
       on-profile: develop
 server:
   port: 9091
+  tomcat:
+    accesslog:
+      enabled: true
+      directory: /dev
+      prefix: stdout
+      buffered: false
+      suffix: ""
+      file-date-format: ""
 ---
-
-
+spring:
+  config:
+    activate:
+      on-profile: locdb
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/hypergit?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: root
+    password: dldPwns!@09
+    jpa:
+      database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+      open-in-view: false
+      show-sql: true
+      hibernate:
+        format_sql: true
+        ddl-auto: create
+---
+spring:
+  config:
+    activate:
+      on-profile: devdb
+  datasource:
+    url: jdbc:mysql://10.200.101.15:3307/hypergit?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: rockgis
+    password: dldPwns!@09
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    jpa:
+      database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+      database: mysql
+      properties:
+        hibernate:
+          format_sql: true
+---
