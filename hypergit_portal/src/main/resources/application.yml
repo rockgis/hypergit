@@ -23,19 +23,20 @@ spring:
           auth: true
           starttls:
             enable: true
+  jpa:
+    hibernate:
+      connection:
+        provider_class: com.zaxxer.hikari.hibernate.HikariConnectionProvider
+      naming:
+        physical-strategy:  org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: true
   datasource:
     hikari:
       type: com.zaxxer.hikari.HikariDataSource
-    jpa:
-      generate-ddl: false
-      properties:
-        hibernate:
-          format_sql: true
-      hibernate:
-        connection:
-          provider_class: com.zaxxer.hikari.hibernate.HikariConnectionProvider
-        naming:
-          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      idle-timeout: 10000
+      maximum-pool-size: 10
+      minimum-idle: 5
 
 server:
   servlet:
@@ -73,6 +74,13 @@ logging:
     com.zaxxer.hikari: trace
     org.thymeleaf: info
 
+authentication:
+  localAuth: /admin
+  saml:
+    entity-id: hypergitSaml
+    ipd-url: http://saml91.goodmit.com:9090/sso
+    acs: acs
+    acsUrl: http://${server.address}:${server.port}
 ---
 spring:
   config:
@@ -95,6 +103,7 @@ server:
       buffered: false
       suffix: ""
       file-date-format: ""
+  address: 127.0.0.1
 
 ---
 spring:
@@ -105,12 +114,13 @@ server:
   port: 9091
   tomcat:
     accesslog:
-      enabled: true
+      enabled: false
       directory: /dev
       prefix: stdout
       buffered: false
       suffix: ""
       file-date-format: ""
+#  address: 10.11.10.200
 ---
 spring:
   config:
@@ -121,10 +131,6 @@ spring:
     url: jdbc:mysql://localhost:3306/hypergit?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: root
     password: dldPwns!@09
-    jpa:
-      database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-      open-in-view: false
-      show-sql: true
 
 ---
 spring:
@@ -132,11 +138,26 @@ spring:
     activate:
       on-profile: devdb
   datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://10.200.101.15:3307/hypergit?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: rockgis
     password: dldPwns!@09
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    jpa:
-      database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-      database: mysql
 ---
+spring:
+  config:
+    activate:
+      on-profile: h2db
+  datasource:
+    url: jdbc:h2:mem:test
+    username: rockgis
+    password: dldPwns!@09
+    driver-class-name: org.h2.Driver
+  h2:
+    console:
+      enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
