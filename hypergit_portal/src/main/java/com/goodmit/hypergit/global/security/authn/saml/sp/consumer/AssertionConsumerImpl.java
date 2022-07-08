@@ -15,6 +15,8 @@ import org.opensaml.xml.validation.ValidationException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.CredentialsExpiredException;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -51,9 +53,10 @@ public class AssertionConsumerImpl implements AssertionConsumer {
         Attribute attribute = attributeStatement.getAttributes()
                 .stream().filter(attr -> KEY_USER_FI.equals(attr.getName()))
                 .findFirst().orElse(null);
+        String[] authoz = attribute.getAttributeValues().stream().map(m->m.getDOM().getTextContent()).toArray(String[]::new);
+        List<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(authoz);
 
-        //TODO : fix authorities
-        User user = new User(nameID,null,null);
+        User user = new User(nameID,null,authorities);
         return user;
     }
 

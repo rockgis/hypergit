@@ -3,6 +3,9 @@ package com.goodmit.hypergit.common;
 import com.goodmit.hypergit.global.security.authn.config.AuthnConfig;
 import com.goodmit.hypergit.global.security.authn.properties.SAMLProperties;
 import com.goodmit.hypergit.global.security.authn.saml.sp.ContextProvider;
+import com.goodmit.hypergit.global.security.authn.saml.sp.SamlAuthProvider;
+import com.goodmit.hypergit.global.security.authn.saml.sp.consumer.AssertionConsumer;
+import com.goodmit.hypergit.global.security.authn.saml.sp.consumer.AssertionConsumerImpl;
 import com.goodmit.hypergit.global.security.authn.saml.sp.filter.AssertionConsumerFilter;
 import com.goodmit.hypergit.global.security.authn.saml.sp.filter.EntryPoint;
 import org.springframework.boot.autoconfigure.security.StaticResourceLocation;
@@ -10,6 +13,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -33,11 +38,12 @@ public class UserSecurityConfig extends WebSecurityConfigurerAdapter {
     private EntryPoint samlEntryPoint;
 
     private ContextProvider samlContextProvider;
-    protected UserSecurityConfig(SAMLProperties samlProperties,EntryPoint samlEntryPoint ) {
+    protected UserSecurityConfig(SAMLProperties samlProperties, EntryPoint samlEntryPoint, ContextProvider samlContextProvider) {
         this.samlProperties = samlProperties;
         this.samlEntryPoint = samlEntryPoint;
-
+        this.samlContextProvider = samlContextProvider;
     }
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -55,6 +61,23 @@ public class UserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
+    }
+
+    @Override
+    public void configure(AuthenticationManagerBuilder authBuilder) {
+        authBuilder.authenticationProvider(authenticationProvider(assertionConsumer()));
+    }
+
+    @Bean
+    public AssertionConsumer assertionConsumer() {
+        return AssertionConsumerImpl.builder().assertionValidTime(30).build();
+    }
+
+    @Bean
+    public AuthenticationProvider authenticationProvider(AssertionConsumer assertionConsumer) {
+        return SamlAuthProvider.builder()
+                .assertionConsumer(assertionConsumer)
+                .build();
     }
 
     @Bean
