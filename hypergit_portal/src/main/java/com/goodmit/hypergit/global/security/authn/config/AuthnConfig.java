@@ -1,8 +1,11 @@
 package com.goodmit.hypergit.global.security.authn.config;
 
 import com.goodmit.hypergit.global.security.authn.properties.SAMLProperties;
-import com.goodmit.hypergit.global.security.authn.saml.filter.EntryPoint;
+import com.goodmit.hypergit.global.security.authn.saml.sp.ContextProvider;
+import com.goodmit.hypergit.global.security.authn.saml.sp.filter.EntryPoint;
 import lombok.extern.slf4j.Slf4j;
+import org.opensaml.saml2.binding.decoding.BaseSAML2MessageDecoder;
+import org.opensaml.saml2.binding.decoding.HTTPPostDecoder;
 import org.opensaml.saml2.binding.encoding.BaseSAML2MessageEncoder;
 import org.opensaml.saml2.binding.encoding.HTTPRedirectDeflateEncoder;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,18 +13,11 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.saml.SAMLBootstrap;
-import org.springframework.security.saml.context.SAMLContextProvider;
-import org.springframework.security.saml.context.SAMLContextProviderImpl;
 
 @Slf4j
 @Configuration
 @EnableConfigurationProperties(value = {SAMLProperties.class})
 public class AuthnConfig {
-
-//    @Bean
-//    public AuthenticationProvider samlAuthnProvider() {
-//        return null;
-//    }
 
     @Bean
     public static SAMLBootstrap samlBootstrap() {
@@ -41,5 +37,13 @@ public class AuthnConfig {
         return new HTTPRedirectDeflateEncoder();
     }
 
+    @Bean
+    public BaseSAML2MessageDecoder saml2MessageDecoder() {
+        return new HTTPPostDecoder();
+    }
+    @Bean
+    public ContextProvider samlContextProvider() {
+        return new ContextProvider();
+    }
 
 }

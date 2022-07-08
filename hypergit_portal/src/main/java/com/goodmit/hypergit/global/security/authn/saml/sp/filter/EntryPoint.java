@@ -1,4 +1,4 @@
-package com.goodmit.hypergit.global.security.authn.saml.filter;
+package com.goodmit.hypergit.global.security.authn.saml.sp.filter;
 
 import com.goodmit.hypergit.global.security.authn.properties.SAMLProperties;
 import com.goodmit.hypergit.global.security.authn.saml.SamlBuilder;
@@ -78,7 +78,7 @@ public class EntryPoint extends GenericFilterBean implements AuthenticationEntry
 
     private boolean isLocalAuth(HttpServletRequest request) {
             return PathRequest.toStaticResources().atCommonLocations().matches(request)
-                || SAMLUtil.processFilter(localAuth, request) || SAMLUtil.processFilter("/static",request);
+                || SAMLUtil.processFilter(localAuth, request);
     }
 
 }

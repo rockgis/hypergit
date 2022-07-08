@@ -2,8 +2,9 @@ package com.goodmit.hypergit.common;
 
 import com.goodmit.hypergit.global.security.authn.config.AuthnConfig;
 import com.goodmit.hypergit.global.security.authn.properties.SAMLProperties;
-import com.goodmit.hypergit.global.security.authn.saml.filter.AssertionConsumerFilter;
-import com.goodmit.hypergit.global.security.authn.saml.filter.EntryPoint;
+import com.goodmit.hypergit.global.security.authn.saml.sp.ContextProvider;
+import com.goodmit.hypergit.global.security.authn.saml.sp.filter.AssertionConsumerFilter;
+import com.goodmit.hypergit.global.security.authn.saml.sp.filter.EntryPoint;
 import org.springframework.boot.autoconfigure.security.StaticResourceLocation;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
@@ -12,7 +13,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.saml.context.SAMLContextProvider;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.FilterChainProxy;
 import org.springframework.security.web.SecurityFilterChain;
@@ -32,7 +32,7 @@ public class UserSecurityConfig extends WebSecurityConfigurerAdapter {
     private SAMLProperties samlProperties;
     private EntryPoint samlEntryPoint;
 
-    private SAMLContextProvider samlContextProvider;
+    private ContextProvider samlContextProvider;
     protected UserSecurityConfig(SAMLProperties samlProperties,EntryPoint samlEntryPoint ) {
         this.samlProperties = samlProperties;
         this.samlEntryPoint = samlEntryPoint;
@@ -48,7 +48,8 @@ public class UserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .httpBasic().authenticationEntryPoint(samlEntryPoint)
                 .and()
-                    .addFilterAfter(samlFilterChain(samlProperties), BasicAuthenticationFilter.class);
+                    .addFilterAfter(samlFilterChain(samlProperties), BasicAuthenticationFilter.class)
+                .csrf().disable();
     }
 
     @Override

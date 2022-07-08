@@ -4,6 +4,7 @@ import com.goodmit.hypergit.common.util.NetUtil;
 import lombok.Getter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.ConstructorBinding;
+import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.util.StringUtils;
 
 @Getter
@@ -20,14 +21,21 @@ public class SAMLProperties {
         this.entityId = entityId;
         this.ipdUrl = ipdUrl;
         this.acs = acs;
-        this.acsUrl = StringUtils.hasText(acsUrl)?acsUrl: NetUtil.getLocalAddress();
+
+        if(acsUrl.contains("${server.address}")) {
+            acsUrl = StringUtils.replace(acsUrl,"${server.address}",NetUtil.getLocalAddress());
+        }
+        this.acsUrl = acsUrl;
+        CsrfFilter g;
     }
 
     public String getAcsLocation() {
-        StringBuffer stringBuffer = new StringBuffer("http");
+        StringBuffer stringBuffer = new StringBuffer();
+        if(!acsUrl.startsWith("http://")) {
+            stringBuffer.append("http://");
+        }
         return stringBuffer
                 .append(acsUrl)
-                .append("/")
                 .append(acs)
                 .toString();
     }

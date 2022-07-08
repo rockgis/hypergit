@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.StaticResourceLocation;
-import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -13,9 +12,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -28,7 +26,7 @@ class SAMLPropertiesTest {
 
     @Test
     public void idpUrlTest() {
-        log.info("idpUrl : {}",samlProperties.getIpdUrl());
+        log.info("idpUrl : {}",samlProperties.getAcsLocation());
         assertNotNull(samlProperties.getIpdUrl());
     }
 
@@ -43,4 +41,5 @@ class SAMLPropertiesTest {
 
         tt.forEach(str->log.info("---->{}",str));
     }
+
 }
