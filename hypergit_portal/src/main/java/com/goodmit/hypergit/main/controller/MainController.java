@@ -33,7 +33,7 @@ public class MainController {
 
 
     @GetMapping("/admin")
-    public String adminmain(Model model, @RequestParam(value="page", defaultValue = "1") Integer pageNum) {
+    public String admin(Model model, @RequestParam(value="page", defaultValue = "1") Integer pageNum) {
 
         List<BoardDto> boardList = boardService.getBoardlist(pageNum);
         Integer[] pageList = boardService.getPageList(pageNum);

@@ -28,7 +28,7 @@ public class Gitta0001Entity extends TimeEntity  {
     @Column(length = 30, nullable = false)
     private String usrEn ;//'사용자id',
 
-    @Column(length = 30, nullable = false)
+    @Column(length = 100, nullable = false)
     private String usrPin ;//'사용자비밀번호',
 
     @Column(columnDefinition ="char" , length = 20, nullable = false)

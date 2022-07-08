@@ -12,6 +12,10 @@ spring:
       on-profile: common
   pid:
     file: ./pid/hypergitPortal.pid
+  mvc:
+    hidden-method:
+      filter:
+        enabled: true
   mail:
     host: smtp.gmail.com
     port: 587
@@ -36,6 +40,7 @@ spring:
           provider_class: com.zaxxer.hikari.hibernate.HikariConnectionProvider
         naming:
           physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+          implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
 
 server:
   servlet:

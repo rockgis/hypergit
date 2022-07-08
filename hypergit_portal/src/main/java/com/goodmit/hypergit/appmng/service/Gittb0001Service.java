@@ -112,6 +112,7 @@ public class Gittb0001Service {
                 .rgEn(gittb0001Entity.getRgEn())
                 .altEn(gittb0001Entity.getAltEn())
                 .createdDate(gittb0001Entity.getCreatedDate())
+                .modifiedDate(gittb0001Entity.getModifiedDate())
                 .build();
 
     }

@@ -18,13 +18,13 @@ public class PermissionmngController {
     /* Main Page */
     @GetMapping("/admin/permissionmng")
     public String list(Model model, @RequestParam(value="page", defaultValue = "1") Integer pageNum) {
-        List<Gittc0001Dto> gittd0001List = gittd0001Service.getGittc0001list(pageNum);
+        List<Gittc0001Dto> gittc0001List = gittd0001Service.getGittc0001list(pageNum);
         Integer[] pageList = gittd0001Service.getPageList(pageNum);
 
         double  count = Double.valueOf(gittd0001Service.getGittc001Count());
         Integer postsTotalCount = (int) count;
 
-        model.addAttribute("gittd0001List", gittd0001List);
+        model.addAttribute("gittc0001List", gittc0001List);
         model.addAttribute("pageList", pageList);
         model.addAttribute("postsTotalCount", postsTotalCount);
 

@@ -115,13 +115,17 @@
                   </td>
                   <td width="5%"><span th:text="${gittb0001.id}"></span></td>
                   <td><span th:text="${gittb0001.appNm}"></span></td>
-                  <td><span th:text="${gittb0001.dcd}"></span></td>
+                  <td><span th:text="${gittb0001.appNm}"></span></td>
                   <td><span th:text="${gittb0001.clNm}"></span></td>
-                  <td><span th:text="${gittb0001.pgeUrlAr}"></span></td>
+                  <td>
+                    <a th:href="${gittb0001.pgeUrlAr}" target="_blank">
+                      <i class="far fas fa-search"></i><span th:text="${gittb0001.pgeUrlAr}"></span>
+                    </a>
+                  </td>
                   <td><span th:text="${gittb0001.seTf}"></span></td>
                   <td><span th:text="${gittb0001.id}"></span></td>
                   <td><span th:text="${gittb0001.bsTf}"></span></td>
-                  <td><<span th:text="${#temporals.format(gitta0001.modifiedDate, 'yyyy-MM-dd HH:mm')}"></span></td>
+                  <td><span th:text="${#temporals.format(gittb0001.modifiedDate, 'yyyy-MM-dd HH:mm')}"></span></td>
                   <td><span th:text="${gittb0001.altEn}"></span></td>
                 </tr>
                 </tbody>

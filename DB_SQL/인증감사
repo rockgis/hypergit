@@ -13,6 +13,10 @@ CREATE TABLE GITTD0001
 
 ALTER TABLE GITTD0001 COMMENT='인증감사';
 
+
+Insert into GITTD0001 (CREATED_DATE,DCD,USR_NM,USR_EN,EM_NM,USR_IP,UG_NM,REF_URL_AR) values (now(),'03','관리자','admin','lhlee@goodmit.co.kr','10.200.101.100','관리자 페이지 접속','https://hue.uiscloud.com');
+
+
 CREATE TABLE GITTD0002
 (
     ID         INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '등록순번',

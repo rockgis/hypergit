@@ -81,10 +81,6 @@
                 <div class="form-group">
                   목록 : [[${postsTotalCount}]]  건
                   <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#modal-xl"><i class="far fas fa-search"></i> 조회</button>
-                  <button type="button" class="btn btn-danger float-right" style="margin-right: 5px;">
-                    <i class="fas fa-copy"></i> 삭제</button>
-                  <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
-                    <i class="fas fa-edit"></i> 등록</button>
                   <button type="button" class="btn btn-secondary float-right" style="margin-right: 5px;">
                     <i class=" far fa-plus-square"></i> 잠금해제</button>
 
@@ -120,16 +116,15 @@
                   <input type="checkbox">
                 </td>
                 <td width="5%"><span th:text="${gitta0001.id}"></span></td>
-                <td><span th:text="${gitta0001.id}"></span></td>
                 <td><span th:text="${gitta0001.dcd}"></span></td>
                 <td><span th:text="${gitta0001.usrNm}"></span></td>
-                <td><span th:text="${gitta0001.usrPin}"></span></td>
+                <td><span th:text="${gitta0001.usrEn}"></span></td>
                 <td><span th:text="${gitta0001.emNm}"></span></td>
-                <td><span th:text="${gitta0001.id}"></span></td>
                 <td><span th:text="${gitta0001.usd}"></span></td>
+                <td><span th:text="${gitta0001.seTf}"></span></td>
                 <td><span th:text="${gitta0001.id}"></span></td>
-                <td><span th:text="${gitta0001.id}"></span></td>
-                <td><<span th:text="${#temporals.format(gitta0001.createdDate, 'yyyy-MM-dd HH:mm')}"></span></td>
+                <td><span th:text="${#temporals.format(gitta0001.createdDate, 'yyyy-MM-dd HH:mm')}"></span></td>
+                <td><span th:text="${#temporals.format(gitta0001.modifiedDate, 'yyyy-MM-dd HH:mm')}"></span></td>
                 <td><span th:text="${gitta0001.altEn}"></span></td>
               </tr>
               </tbody>

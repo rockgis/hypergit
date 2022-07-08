@@ -107,13 +107,13 @@
                   <!-- CONTENTS !-->
                   <tr th:each="gittd0001 : ${gittd0001List}">
                     <td width="5%"><span th:text="${gittd0001.id}"></span></td>
-                    <td><<span th:text="${#temporals.format(gittd0001.wrDt, 'yyyy-MM-dd HH:mm')}"></span></td>
+                    <td><<span th:text="${#temporals.format(gittd0001.createdDate, 'yyyy-MM-dd HH:mm')}"></span></td>
                     <td><span th:text="${gittd0001.dcd}"></span></td>
-                    <td><span th:text="${gitta0001.usrNm}"></span></td>
-                    <td><span th:text="${gitta0001.usrEn}"></span></td>
-                    <td><span th:text="${gitta0001.emNm}"></span></td>
-                    <td><span th:text="${gitta0001.ugNm}"></span></td>
-                    <td><span th:text="${gitta0001.refUrlAr}"></span></td>
+                    <td><span th:text="${gittd0001.usrNm}"></span></td>
+                    <td><span th:text="${gittd0001.usrEn}"></span></td>
+                    <td><span th:text="${gittd0001.emNm}"></span></td>
+                    <td><span th:text="${gittd0001.ugNm}"></span></td>
+                    <td><span th:text="${gittd0001.refUrlAr}"></span></td>
                   </tr>
                   </tbody>
                 </table>

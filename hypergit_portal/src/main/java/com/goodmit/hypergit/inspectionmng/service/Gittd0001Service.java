@@ -26,10 +26,10 @@ public class Gittd0001Service {
     public List<Gittd0001Dto> getGittd0001list(Integer pageNum) {
         Page<Gittd0001Entity> page = gittd0001Repository.findAll(PageRequest.of(pageNum - 1, PAGE_POST_COUNT, Sort.by(Sort.Direction.DESC, "createdDate")));
 
-        List<Gittd0001Entity> gitta0001Entities = page.getContent();
+        List<Gittd0001Entity> gittd0001Entities = page.getContent();
         List<Gittd0001Dto> gittd0001DtoList = new ArrayList<>();
 
-        for (Gittd0001Entity gittd0001Entity : gitta0001Entities) {
+        for (Gittd0001Entity gittd0001Entity : gittd0001Entities) {
             gittd0001DtoList.add(this.convertEntityToDto(gittd0001Entity));
         }
 
@@ -43,8 +43,8 @@ public class Gittd0001Service {
 
     @Transactional
     public Gittd0001Dto getPost(Long id) {
-        Optional<Gittd0001Entity> gitta0001EntityWrapper = gittd0001Repository.findById(id);
-        Gittd0001Entity gittd0001Entity = gitta0001EntityWrapper.get();
+        Optional<Gittd0001Entity> gittd0001EntityWrapper = gittd0001Repository.findById(id);
+        Gittd0001Entity gittd0001Entity = gittd0001EntityWrapper.get();
 
         return this.convertEntityToDto(gittd0001Entity);
     }
@@ -106,6 +106,7 @@ public class Gittd0001Service {
                 .usrNm(gittd0001Entity.getUsrNm())
                 .usrEn(gittd0001Entity.getUsrEn())
                 .emNm(gittd0001Entity.getEmNm())
+                .usrIp(gittd0001Entity.getUsrIp())
                 .ugNm(gittd0001Entity.getUgNm())
                 .refUrlAr(gittd0001Entity.getRefUrlAr())
                 .createdDate(gittd0001Entity.getCreatedDate())

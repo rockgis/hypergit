@@ -4,7 +4,7 @@ CREATE TABLE GITTA0001
     DCD         VARCHAR(50) COMMENT '부서코드',
     USR_NM      VARCHAR(30) COMMENT '사용자명',
     USR_EN      VARCHAR(30) COMMENT '사용자ID',
-    USR_PIN     VARCHAR(30) COMMENT '사용자비밀번호',
+    USR_PIN     VARCHAR(100) COMMENT '사용자비밀번호',
     EM_NM       CHAR(20) COMMENT '이메일',
     AD_TF        CHAR(1) COMMENT '관리자여부',
     USD        VARCHAR(50) COMMENT '사용자여부',
@@ -18,12 +18,16 @@ CREATE TABLE GITTA0001
 
 ALTER TABLE GITTA0001 COMMENT='사용자관리';
 
+Insert into GITTA0001 (DCD,USR_NM,USR_EN,USR_PIN,EM_NM,AD_TF,USD,SE_TF,EAR_EHF,RG_EN,ALT_EN,CREATED_DATE,MODIFIED_DATE) values ('01','관리자','admin','$2a$10$wku9tPEO8oTwpSlInntqJ.t8ded9VA2DKYBPI0J.DXQOHDtrG8ifa','lhlee@hcs.co.kr','Y','관리자 그룹','Y','Y','admin','admin',now(),now());
+
+
+
 CREATE TABLE GITTA0002
 (
     DCD     VARCHAR(30) COMMENT '부서코드',
     DP_NM   VARCHAR(30) COMMENT '부서명',
     QEE_SN  INT COMMENT '정렬순번',
-    SE_F    CHAR(1) COMMENT '사용유무',
+    SE_TF    CHAR(1) COMMENT '사용유무',
     RG_EN   VARCHAR(30) COMMENT '등록사번',
     CREATED_DATE       TIMESTAMP COMMENT '등록일시',
     ALT_EN  VARCHAR(30) COMMENT '수정사번',
@@ -31,5 +35,10 @@ CREATE TABLE GITTA0002
 );
 
 ALTER TABLE GITTA0002 COMMENT='부서관리';
+
+
+Insert into GITTA0002 (DCD,DP_NM,QEE_SN,SE_TF,RG_EN,CREATED_DATE,ALT_EN,MODIFIED_DATE) values ('03','부서03',3,'Y','admin',now(),'admin',now();
+Insert into GITTA0002 (DCD,DP_NM,QEE_SN,SE_TF,RG_EN,CREATED_DATE,ALT_EN,MODIFIED_DATE) values ('01','부서2',1,'Y','admin',now(),'admin',now());
+Insert into GITTA0002 (DCD,DP_NM,QEE_SN,SE_TF,RG_EN,CREATED_DATE,ALT_EN,MODIFIED_DATE) values ('02','부서02',2,'Y','admin',now(),'admin',now());
 
 
