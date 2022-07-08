@@ -27,8 +27,6 @@ spring:
     hibernate:
       connection:
         provider_class: com.zaxxer.hikari.hibernate.HikariConnectionProvider
-      naming:
-        physical-strategy:  org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     show-sql: true
   datasource:
@@ -110,21 +108,7 @@ spring:
   config:
     activate:
       on-profile: develop
-  security:
-    saml2:
-      relyingparty:
-        registration:
-          hypergitsaml:
-#            signing:
-#              credentials:
-#                - private-key-location: "classpath:credentials/private.key"
-#                  certificate-location: "classpath:credentials/public.cer"
-            identityprovider:
-              entity-id: hypergitSaml
-              singlesignon:
-                sign-request: false
-                url: http://localhost:9091/sso
-              metadata-uri: http://localhost:8081/sample-idp/saml/idp/metadata
+
 server:
   port: 9091
   tomcat:
