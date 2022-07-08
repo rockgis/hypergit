@@ -29,6 +29,7 @@ import java.util.List;
 public class AssertionConsumerImpl implements AssertionConsumer {
 
     private final int assertionValidTime;
+    private static final String KEY_USER_FI="urn:oid:2.5.4.11";
 
     @Builder
     protected AssertionConsumerImpl(@NonNull int assertionValidTime) {
@@ -47,11 +48,11 @@ public class AssertionConsumerImpl implements AssertionConsumer {
     private UserDetails createUser(Assertion assertion) {
         String nameID = assertion.getSubject().getNameID().getValue();
         AttributeStatement attributeStatement = assertion.getAttributeStatements().get(0);
-        List<Attribute> attributes = attributeStatement.getAttributes();
+        Attribute attribute = attributeStatement.getAttributes()
+                .stream().filter(attr -> KEY_USER_FI.equals(attr.getName()))
+                .findFirst().orElse(null);
+
         //TODO : fix authorities
-
-
-
         User user = new User(nameID,null,null);
         return user;
     }
