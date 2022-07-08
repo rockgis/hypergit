@@ -24,10 +24,13 @@ public class LocalSamlPrincipalFactory extends SamlPrincipalFactory{
     @Override
     protected List<SamlAttribute> createAttributes(Authentication authentication) {
         List<String> authz = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
-        return Arrays.asList(
+
+        List<SamlAttribute> attributes = Arrays.asList(
                 new SamlAttribute(KEY_USER_NAME,authentication.getName()),
                 new SamlAttribute(KEY_USER_EMAIL,"test@test.com"),
-                new SamlAttribute(KEY_USER_FI, "admin")
+                new SamlAttribute(KEY_USER_FI, Arrays.asList("admin","test"))
         );
+
+        return attributes;
     }
 }

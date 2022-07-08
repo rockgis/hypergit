@@ -33,7 +33,6 @@ public class AssertionConsumerFilter extends AbstractAuthenticationProcessingFil
         PreAuthToken token = PreAuthToken.builder()
                 .context(context).build();
         return getAuthenticationManager().authenticate(token);
-
     }
 
 

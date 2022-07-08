@@ -78,7 +78,7 @@ authentication:
   localAuth: /admin
   saml:
     entity-id: hypergitSaml
-    ipd-url: http://saml91.goodmit.com:9090/sso
+    ipd-url: http://localhost:9090/sso
     acs: /acs
     acsUrl: http://${server.address}:${server.port}
 ---

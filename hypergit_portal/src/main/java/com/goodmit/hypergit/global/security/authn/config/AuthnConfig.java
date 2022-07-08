@@ -2,6 +2,8 @@ package com.goodmit.hypergit.global.security.authn.config;
 
 import com.goodmit.hypergit.global.security.authn.properties.SAMLProperties;
 import com.goodmit.hypergit.global.security.authn.saml.sp.ContextProvider;
+import com.goodmit.hypergit.global.security.authn.saml.sp.consumer.AssertionConsumer;
+import com.goodmit.hypergit.global.security.authn.saml.sp.consumer.AssertionConsumerImpl;
 import com.goodmit.hypergit.global.security.authn.saml.sp.filter.EntryPoint;
 import lombok.extern.slf4j.Slf4j;
 import org.opensaml.saml2.binding.decoding.BaseSAML2MessageDecoder;
@@ -45,5 +47,7 @@ public class AuthnConfig {
     public ContextProvider samlContextProvider() {
         return new ContextProvider();
     }
+
+
 
 }
