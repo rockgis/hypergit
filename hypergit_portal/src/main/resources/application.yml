@@ -3,7 +3,7 @@ spring:
   profiles:
     group:
       local: common, locdb, loc
-      dev: common, h2, develop
+      dev: common, devdb, develop
       prod: common
 ---
 spring:
