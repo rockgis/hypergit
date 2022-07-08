@@ -30,5 +30,9 @@ public class AppmngController {
 
         return "appmng/main.html";
     }
+    @GetMapping("/admin/login")
+    public String dispLogin() {
+        return "/admin/login";
+    }
 
 }

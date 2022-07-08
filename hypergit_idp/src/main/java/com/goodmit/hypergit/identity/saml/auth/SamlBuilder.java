@@ -5,6 +5,7 @@ import com.goodmit.hypergit.identity.saml.auth.dao.SamlPrincipal;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 import org.opensaml.Configuration;
 import org.opensaml.saml2.core.*;
 import org.opensaml.xml.XMLObjectBuilderFactory;
@@ -47,7 +48,7 @@ public class SamlBuilder {
     }
 
     public static Assertion buildAssertion(SamlPrincipal principal, Status status, String entityId, String keyAlias) {
-        DateTime time = DateTime.now();
+        DateTime time = LocalDateTime.now().toDateTime();
         Assertion assertion = buildSAMLObject(Assertion.class,Assertion.DEFAULT_ELEMENT_NAME);
 
         if(status.getStatusCode().getValue().equals(StatusCode.SUCCESS_URI)){
@@ -121,6 +122,7 @@ public class SamlBuilder {
 
         authnStatement.setAuthnContext(authnContext);
         authnStatement.setAuthnInstant(authInstant);
+
         return authnStatement;
     }
 
