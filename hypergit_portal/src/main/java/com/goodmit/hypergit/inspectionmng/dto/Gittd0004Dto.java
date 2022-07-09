@@ -32,6 +32,8 @@ public class Gittd0004Dto {
 
     private int ugCt;// UG_CT   INT COMMENT '접속상태'
 
+    LocalDateTime createdDate;
+
 
     public Gittd0004Entity toEntity(){
         Gittd0004Entity gittd0004Entity = Gittd0004Entity.builder()
@@ -47,7 +49,7 @@ public class Gittd0004Dto {
     }
 
     @Builder
-    public Gittd0004Dto(Long id,  String  dcd, String usrNm, String usrEn, String appNm, String pgeUrlAr, int ugCt) {
+    public Gittd0004Dto(Long id,  String  dcd, String usrNm, String usrEn, String appNm, String pgeUrlAr, int ugCt,LocalDateTime createdDate) {
         this.id = id;
         this.dcd = dcd;
         this.usrNm = usrNm;
@@ -55,6 +57,7 @@ public class Gittd0004Dto {
         this.appNm = appNm;
         this.pgeUrlAr = pgeUrlAr;
         this.ugCt = ugCt;
+        this.createdDate = createdDate;
     }
 
 }

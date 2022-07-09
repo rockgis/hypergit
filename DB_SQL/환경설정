@@ -12,6 +12,18 @@ CREATE TABLE GITTF0001
 
 ALTER TABLE GITTF0001 COMMENT='ROLE관리';
 
+
+Insert into GITTF0001 (ROLE_ID,ROLE_NM,DESC_TT,RG_EN,ALT_EN,CREATED_DATE,MODIFIED_DATE) values ('AD01','관리자','관리자','admin','admin',now(),now());
+
+Insert into GITTF0001 (UG_ID,UG_NM,DESC_TT,UG_AUZ_ID,QEE_SN,SE_F,EAR_EH_F,RG_EN,RG_DT,ALT_EN,ALT_DT) values ('UG_01','관리사용자그룹','관리사용자그룹','ROLE_ADMINISTRATOR',1,'Y',null,'admin','admin',now(),now());
+Insert into GITTF0001 (UG_ID,UG_NM,DESC_TT,UG_AUZ_ID,QEE_SN,SE_F,EAR_EH_F,RG_EN,RG_DT,ALT_EN,ALT_DT) values ('UG_02','일반사용자그룹','일반사용자그룹','ROLE_USER',1,'Y',null,'admin','admin',now(),now();
+Insert into GITTF0001 (UG_ID,UG_NM,DESC_TT,UG_AUZ_ID,QEE_SN,SE_F,EAR_EH_F,RG_EN,RG_DT,ALT_EN,ALT_DT) values ('UG_03','데이터랩분석그룹','데이터랩분석그룹','ROLE_USER',1,'Y',null,'admin','admin',now(),now());
+Insert into GITTF0001 (UG_ID,UG_NM,DESC_TT,UG_AUZ_ID,QEE_SN,SE_F,EAR_EH_F,RG_EN,RG_DT,ALT_EN,ALT_DT) values ('UG_05','데이터레이크분석그룹','데이터레이크분석그룹','ROLE_USER',1,'Y',null,'admin','admin',now(),now());
+Insert into GITTF0001 (UG_ID,UG_NM,DESC_TT,UG_AUZ_ID,QEE_SN,SE_F,EAR_EH_F,RG_EN,RG_DT,ALT_EN,ALT_DT) values ('UG_06','데이터시각화분석그룹','데이터시각화분석그룹','ROLE_USER',1,'Y',null,'admin','admin',now(),now());
+Insert into GITTF0001 (UG_ID,UG_NM,DESC_TT,UG_AUZ_ID,QEE_SN,SE_F,EAR_EH_F,RG_EN,RG_DT,ALT_EN,ALT_DT) values ('UG_07','결제자그룹','결제자그룹','ROLE_USER',1,'Y',null,'admin','admin',now(),now());
+
+
+
 CREATE TABLE GITTF0002
 (
     ID         INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '등록순번',
@@ -28,6 +40,9 @@ CREATE TABLE GITTF0002
 );
 
 ALTER TABLE GITTF0002 COMMENT='접속허용IP관리';
+
+Insert into GITTF0002 (DCD,USR_NM,USR_EN,NR_IP_AR,DESC_TT,SE_TF,RG_EN,ALT_EN,CREATED_DATE,MODIFIED_DATE) values ('AD01','관리자','admin','0.0.0.0','관리자 사용 IP등록 사용','Y','admin','admin',now(),now());
+
 
 
 

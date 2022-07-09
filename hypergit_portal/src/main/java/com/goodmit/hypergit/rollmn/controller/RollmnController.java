@@ -25,7 +25,7 @@ public class RollmnController {
         double  count = Double.valueOf(gittf0001Service.getGitta001Count());
         Integer postsTotalCount = (int) count;
 
-        model.addAttribute("gitta0001List", gittf0001List);
+        model.addAttribute("gittf0001List", gittf0001List);
         model.addAttribute("pageList", pageList);
         model.addAttribute("postsTotalCount", postsTotalCount);
 
