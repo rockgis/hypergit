@@ -61,6 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .invalidateHttpSession(true)
                 .and()
                     .csrf()
+                    .ignoringAntMatchers("/admin/post")
                     .ignoringAntMatchers("/post")
                 .and()
                 // 403 예외처리 핸들링

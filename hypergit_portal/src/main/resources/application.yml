@@ -12,6 +12,10 @@ spring:
       on-profile: common
   pid:
     file: ./pid/hypergitPortal.pid
+  mvc:
+    hidden-method:
+      filter:
+        enabled: true
   mail:
     host: smtp.gmail.com
     port: 587
