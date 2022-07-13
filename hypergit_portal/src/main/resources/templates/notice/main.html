@@ -100,7 +100,7 @@
             <!-- CONTENTS !-->
             <tr th:each="board : ${boardList}">
               <td>
-                <span th:text="${board.id}"></span>
+                <span th:text="${postsTotalCount} - ${boardStat.index}"></span>
               </td>
               <td>
                 <a th:href="@{'/admin/post/' + ${board.id}}">

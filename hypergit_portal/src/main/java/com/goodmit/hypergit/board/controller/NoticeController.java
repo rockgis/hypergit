@@ -40,7 +40,7 @@ public class NoticeController {
         BoardDto boardDTO = boardService.getPost(no);
 
         model.addAttribute("boardDto", boardDTO);
-        return "board/detail.html";
+        return "notice/detail.html";
     }
 
     /* 게시글 쓰기 */
@@ -65,7 +65,7 @@ public class NoticeController {
         BoardDto boardDTO = boardService.getPost(no);
 
         model.addAttribute("boardDto", boardDTO);
-        return "board/update.html";
+        return "notice/update.html";
     }
 
     @PutMapping("/admin/post/edit/{no}")

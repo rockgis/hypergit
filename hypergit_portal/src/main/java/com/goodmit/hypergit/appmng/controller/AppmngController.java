@@ -42,7 +42,7 @@ public class AppmngController {
         gittb0001Dto.setAltEn(principal.getName());
         gittb0001Dto.setModifiedDate(now);
 
-        System.out.println(now);
+       // System.out.println(now);
 
         gittb0001Service.savePost(gittb0001Dto);
 

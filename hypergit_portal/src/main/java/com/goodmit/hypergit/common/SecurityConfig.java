@@ -52,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and() // 로그인 설정
                     .formLogin()
                     .loginPage("/admin/login")
-                    .defaultSuccessUrl("/admin/login/result")
+                    .defaultSuccessUrl("/admin")
                     .permitAll()
                 .and() // 로그아웃 설정
                     .logout()
@@ -61,9 +61,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .invalidateHttpSession(true)
                 .and()
                     .csrf()
-                    .ignoringAntMatchers("/admin/webloging")
+                    .ignoringAntMatchers("/admin/ipusenmdel")
+                    .ignoringAntMatchers("/admin/ipusenmpost")
+                    .ignoringAntMatchers("/admin/rollmndel")
+                    .ignoringAntMatchers("/admin/rollmnpost")
                     .ignoringAntMatchers("/admin/appmngdel")
                     .ignoringAntMatchers("/admin/appmngpost")
+                    .ignoringAntMatchers("/admin/post")
                     .ignoringAntMatchers("/admin/post")
                     .ignoringAntMatchers("/post")
                 .and()
