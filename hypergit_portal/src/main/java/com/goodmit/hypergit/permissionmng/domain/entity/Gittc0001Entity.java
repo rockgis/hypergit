@@ -25,6 +25,12 @@ public class Gittc0001Entity extends TimeEntity  {
     @Column(length = 50, nullable = false)
     private String appNm; // APP_NM       VARCHAR(50) COMMENT '앱명',
 
+    @Column(length = 100, nullable = false)
+    private String clNm; //CL_NM  VARCHAR(100) COMMENT '클러스터명',
+
+    @Column(length = 200, nullable = false)
+    private String pgeUrlAr;   //PGE_URL_AR  VARCHAR(200) COMMENT '링크 URL',
+
     @Column(length = 50, nullable = false)
     private String roleId ;// ROLE_ID     VARCHAR(50) COMMENT '역할ID',
 
@@ -50,10 +56,12 @@ public class Gittc0001Entity extends TimeEntity  {
     private String altEn;// '등록사번',
 
     @Builder
-    public Gittc0001Entity(Long id, int gsnId, String appNm, String roleId, String ugId, String usrDcd, String usrNm, String usrEn, String emNm, String rgEn, String altEn) {
+    public Gittc0001Entity(Long id, int gsnId, String appNm, String clNm, String pgeUrlAr,String roleId, String ugId, String usrDcd, String usrNm, String usrEn, String emNm, String rgEn, String altEn) {
         this.id = id;
         this.gsnId = gsnId;
         this.appNm = appNm;
+        this.clNm = clNm;
+        this.pgeUrlAr = pgeUrlAr;
         this.roleId = roleId;
         this.ugId = ugId;
         this.usrDcd = usrDcd;

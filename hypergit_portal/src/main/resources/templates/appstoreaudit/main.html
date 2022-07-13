@@ -107,7 +107,10 @@
                     <td><span th:text="${gittd004.usrNm}"></span></td>
                     <td><span th:text="${gittd004.appNm}"></span></td>
                     <td><span th:text="${gittd004.pgeUrlAr}"></span></td>
-                    <td><span th:text="${gittd004.ugCt}"></span></td>
+                    <td>
+                      <span th:if="${gittd004.ugCt == 1}">접속</span>
+                      <span th:if="${gittd004.ugCt == 0}">미접속</span>
+                    </td>
                   </tr>
                   </tbody>
                 </table>

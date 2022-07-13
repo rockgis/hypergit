@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -29,6 +31,48 @@ public class AppmngController {
         model.addAttribute("postsTotalCount", postsTotalCount);
 
         return "appmng/main.html";
+    }
+
+    @PostMapping("/admin/appmngpost")
+    public String appmngpost(Principal principal, Gittb0001Dto gittb0001Dto) {
+
+        LocalDateTime now = LocalDateTime.now();
+
+        gittb0001Dto.setRgEn(principal.getName());
+        gittb0001Dto.setAltEn(principal.getName());
+        gittb0001Dto.setModifiedDate(now);
+
+        System.out.println(now);
+
+        gittb0001Service.savePost(gittb0001Dto);
+
+        return "redirect:/admin/appmng";
+    }
+
+
+    @GetMapping("/admin/appmngdel")
+    public String appmngdelete(@RequestParam(value="idx") String idx) {
+
+        long no = 0;
+
+        int beginIndex = idx.indexOf(",");
+
+        if(beginIndex > 0){
+
+            String[] ArraysStr = idx.split(",");
+
+            for(String s : ArraysStr){
+                no = Long.parseLong(s);
+                gittb0001Service.deletePost(no);
+            }
+
+        }else{
+
+            no = Long.parseLong(idx);
+            gittb0001Service.deletePost(no);
+
+        }
+        return "redirect:/admin/appmng";
     }
 
 }

@@ -3,6 +3,8 @@ package com.goodmit.hypergit.permissionmng.service;
 import com.goodmit.hypergit.permissionmng.domain.entity.Gittc0001Entity;
 import com.goodmit.hypergit.permissionmng.domain.repository.Gittc0001Repository;
 import com.goodmit.hypergit.permissionmng.dto.Gittc0001Dto;
+import com.goodmit.hypergit.rollmn.domain.entity.Gittf0001Entity;
+import com.goodmit.hypergit.rollmn.dto.Gittf0001Dto;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -48,6 +50,7 @@ public class Gittc0001Service {
 
         return this.convertEntityToDto(gittc0001Entity);
     }
+
 
     @Transactional
     public Long savePost(Gittc0001Dto gittc0001Dto) {
@@ -103,6 +106,8 @@ public class Gittc0001Service {
         return Gittc0001Dto.builder()
                 .id(gittc0001Entity.getId())
                 .gsnId(gittc0001Entity.getGsnId())
+                .clNm(gittc0001Entity.getClNm())
+                .pgeUrlAr(gittc0001Entity.getPgeUrlAr())
                 .appNm(gittc0001Entity.getAppNm())
                 .roleId(gittc0001Entity.getRoleId())
                 .ugId(gittc0001Entity.getUgId())

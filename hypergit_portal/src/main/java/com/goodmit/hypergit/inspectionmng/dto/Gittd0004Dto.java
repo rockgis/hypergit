@@ -14,9 +14,6 @@ public class Gittd0004Dto {
 
     private Long id; //'등록순번'
 
-    private String wrTy; //   WR_TY       CHAR(20) COMMENT '타입',
-
-
     private String dcd; //    DCD         VARCHAR(50) COMMENT '부서코드',
 
 

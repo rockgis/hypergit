@@ -3,6 +3,7 @@ package com.goodmit.hypergit.permissionmng.dto;
 import com.goodmit.hypergit.permissionmng.domain.entity.Gittc0001Entity;
 import lombok.*;
 
+import javax.persistence.Column;
 import java.time.LocalDateTime;
 
 @Getter
@@ -16,6 +17,10 @@ public class Gittc0001Dto {
     private int gsnId; //   GSN_ID      INT NOT NULL COMMENT '앱코드',
 
     private String appNm; // APP_NM    VARCHAR(50) COMMENT '앱명',
+
+    private String clNm; //CL_NM  VARCHAR(100) COMMENT '클러스터명',
+
+    private String pgeUrlAr;   //PGE_URL_AR  VARCHAR(200) COMMENT '링크 URL',
 
     private String roleId ;// ROLE_ID     VARCHAR(50) COMMENT '역할ID',
 
@@ -44,6 +49,8 @@ public class Gittc0001Dto {
                 .id(id)
                 .gsnId(gsnId)
                 .appNm(appNm)
+                .clNm(clNm)
+                .pgeUrlAr(pgeUrlAr)
                 .roleId(roleId)
                 .ugId(ugId)
                 .usrDcd(usrDcd)
@@ -57,10 +64,12 @@ public class Gittc0001Dto {
     }
 
     @Builder
-    public Gittc0001Dto(Long id, int gsnId, String appNm, String roleId, String ugId, String usrDcd, String usrNm, String usrEn, String emNm, String rgEn, String altEn, LocalDateTime createdDate, LocalDateTime modifiedDate) {
+    public Gittc0001Dto(Long id, int gsnId, String appNm, String clNm, String pgeUrlAr, String roleId, String ugId, String usrDcd, String usrNm, String usrEn, String emNm, String rgEn, String altEn, LocalDateTime createdDate, LocalDateTime modifiedDate) {
         this.id = id;
         this.gsnId = gsnId;
         this.appNm = appNm;
+        this.clNm = clNm;
+        this.pgeUrlAr = pgeUrlAr;
         this.roleId = roleId;
         this.ugId = ugId;
         this.usrDcd = usrDcd;
