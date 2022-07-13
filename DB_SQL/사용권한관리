@@ -3,6 +3,8 @@ CREATE TABLE GITTC0001
     ID         INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '등록순번',
     GSN_ID      INT NOT NULL COMMENT '앱코드',
     APP_NM       VARCHAR(50) COMMENT '앱명',
+    CL_NM  VARCHAR(100) COMMENT '클러스터명',
+    PGE_URL_AR  VARCHAR(200) COMMENT '링크 URL',
     ROLE_ID     VARCHAR(50) COMMENT '역할ID',
     UG_ID       VARCHAR(50) COMMENT '사용자그룹ID',
     USR_DCD         VARCHAR(50) COMMENT '부서코드',
@@ -17,7 +19,7 @@ CREATE TABLE GITTC0001
 
 ALTER TABLE GITTC0001 COMMENT='사용자권한관리';
 
-Insert into GITTC0001 (GSN_ID,APP_NM,ROLE_ID,UG_ID,USR_DCD,USR_NM,USR_EN,EM_NM,RG_EN,ALT_EN,CREATED_DATE,MODIFIED_DATE) values (1,'HUE','서비스 BDP 관리 계정','사용자 그룹','02','관리자','admin','lhlee@goodmit.co.kr','admin','admin',now(),now());
+Insert into GITTC0001 (GSN_ID,APP_NM,CL_NM,PGE_URL_AR,ROLE_ID,UG_ID,USR_DCD,USR_NM,USR_EN,EM_NM,RG_EN,ALT_EN,CREATED_DATE,MODIFIED_DATE) values (1,'HUE','서비스 BDP','https://hue.uiscloud.com','서비스 BDP 관리 계정','사용자 그룹','02','관리자','admin','lhlee@goodmit.co.kr','admin','admin',now(),now());
 
 
 CREATE TABLE GITTC0002
