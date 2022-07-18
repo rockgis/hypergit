@@ -5,52 +5,38 @@ CREATE TABLE GITTC0001
     APP_NM       VARCHAR(50) COMMENT '앱명',
     CL_NM  VARCHAR(100) COMMENT '클러스터명',
     PGE_URL_AR  VARCHAR(200) COMMENT '링크 URL',
-    ROLE_ID     VARCHAR(50) COMMENT '역할ID',
-    UG_ID       VARCHAR(50) COMMENT '사용자그룹ID',
-    USR_DCD         VARCHAR(50) COMMENT '부서코드',
-    USR_NM      VARCHAR(30) COMMENT '사용자명',
+    ROLE_ID     INT COMMENT '역할ID',
+    USR_DCD     VARCHAR(50) COMMENT '부서명',
     USR_EN      VARCHAR(30) COMMENT '사용자ID',
+    USR_NM      VARCHAR(30) COMMENT '사용자명',
+    RG_EN   VARCHAR(30) COMMENT 'P아이디',
     EM_NM       CHAR(20) COMMENT '이메일',
-    RG_EN   VARCHAR(30) COMMENT '등록사번',
-    CREATED_DATE       TIMESTAMP COMMENT '등록일시',
+    USE_YN  CHAR(1) COMMENT '사용유부 \',
     ALT_EN  VARCHAR(30) COMMENT '수정사번',
-    MODIFIED_DATE      TIMESTAMP COMMENT '수정일시'
+    CREATED_DATE       TIMESTAMP COMMENT '시작 일자',
+    MODIFIED_DATE      TIMESTAMP COMMENT '종료 일자'
 );
 
 ALTER TABLE GITTC0001 COMMENT='사용자권한관리';
 
-Insert into GITTC0001 (GSN_ID,APP_NM,CL_NM,PGE_URL_AR,ROLE_ID,UG_ID,USR_DCD,USR_NM,USR_EN,EM_NM,RG_EN,ALT_EN,CREATED_DATE,MODIFIED_DATE) values (1,'HUE','서비스 BDP','https://hue.uiscloud.com','서비스 BDP 관리 계정','사용자 그룹','02','관리자','admin','lhlee@goodmit.co.kr','admin','admin',now(),now());
+Insert into GITTC0001 (GSN_ID,APP_NM,CL_NM,PGE_URL_AR,ROLE_ID,USR_DCD,USR_EN,USR_NM,RG_EN,EM_NM,USE_YN,ALT_EN,CREATED_DATE,MODIFIED_DATE) values
+(1,'HUE','서비스 BDP','서비스 BDP','https://hue.uiscloud.com',1,'DATA 서비스 팀','450192','설재동','bdpadmin','jaedong.seol@hcs.co.kr','Y','admin',now(),now());
 
 
 CREATE TABLE GITTC0002
 (
-    UG_ID       VARCHAR(50) COMMENT '사용자그룹ID',
-    UG_NM       VARCHAR(50) COMMENT '사용자그룹명',
-    DESC_TT     VARCHAR(4000) COMMENT '설명',
-    UG_AUZ_ID   VARCHAR(20) COMMENT '사용자그룹권한ID',
-    QEE_SN      INT COMMENT '정렬순서',
-    SE_F        CHAR(1) COMMENT '사용유무',
-    EAR_EH_F    CHAR(1) COMMENT '초기설정여부',
+    ID         INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT '등록순번',
+    USR_DCD     VARCHAR(50) COMMENT '부서명',
+    USR_EN      VARCHAR(30) COMMENT '사용자ID',
+    USR_NM      VARCHAR(30) COMMENT '사용자명',
+    RG_EN   VARCHAR(30) COMMENT 'P아이디',
     RG_EN   VARCHAR(30) COMMENT '등록사번',
-    CREATED_DATE       TIMESTAMP COMMENT '등록일시',
     ALT_EN  VARCHAR(30) COMMENT '수정사번',
+    CREATED_DATE       TIMESTAMP COMMENT '등록일시',
     MODIFIED_DATE      TIMESTAMP COMMENT '수정일시'
 );
 
-ALTER TABLE GITTC0002 COMMENT='사용자그룹관리';
-
-CREATE TABLE GITTC0003
-(
-    ROLE_ID VARCHAR(50) COMMENT '역할ID',
-    ROLE_NM VARCHAR(50) COMMENT '역할명',
-    DESC_TT VARCHAR(4000) COMMENT '설명',
-    RG_EN   VARCHAR(30) COMMENT '등록사번',
-    CREATED_DATE       TIMESTAMP COMMENT '등록일시',
-    ALT_EN  VARCHAR(30) COMMENT '수정사번',
-    MODIFIED_DATE      TIMESTAMP COMMENT '수정일시'
-);
-
-ALTER TABLE GITTC0003 COMMENT='ROLE관리';
+ALTER TABLE GITTC0002 COMMENT='MASKING TABLE';
 
 
 

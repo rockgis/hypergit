@@ -71,7 +71,7 @@
       <!-- /.card -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title"><i class="fas fa-user-secret"></i>  사용자 관리</h3>
+          <h3 class="card-title"><i class="fas fa-user-secret"></i> 공용 계정관리</h3>
         </div>
         <div class="card-body">
 
@@ -97,31 +97,30 @@
                    <input type="checkbox">
                 </th>
                 <th width="5%">번호</th>
-                <th>부서</th>
-                <th>이름</th>
-                <th>사번</th>
-                <th>이메일</th>
-                <th>관리공간 IP</th>
-                <th>공용계정 사용 여부</th>
-                <th>수정일</th>
+                <th>P_아이디</th>
+                <th>구분</th>
+                <th>소유자 사번</th>
+                <th>소유자</th>
+                <th>Data 권한</th>
                 <th>수정자</th>
+                <th>수정일</th>
               </tr>
               </thead>
               <tbody>
               <!-- CONTENTS !-->
-              <tr th:each="gitta0001 : ${gitta0001List}">
+              <tr th:each="gitta0002 : ${gitta0002List}">
                 <td width="5%">
                   <input type="checkbox">
                 </td>
-                <td width="5%"><span th:text="${gitta0001.id}"></span></td>
-                <td><span th:text="${gitta0001.dcd}"></span></td>
-                <td><span th:text="${gitta0001.usrNm}"></span></td>
-                <td><span th:text="${gitta0001.usrEn}"></span></td>
-                <td><span th:text="${gitta0001.emNm}"></span></td>
-                <td><span th:text="${gitta0001.nrIpAr}"></span></td>
-                <td><span th:text="${gitta0001.earEhf}"></span></td>
-                <td><span th:text="${#temporals.format(gitta0001.createdDate, 'yyyy-MM-dd HH:mm')}"></span></td>
-                <td><span th:text="${gitta0001.rgEn}"></span></td>
+                <td width="5%"><span th:text="${gitta0002.id}"></span></td>
+                <td><span th:text="${gitta0002.usrEn}"></span></td>
+                <td><span th:text="${gitta0002.usTf}"></span></td>
+                <td><span th:text="${gitta0002.rgEn}"></span></td>
+                <td><span th:text="${gitta0002.usrNm}"></span></td>
+                <td><span th:text="${gitta0002.ruleId}"></span></td>
+                <td><span th:text="${gitta0002.altEn}"></span></td>
+                <td><span th:text="${#temporals.format(gitta0002.modifiedDate, 'yyyy-MM-dd HH:mm')}"></span></td>
+
               </tr>
               </tbody>
             </table>

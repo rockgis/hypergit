@@ -20,65 +20,44 @@ public class Gitta0001Entity extends TimeEntity  {
     private Long id; //'등록순번'
 
     @Column(length = 50, nullable = false)
-    private String dcd; // '부서코드',
+    private String dcd; // '   DCD         VARCHAR(50) COMMENT '부서명',',
 
     @Column(length = 30, nullable = false)
-    private String usrNm; // '사용자명',
+    private String usrNm; // ' USR_NM      VARCHAR(30) COMMENT '사용자명',',
 
     @Column(length = 30, nullable = false)
-    private String usrEn ;//'사용자id',
-
-    @Column(length = 100, nullable = false)
-    private String usrPin ;//'사용자비밀번호',
+    private String usrEn ;//'   USR_EN      VARCHAR(30) COMMENT '사번',',
 
     @Column(columnDefinition ="char" , length = 20, nullable = false)
-    private String emNm; // '이메일',
+    private String emNm; // '    EM_NM       CHAR(20) COMMENT '이메일',',
 
     @Column( columnDefinition ="char" , length = 1, nullable = false)
-    private String adTf ;//'관리자여부',
-
-    @Column(length = 50, nullable = false)
-    private String usd;  // '사용자여부',
+    private String adTf ;//'AD_TF        CHAR(1) COMMENT '관리자여부',',
 
     @Column( columnDefinition ="char" , length = 1, nullable = false)
-    private String seTf; // '사용유무',
+    private String earEhf; // ' // '  EAR_EHF    CHAR(1)COMMENT '공용계정 USE_YN',',',
 
-    @Column( columnDefinition ="char" , length = 1, nullable = false)
-    private String earEhf; //'초기설정여부'
+    @Column( length = 50, nullable = false)
+    private String nrIpAr; //'NR_IP_AR    VARCHAR(50) COMMENT '관리공간_IP','
 
     @Column(length = 30, nullable = false)
-    private String rgEn;// '등록사번',
+    private String rgEn;// '    RG_EN       VARCHAR(30) COMMENT '등록사번',',
 
-    @Column(length = 30, nullable = false)
-    private String altEn;// '등록사번',
 
-   // @Transient
-   // private String strRg_Dt = "";
 
-   // public String getStrRg_Dt() {
-  //      return  new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA).format(this.rg_dt);
-  //  }
 
-  //  @Transient
-  //  private String strAlt_Dt = "";
-
-  //  public String getStrAlt_Dt() {
-   //     return  new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA).format(this.alt_dt);
    // }
 
     @Builder
-    public Gitta0001Entity(Long id, String dcd, String usrNm, String usrEn, String usrPin, String emNm, String adTf, String usd, String seTf, String earEhf, String rgEn, String altEn) {
+    public Gitta0001Entity(Long id, String dcd, String usrNm, String usrEn, String emNm, String nrIpAr, String adTf,   String earEhf, String rgEn) {
         this.id = id;
         this.dcd = dcd;
         this.usrNm = usrNm;
         this.usrEn = usrEn;
-        this.usrPin = usrPin;
         this.emNm = emNm;
-        this.usd = usd;
+        this.nrIpAr = nrIpAr;
         this.adTf = adTf;
-        this.seTf = seTf;
         this.earEhf = earEhf;
         this.rgEn = rgEn;
-        this.altEn = altEn;
     }
 }

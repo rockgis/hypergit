@@ -2,6 +2,10 @@ package com.goodmit.hypergit.user.controller;
 
 import com.goodmit.hypergit.user.dto.Gitta0001Dto;
 import com.goodmit.hypergit.user.service.Gitta0001Service;
+
+import com.goodmit.hypergit.user.dto.Gitta0002Dto;
+import com.goodmit.hypergit.user.service.Gitta0002Service;
+
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +17,8 @@ import java.util.List;
 @AllArgsConstructor
 public class UserController {
     private Gitta0001Service gitta0001Service;
+
+    private Gitta0002Service gitta0002Service;
 
     /* 게시글 목록 */
 
@@ -41,5 +47,23 @@ public class UserController {
         model.addAttribute("gitta0001List", gitta0001DtoList);
 
         return "admin/userlist";
+    }
+
+
+    @GetMapping("/admin/publiclist")
+    public String publiclist(Model model, @RequestParam(value="page", defaultValue = "1") Integer pageNum) {
+        List<Gitta0002Dto> gitta0002List = gitta0002Service.getGitta0002list(pageNum);
+        Integer[] pageList = gitta0002Service.getPageList(pageNum);
+
+        double  count = Double.valueOf(gitta0002Service.getGitta002Count());
+        Integer postsTotalCount = (int) count;
+
+        model.addAttribute("gitta0002List", gitta0002List);
+        model.addAttribute("pageList", pageList);
+        model.addAttribute("postsTotalCount", postsTotalCount);
+
+
+
+        return "admin/publiclist";
     }
 }
