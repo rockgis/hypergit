@@ -10,17 +10,26 @@ CREATE TABLE GITTC0001
     USR_EN      VARCHAR(30) COMMENT '사용자ID',
     USR_NM      VARCHAR(30) COMMENT '사용자명',
     RG_EN   VARCHAR(30) COMMENT 'P아이디',
-    EM_NM       CHAR(20) COMMENT '이메일',
-    USE_YN  CHAR(1) COMMENT '사용유부 \',
+    EM_NM       CHAR(50) COMMENT '이메일',
+    USE_YN  CHAR(1) COMMENT '사용유부',
     ALT_EN  VARCHAR(30) COMMENT '수정사번',
-    CREATED_DATE       TIMESTAMP COMMENT '시작 일자',
-    MODIFIED_DATE      TIMESTAMP COMMENT '종료 일자'
+    START_DATE  CHAR(10) COMMENT '시작 일자 ',
+    END_DATE CHAR(10) COMMENT '종료 일자',
+    CREATED_DATE       TIMESTAMP COMMENT '생성 일자',
+    MODIFIED_DATE      TIMESTAMP COMMENT '변경 일자'
 );
 
 ALTER TABLE GITTC0001 COMMENT='사용자권한관리';
 
-Insert into GITTC0001 (GSN_ID,APP_NM,CL_NM,PGE_URL_AR,ROLE_ID,USR_DCD,USR_EN,USR_NM,RG_EN,EM_NM,USE_YN,ALT_EN,CREATED_DATE,MODIFIED_DATE) values
-(1,'HUE','서비스 BDP','서비스 BDP','https://hue.uiscloud.com',1,'DATA 서비스 팀','450192','설재동','bdpadmin','jaedong.seol@hcs.co.kr','Y','admin',now(),now());
+Insert into GITTC0001 (GSN_ID,APP_NM,CL_NM,PGE_URL_AR,ROLE_ID,USR_DCD,USR_EN,USR_NM,RG_EN,EM_NM,USE_YN,ALT_EN,START_DATE,END_DATE,CREATED_DATE,MODIFIED_DATE) values
+(1,'서비스 BDP HUE','서비스 BDP','https://hue.uiscloud.com',1,'DATA 서비스 팀','450192','설재동','bdpadmin','jaedong.seol@hcs.co.kr','Y','admin','2022-07-01','2022-08-30',now(),now());
+Insert into GITTC0001 (GSN_ID,APP_NM,CL_NM,PGE_URL_AR,ROLE_ID,USR_DCD,USR_EN,USR_NM,RG_EN,EM_NM,USE_YN,ALT_EN,START_DATE,END_DATE,CREATED_DATE,MODIFIED_DATE) values
+(1,'통합 BDP HUE','통합 BDP','https://hue.uiscloud.com',1,'DATA 서비스 팀','450192','설재동','bdpadmin','jaedong.seol@hcs.co.kr','Y','admin','2022-07-01','2022-08-30',now(),now());
+Insert into GITTC0001 (GSN_ID,APP_NM,CL_NM,PGE_URL_AR,ROLE_ID,USR_DCD,USR_EN,USR_NM,RG_EN,EM_NM,USE_YN,ALT_EN,START_DATE,END_DATE,CREATED_DATE,MODIFIED_DATE) values
+(1,'서비스 BDP CDSW','서비스 BDP','https://cdsw.uiscloud.com',1,'DATA 서비스 팀','450192','설재동','bdpadmin','jaedong.seol@hcs.co.kr','Y','admin','2022-07-01','2022-08-30',now(),now());
+Insert into GITTC0001 (GSN_ID,APP_NM,CL_NM,PGE_URL_AR,ROLE_ID,USR_DCD,USR_EN,USR_NM,RG_EN,EM_NM,USE_YN,ALT_EN,START_DATE,END_DATE,CREATED_DATE,MODIFIED_DATE) values
+(1,'통합 BDP CDSW','통합 BDP','https://cdsw.uiscloud.com',1,'DATA 서비스 팀','450192','설재동','bdpadmin','jaedong.seol@hcs.co.kr','Y','admin','2022-07-01','2022-08-30',now(),now());
+
 
 
 CREATE TABLE GITTC0002

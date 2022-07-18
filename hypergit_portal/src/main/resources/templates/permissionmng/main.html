@@ -100,13 +100,14 @@
                       <input type="checkbox">
                     </th>
                     <th width="5%">번호</th>
-                    <th>부서</th>
                     <th>앱명</th>
-                    <th>이름</th>
+                    <th>클러스터명</th>
+                    <th>부서</th>
                     <th>사용자ID</th>
-                    <th>이메일</th>
-                    <th>수정일</th>
-                    <th>수정자</th>
+                    <th>사번</th>
+                    <th>이름</th>
+                    <th>시작일자</th>
+                    <th>종료일자</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -116,13 +117,14 @@
                       <input type="checkbox">
                     </td>
                     <td width="5%"><span th:text="${gittc0001.id}"></span></td>
-                    <td><span th:text="${gittc0001.usrDcd}"></span></td>
                     <td><span th:text="${gittc0001.appNm}"></span></td>
-                    <td><span th:text="${gittc0001.usrNm}"></span></td>
+                    <td><span th:text="${gittc0001.clNm}"></span></td>
+                    <td><span th:text="${gittc0001.usrDcd}"></span></td>
+                    <td><span th:text="${gittc0001.rgEn}"></span></td>
                     <td><span th:text="${gittc0001.usrEn}"></span></td>
-                    <td><span th:text="${gittc0001.emNm}"></span></td>
-                    <td><span th:text="${#temporals.format(gittc0001.modifiedDate, 'yyyy-MM-dd HH:mm')}"></span></td>
-                    <td><span th:text="${gittc0001.altEn}"></span></td>
+                    <td><span th:text="${gittc0001.usrNm}"></span></td>
+                    <td><span th:text="${gittc0001.startDate}"></span></td>
+                    <td><span th:text="${gittc0001.endDate}"></span></td>
                   </tr>
                   </tbody>
                 </table>
