@@ -73,7 +73,6 @@ public class MainController {
     public String webloging(Principal principal, @PathVariable("no") Long no, Model model) {
 
 
-
         String username = principal.getName();
 
         Gittb0001Dto gittb0001Dto = gittb0001Service.getPost(no);
@@ -98,7 +97,7 @@ public class MainController {
 
         model.addAttribute("url", url);
 
-        return "main/webloging.html";
+        return "main/webloging";
     }
 
     @GetMapping("/login")
