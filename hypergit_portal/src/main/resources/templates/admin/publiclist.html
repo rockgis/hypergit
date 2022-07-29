@@ -83,6 +83,10 @@
                   <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#modal-xl"><i class="far fas fa-search"></i> 조회</button>
                   <button type="button" class="btn btn-secondary float-right" style="margin-right: 5px;">
                     <i class=" far fa-plus-square"></i> 잠금해제</button>
+                  <button type="button" class="btn btn-danger float-right" style="margin-right: 5px;" id="delete">
+                    <i class="fas fa-copy"></i> 삭제</button>
+                  <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-lg" style="margin-right: 5px;">
+                    <i class="fas fa-edit"></i> 등록</button>
 
                 </div>
 
@@ -94,7 +98,7 @@
               <thead>
               <tr>
                 <th width="5%">
-                   <input type="checkbox">
+                   <input type="checkbox" id="chkAll">
                 </th>
                 <th width="5%">번호</th>
                 <th>P_아이디</th>
@@ -102,15 +106,15 @@
                 <th>소유자 사번</th>
                 <th>소유자</th>
                 <th>Data 권한</th>
-                <th>수정자</th>
-                <th>수정일</th>
+                <th>사용유뮤</th>
+                <th>생성일</th>
               </tr>
               </thead>
               <tbody>
               <!-- CONTENTS !-->
               <tr th:each="gitta0002 : ${gitta0002List}">
                 <td width="5%">
-                  <input type="checkbox">
+                  <input type="checkbox" class="chk"  th:value="${gitta0002.id}">
                 </td>
                 <td width="5%"><span th:text="${gitta0002.id}"></span></td>
                 <td><span th:text="${gitta0002.usrEn}"></span></td>
@@ -118,8 +122,8 @@
                 <td><span th:text="${gitta0002.rgEn}"></span></td>
                 <td><span th:text="${gitta0002.usrNm}"></span></td>
                 <td><span th:text="${gitta0002.ruleId}"></span></td>
-                <td><span th:text="${gitta0002.altEn}"></span></td>
-                <td><span th:text="${#temporals.format(gitta0002.modifiedDate, 'yyyy-MM-dd HH:mm')}"></span></td>
+                <td><span th:text="${gitta0002.seTf}"></span></td>
+                <td><span th:text="${#temporals.format(gitta0002.createdDate, 'yyyy-MM-dd HH:mm')}"></span></td>
 
               </tr>
               </tbody>
@@ -285,6 +289,90 @@
 </div>
 <!-- /.modal -->
 
+<div class="modal fade" id="modal-lg">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">사용자 관리</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form  action="/admin/publicpost" method="post" id="app_brd" class="form-horizontal">
+          <input type="hidden" name="_method" value="post"/>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">P_아이디 </label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="usrEn" placeholder="P_아이디">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">구분</label>
+            <div class="col-sm-10">
+              <select class="form-control select2" name="usTf"  style="width: 100%;">
+                <option selected="selected" value="Y" >기본사용</option>
+                <option value="N">사용불가</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">소유자 사번 </label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="rgEn" placeholder="소유자 사번">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">소유자</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="usrNm" placeholder="소유자">
+            </div>
+          </div>
+          <!-- div class="form-group row">
+            <label class="col-sm-2 col-form-label">이메일</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="emNm" placeholder="이메일">
+            </div>
+          </div -->
+
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Data 권한 </label>
+            <div class="col-sm-10">
+              <select class="form-control select2" name="ruleId"  style="width: 100%;">
+                <option selected="selected" value="1" >관리자</option>
+                <option value="2">RW</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">사용여부 </label>
+            <div class="col-sm-10">
+              <select class="form-control select2" name="seTf"  style="width: 100%;">
+                <option selected="selected" value="Y" >기본사용</option>
+                <option value="N">사용불가</option>
+              </select>
+            </div>
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <div class="row">
+          <div class="col-md-12 ">
+            <div class="form-group">
+              <button type="button" class="btn btn-danger float-right" style="margin-right: 5px;" data-dismiss="modal">Close</button>
+              <button type="button" onclick="document.getElementById('app_brd').submit();" class="btn btn-primary float-right" style="margin-right: 5px;"><i class="fas fa-search"></i> 등록</button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
 
 <!-- jQuery -->
 <script src="/webjars/AdminLTE/plugins/jquery/jquery.min.js"></script>
@@ -315,6 +403,28 @@
       }
     });
 
+  });
+
+  //전체체크 클릭 시
+  $("#chkAll").click(function(){
+
+    if($("#chkAll").is(":checked")){
+      $(".chk").prop("checked", true);
+    }else{
+      $(".chk").prop("checked", false);
+    }
+
+  });
+
+  $(document).on('click', '#delete', function() {	// 삭제버튼 클릭 시
+    var chk_id = [];
+
+    $(".chk:checked").each(function(){
+      var id = $(this).val();
+      chk_id.push(id);
+    });
+    //alert(chk_id)
+    location.href="/admin/publicdel?idx="+chk_id;
   });
 </script>
 </body>

@@ -39,7 +39,19 @@ spring:
       idle-timeout: 10000
       maximum-pool-size: 10
       minimum-idle: 5
-
+  security:
+    oauth2:
+      client:
+        registration:
+          wso2:
+            client-id: H1ifsmxXZXWpERgabpvBfgZkd48a
+            client-secret: OFJEyPnfzM90_HolKxNxA70cU08a
+        provider:
+          wso2:
+            authorization-uri: "http://wso2.uiscloud.com:9443/oauth2/authorize"
+            token-uri: "http://wso2.uiscloud.com:9443/oauth2/token"
+            user-info-uri: "http://wso2.uiscloud.com:9443/oauth2/userinfo"
+            jwk-set-uri: "http://wso2.uiscloud.com:9443/oauth2/jwks"
 server:
   servlet:
     session:
@@ -78,11 +90,7 @@ logging:
 
 authentication:
   localAuth: /admin
-  saml:
-    entity-id: hypergitSaml
-    ipd-url: http://localhost:9090/sso
-    acs: /acs
-    acsUrl: http://${server.address}:${server.port}
+
 ---
 spring:
   config:
@@ -131,9 +139,9 @@ spring:
       on-profile: locdb
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/hypergit?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-    username: root
-    password: dldPwns!@09
+    url: jdbc:mysql://wso2.uiscloud.com:13306/hypergit?serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&useSSL=false
+    username: hypergit
+    password: Goodmit0802!
 
 ---
 spring:
@@ -142,9 +150,9 @@ spring:
       on-profile: devdb
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://10.200.101.15:3307/hypergit?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-    username: rockgis
-    password: dldPwns!@09
+    url: jdbc:mysql://localhost:13306/hypergit?serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&useSSL=false
+    username: hypergit
+    password: Goodmit0802!
 ---
 spring:
   config:

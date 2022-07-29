@@ -1,5 +1,6 @@
 package com.goodmit.hypergit.user.controller;
 
+import com.goodmit.hypergit.appmng.dto.Gittb0001Dto;
 import com.goodmit.hypergit.user.dto.Gitta0001Dto;
 import com.goodmit.hypergit.user.service.Gitta0001Service;
 
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -39,6 +42,46 @@ public class UserController {
         return "admin/userlist";
     }
 
+    @PostMapping("/admin/userpost")
+    public String userpost(Principal principal, Gitta0001Dto gitta0001Dto) {
+
+        LocalDateTime now = LocalDateTime.now();
+
+        gitta0001Dto.setRgEn(principal.getName());
+
+        // System.out.println(now);
+
+        gitta0001Service.savePost(gitta0001Dto);
+
+        return "redirect:/admin/userlist";
+    }
+
+
+    @GetMapping("/admin/userdel")
+    public String userdelete(@RequestParam(value="idx") String idx) {
+
+        long no = 0;
+
+        int beginIndex = idx.indexOf(",");
+
+        if(beginIndex > 0){
+
+            String[] ArraysStr = idx.split(",");
+
+            for(String s : ArraysStr){
+                no = Long.parseLong(s);
+                gitta0001Service.deletePost(no);
+            }
+
+        }else{
+
+            no = Long.parseLong(idx);
+            gitta0001Service.deletePost(no);
+
+        }
+        return "redirect:/admin/userlist";
+    }
+
 
     @GetMapping("/admin/usersearch")
     public String search(@RequestParam(value="keyword") String keyword, Model model) {
@@ -65,5 +108,45 @@ public class UserController {
 
 
         return "admin/publiclist";
+    }
+
+    @PostMapping("/admin/publicpost")
+    public String publicpost(Principal principal, Gitta0002Dto gitta0002Dto) {
+
+        LocalDateTime now = LocalDateTime.now();
+
+        gitta0002Dto.setAltEn(principal.getName());
+        gitta0002Dto.setModifiedDate(now);
+        // System.out.println(now);
+
+        gitta0002Service.savePost(gitta0002Dto);
+
+        return "redirect:/admin/publiclist";
+    }
+
+
+    @GetMapping("/admin/publicdel")
+    public String publicdelete(@RequestParam(value="idx") String idx) {
+
+        long no = 0;
+
+        int beginIndex = idx.indexOf(",");
+
+        if(beginIndex > 0){
+
+            String[] ArraysStr = idx.split(",");
+
+            for(String s : ArraysStr){
+                no = Long.parseLong(s);
+                gitta0002Service.deletePost(no);
+            }
+
+        }else{
+
+            no = Long.parseLong(idx);
+            gitta0002Service.deletePost(no);
+
+        }
+        return "redirect:/admin/publiclist";
     }
 }

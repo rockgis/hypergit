@@ -101,4 +101,10 @@ public class MainController {
         return "main/webloging.html";
     }
 
+    @GetMapping("/login")
+    public String getLoginPage(Model model) {
+
+        return "redirect:/oauth2/authorization/wso2";
+    }
+
 }
