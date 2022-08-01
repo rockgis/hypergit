@@ -95,7 +95,7 @@ spring:
       port: 8389
 
 server:
-  port: 9090
+  port: 9091
   tomcat:
     accesslog:
       enabled: true
@@ -111,7 +111,7 @@ spring:
     activate:
       on-profile: develop
 server:
-  port: 9090
+  port: 9091
 
 saml:
   idp:

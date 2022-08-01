@@ -15,7 +15,7 @@ public class MemberController {
     // 회원가입 페이지
     @GetMapping("/user/signup")
     public String dispSignup() {
-        return "/member/signup";
+        return "member/signup";
     }
 
     // 회원가입 처리
@@ -23,18 +23,18 @@ public class MemberController {
     public String execSignup(MemberDto memberDto) {
         memberService.joinUser(memberDto);
 
-        return "redirect:/user/login";
+        return "redirect:user/login";
     }
 
     // 로그인 페이지
     @GetMapping("/user/login")
     public String dispLogin() {
-        return "/member/login";
+        return "member/login";
     }
 
     @GetMapping("/admin/login")
     public String adminLogin() {
-        return "/admin/login";
+        return "admin/login";
     }
 
     // 로그인 결과 페이지
@@ -46,19 +46,19 @@ public class MemberController {
     // 로그아웃 결과 페이지
     @GetMapping("/user/logout/result")
     public String dispLogout() {
-        return "/member/logout";
+        return "member/logout";
     }
 
     // 접근 거부 페이지
     @GetMapping("/user/denied")
     public String dispDenied() {
-        return "/member/denied";
+        return "member/denied";
     }
 
     // 내 정보 페이지
     @GetMapping("/user/info")
     public String dispMyInfo() {
-        return "/member/myinfo";
+        return "member/myinfo";
     }
 
 }
