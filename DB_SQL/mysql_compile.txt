@@ -1,0 +1,205 @@
+1. boost
+# boost version download :: https://sourceforge.net/projects/boost/files/boost/
+# check version‼️ -> MySQL8의 경우 1.73이상
+$ wget https://sourceforge.net/projects/boost/files/boost/1.73.0/boost_1_73_0.tar.gz
+$ wget https://sourceforge.net/projects/boost/files/boost/1.79.0/boost_1_79_0.tar.gz
+$ tar xvzf boost_1_79_0.tar.gz
+$ mv boost_1_79_0 /usr/local/boost
+
+$ yum -y install wget ncurses-devel gcc* openssl openssl-devel \
+python-devel centos-release-scl libtirpc libtirpc-devel \
+devtoolset-8-gcc devtoolset-8-gcc-c++
+
+2. cmake3
+# cmake3 download :: https://www.notion.so/AWS-Console-3-Tier-Basic-1c5cb4bd7e944980ad5321df4809e9cd
+$ cd /usr/local/src
+$ wget https://github.com/Kitware/CMake/releases/download/v3.20.3/cmake-3.20.3.tar.gz
+$ tar xvzf cmake-3.20.3.tar.gz
+$ cd cmake-3.20.3
+$ ./bootstrap --prefix=/usr/local
+$ make && make install
+
+$ vi ~/.bash_profile
+
+...
+# PATH 부분만 수정
+PATH=$PATH:/usr/local/bin:$PATH:$HOME/bin
+...
+
+$ source ~/.bash_profile
+
+# 제대로 설치되었다면 버전 확인됨
+$ cmake --version
+cmake version 3.20.3
+
+CMake suite maintained and supported by Kitware (kitware.com/cmake).
+
+3. MySQL8.0.23 install
+$ cd /usr/local/src
+$ wget https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-8.0.30.tar.gz 
+$ wget https://dev.mysql.com/get/Downloads/MySQL-8.0/mysql-8.0.23.tar.gz
+$ tar xvfz mysql-8.0.23.tar.gz
+$ cd mysql-8.0.23
+
+# MySQL8부터는 새로운 폴더를 만들어서 거기에 cmake 설정을 하고 make install 해야 작동된다‼️
+$ mkdir  build
+$ cd build
+$ cmake ../ \
+-DCMAKE_INSTALL_PREFIX=/usr/local/mysql \
+-DMYSQL_DATADIR=/usr/local/mysql/data \
+-DDOWNLOAD_BOOST=1 \
+-DWITH_BOOST=/usr/local/boost \
+-DMYSQL_UNIX_ADDR=/var/lib/mysql/mysql.sock \
+-DDEFAULT_CHARSET=utf8 \
+-DDEFAULT_COLLATION=utf8_general_ci \
+-DWITH_EXTRA_CHARSETS=all \
+-DENABLED_LOCAL_INFILE=1 \
+-DMYSQL_TCP_PORT=3306 \
+-DENABLE_DOWNLOADS=1
+
+# MySQL 설치시에는 너무 오래걸려서 EC2 세션이 만료되기도 하더라...
+# 꼭 백그라운드로 실행하길 추천한다! 
+$ nohup make &
+
+# 아래 명령문을 찍으면 중간중간 어디까지 설치가 진행되었는지 확인가능하다
+$ tail nohup.out
+
+# 같은 방법으로 make install 도 해준다..!
+$ nohup make install
+
+
+$ vi /etc/my.cnf
+
+[client]
+port = 3306
+socket=/tmp/mysql.sock
+
+[mysqld]
+port=3306
+socket=/tmp/mysql.sock
+basedir=/usr/local/mysql
+datadir=/usr/local/mysql/data
+user=root
+character-set-client-handshake=FALSE
+init_connect=SET collation_connection=utf8mb4_0900_ai_ci
+init_connect=SET NAMES utf8mb4
+character-set-server=utf8mb4
+collation-server=utf8mb4_0900_ai_ci
+
+[mysqld_safe]
+log-error=/var/log/mysql_log.err
+pid-file=/usr/local/mysql/mysql.pid
+
+
+# 아래 위치에 3개의 폴더를 꼭 임의로 생성해줘야한다‼️‼️‼️
+# 이 부분 기억해두기!!!!! 아래서 에러 생기면 이 부분을 다 다시 하면 된다.
+# rm -rf logs/ tmp/ data/
+# 위의 문장으로 싹 삭제하고 이 부분을 다시 하면됨!
+$ cd /usr/local/mysql
+$ mkdir logs
+$ mkdir tmp
+$ mkdir data
+
+$ cd /usr/local/mysql/bin/
+$ ./mysqld \
+--initialize-insecure \
+--basedir=/usr/local/mysql \
+--datadir=/usr/local/mysql/data \
+--user=root
+#------------------------------------------------
+
+$ \cp -arpf /usr/local/mysql/support-files/mysql.server /etc/init.d/mysqld
+$ chkconfig --add mysqld
+$ chkconfig mysqld on
+
+$ /etc/init.d/mysqld start
+Starting MySQL.. SUCCESS!
+
+$ cd /usr/local/mysql/support-files
+$ ./mysql.server start
+Starting MySQL SUCCESS!
+
+
+
+4. Mysql 접속 
+$ cd /usr/local/mysql/bin
+$ ./mysql -u root -p
+
+mysql> use mysql;
+
+mysql> select host, user, authentication_string from user;
+mysql> CREATE USER 'hypergit'@'%' IDENTIFIED BY 'Goodmit0802!';
+mysql> GRANT ALL PRIVILEGES ON *.* TO 'hypergit'@'%' WITH GRANT OPTION;
+mysql> FLUSH PRIVILEGES;
+mysql> select host, user from mysql.user;
+
+
+
+error_1
+-- Download failed, error: 22;"HTTP response code said error"
+CMake Error at cmake/boost.cmake:232 (MESSAGE):
+  You can try downloading
+  https://dl.bintray.com/boostorg/release/1.73.0/source/boost_1_73_0.tar.gz
+  manually using curl/wget or a similar tool
+Call Stack (most recent call first):
+  CMakeLists.txt:1167 (INCLUDE)
+
+
+-- Configuring incomplete, errors occurred!
+See also "/usr/local/src/mysql-8.0.23/build/CMakeFiles/CMakeOutput.log".
+See also "/usr/local/src/mysql-8.0.23/build/CMakeFiles/CMakeError.log".
+
+# Solution
+$ cd /usr/local/src
+$ mv boost_1_73_0 /usr/local/boost
+
+
+error_2
+# Error
+$ ./mysql -u root -p
+Enter password: 
+ERROR 2002 (HY000): Can't connect to local MySQL server through socket 
+'/usr/local/tmp/mysql.sock' (2)
+
+# Solution
+# mysql 설치한 폴더로 이동 후, logs, tmp, data 폴더 전부 삭제
+$ cd /usr/local/mysql
+$ rm -rf logs/ tmp/ data/
+$ mkdir logs
+$ mkdir tmp
+$ mkdir data
+$ cd bin
+$ ./mysqld \
+--initialize-insecure \
+--basedir=/usr/local/mysql \
+--datadir=/usr/local/mysql/data \
+--user=root
+
+$ /etc/init.d/mysqld start
+Starting MySQL.. SUCCESS!
+
+$ cd /usr/local/mysql/support-files
+$ ./mysql.server start
+Starting MySQL SUCCESS!
+
+error_3
+# Error
+Warning: mysql_connect() [function.mysql-connect]:
+Client does not support authentication protocol requested by server; 
+consider upgrading MySQL client in /var/www/dbConnectTest2.php 
+on line 6
+connect success
+
+# Solution
+$ cd /usr/local/mysql/bin
+$ ./mysql -u root -p
+
+mysql> ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'root';
+
+mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';
+
+mysql> FLUSH PRIVILEGES;
+
+mysql> eixt;
+
+$ /etc/init.d/mysqld restart
