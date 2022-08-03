@@ -1,0 +1,189 @@
+---
+spring:
+  profiles:
+    group:
+      local: common, locdb, loc
+      dev: common, devdb, develop
+      prod: common
+---
+
+spring:
+  config:
+    activate:
+      on-profile: common
+  pid:
+    file: ./pid/hypergitRest.pid
+  mvc:
+    hidden-method:
+      filter:
+        enabled: true
+  thymeleaf:
+    prefix:
+     classpath: /templates/
+  web:
+    resources:
+      static-locations:
+        classpath: /static/
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: 'rockgis@gmail.com'
+    password: 'dldPwns!@09'
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  jpa:
+    hibernate:
+      connection:
+        provider_class: com.zaxxer.hikari.hibernate.HikariConnectionProvider
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: true
+  datasource:
+    hikari:
+      type: com.zaxxer.hikari.HikariDataSource
+      idle-timeout: 10000
+      maximum-pool-size: 10
+      minimum-idle: 5
+  security:
+    oauth2:
+      client:
+        registration:
+          wso2:
+            client-id: H1ifsmxXZXWpERgabpvBfgZkd48a
+            client-secret: OFJEyPnfzM90_HolKxNxA70cU08a
+        provider:
+          wso2:
+            authorization-uri: "http://wso2.uiscloud.com:9443/oauth2/authorize"
+            token-uri: "http://wso2.uiscloud.com:9443/oauth2/token"
+            user-info-uri: "http://wso2.uiscloud.com:9443/oauth2/userinfo"
+            jwk-set-uri: "http://wso2.uiscloud.com:9443/oauth2/jwks"
+server:
+  servlet:
+    session:
+      #      session delete when app restart
+      persistent: false
+      cookie:
+        name: hypergit
+        max-age: 3660
+        http-only: true
+  tomcat:
+    basedir: .
+    accesslog:
+      enabled: true
+      directory: logs
+      prefix: access_log
+      buffered: false
+      suffix: .log
+      file-date-format: .yyyy-MM-dd
+  error:
+    include-exception: true # 오류 응답에 exception의 내용을 포함할지 여부
+    include-stacktrace: always # 오류 응답에 stacktrace 내용을 포함할 지 여부
+
+logging:
+  level:
+    root: info
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
+    com.zaxxer.hikari.HikariConfig: DEBUG
+    com.zaxxer.hikari: trace
+    org.thymeleaf: info
+
+authentication:
+  localAuth: /admin
+
+---
+spring:
+  config:
+    activate:
+      on-profile: production
+
+---
+spring:
+  config:
+    activate:
+      on-profile: loc
+
+server:
+  port: 9090
+  tomcat:
+    accesslog:
+      enabled: true
+      directory: /dev
+      prefix: stdout
+      buffered: false
+      suffix: ""
+      file-date-format: ""
+  address: 127.0.0.1
+
+---
+spring:
+  config:
+    activate:
+      on-profile: develop
+
+server:
+  port: 9090
+  ssl:
+   key-store: classpath:/static/ssl/uiscloud_keystore.p12
+   key-store-type: PKCS12
+   key-store-password: Goodmit0802!
+   key-alias: uiscloud_tomcat
+  http2:
+   enabled: true
+  tomcat:
+    accesslog:
+      enabled: false
+      directory: /dev
+      prefix: stdout
+      buffered: false
+      suffix: ""
+      file-date-format: ""
+#  address: 10.11.10.200
+---
+spring:
+  config:
+    activate:
+      on-profile: locdb
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://wso2.uiscloud.com:13306/hypergit?serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&useSSL=false
+    username: hypergit
+    password: Goodmit0802!
+
+---
+spring:
+  config:
+    activate:
+      on-profile: devdb
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:13306/hypergit?serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&useSSL=false
+    username: hypergit
+    password: Goodmit0802!
+---
+spring:
+  config:
+    activate:
+      on-profile: h2db
+  datasource:
+    url: jdbc:h2:mem:test
+    username: rockgis
+    password: dldPwns!@09
+    driver-class-name: org.h2.Driver
+  h2:
+    console:
+      enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
