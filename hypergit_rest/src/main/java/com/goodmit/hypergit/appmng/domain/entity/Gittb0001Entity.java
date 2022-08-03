@@ -46,20 +46,6 @@ public class Gittb0001Entity extends TimeEntity  {
     @Column(length = 30, nullable = false)
     private String altEn;// '등록사번',
 
-   // @Transient
-   // private String strRg_Dt = "";
-
-   // public String getStrRg_Dt() {
-  //      return  new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA).format(this.rg_dt);
-  //  }
-
-  //  @Transient
-  //  private String strAlt_Dt = "";
-
-  //  public String getStrAlt_Dt() {
-   //     return  new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA).format(this.alt_dt);
-   // }
-
     @Builder
     public Gittb0001Entity(Long id, String appSn, String appNm, String clNm, String pgeUrlAr, String descTt, String seTf, String bsTf, String rgEn, String altEn) {
         this.id = id;

@@ -99,6 +99,23 @@ logging:
 authentication:
   localAuth: /admin
 
+
+springdoc:
+  version: '1.0'
+  api-docs:
+    path: /api-docs
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json
+  swagger-ui:
+    operations-sorter: alpha
+    tags-sorter: alpha
+    path: /swagger-ui.html
+    disable-swagger-default-url: true
+    display-query-params-without-oauth2: true
+    doc-expansion: none
+  paths-to-match:
+    - /api/**
+
 ---
 spring:
   config:
@@ -154,7 +171,7 @@ spring:
       on-profile: locdb
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://wso2.uiscloud.com:13306/hypergit?serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&useSSL=false
+    url: jdbc:mysql://wso2.uiscloud.com:13306/hyperrest?serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&useSSL=false
     username: hypergit
     password: Goodmit0802!
 
@@ -165,25 +182,8 @@ spring:
       on-profile: devdb
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:13306/hypergit?serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&useSSL=false
+    url: jdbc:mysql://localhost:13306/hyperrest?serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&useSSL=false
     username: hypergit
     password: Goodmit0802!
----
-spring:
-  config:
-    activate:
-      on-profile: h2db
-  datasource:
-    url: jdbc:h2:mem:test
-    username: rockgis
-    password: dldPwns!@09
-    driver-class-name: org.h2.Driver
-  h2:
-    console:
-      enabled: true
-  jpa:
-    hibernate:
-      ddl-auto: create
-    properties:
-      hibernate:
-        format_sql: true
+
+
