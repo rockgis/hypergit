@@ -28,10 +28,22 @@ public class Gittc0001Service {
     public List<Gittc0001Dto> getGittc0001list(Integer pageNum) {
         Page<Gittc0001Entity> page = gittc0001Repository.findAll(PageRequest.of(pageNum - 1, PAGE_POST_COUNT, Sort.by(Sort.Direction.DESC, "createdDate")));
 
-        List<Gittc0001Entity> gitta0001Entities = page.getContent();
+        List<Gittc0001Entity> gittc0001Entities = page.getContent();
         List<Gittc0001Dto> gittc0001DtoList = new ArrayList<>();
 
-        for (Gittc0001Entity gittc0001Entity : gitta0001Entities) {
+        for (Gittc0001Entity gittc0001Entity : gittc0001Entities) {
+            gittc0001DtoList.add(this.convertEntityToDto(gittc0001Entity));
+        }
+
+        return gittc0001DtoList;
+    }
+
+    public List<Gittc0001Dto> getGittc0001listUser(String usrEn) {
+
+        List<Gittc0001Entity> gittc0001Entities = gittc0001Repository.findByUsrEn(usrEn);
+        List<Gittc0001Dto> gittc0001DtoList = new ArrayList<>();
+
+        for (Gittc0001Entity gittc0001Entity : gittc0001Entities) {
             gittc0001DtoList.add(this.convertEntityToDto(gittc0001Entity));
         }
 

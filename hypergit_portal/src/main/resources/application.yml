@@ -131,6 +131,13 @@ spring:
 
 server:
   port: 9090
+  ssl:
+   key-store: classpath:/static/ssl/uiscloud_keystore.p12
+   key-store-type: PKCS12
+   key-store-password: Goodmit0802!
+   key-alias: uiscloud_tomcat
+  http2:
+   enabled: true
   tomcat:
     accesslog:
       enabled: false
