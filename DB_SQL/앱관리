@@ -15,3 +15,5 @@ CREATE TABLE GITTB0001
 );
 
 ALTER TABLE GITTB0001 COMMENT='앱관리';
+
+Insert into GITTB0001 (APP_SN,APP_NM,CL_NM,PGE_URL_AR,DESC_TT,SE_TF,BS_TF,RG_EN,ALT_EN,CREATED_DATE,MODIFIED_DATE) values ('01','HUE','서비스 BDP','https://hue.uiscloud.com','서비스 BDP를 사용하기 위한 HUE','Y','Y','admin','admin',now(),now());

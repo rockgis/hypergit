@@ -106,15 +106,15 @@
                   </thead>
                   <tbody>
                   <!-- CONTENTS !-->
-                  <tr th:each="gitta0002 : ${gittd0002List}">
-                    <td width="5%"><span th:text="${gitta0002.id}"></span></td>
-                    <td><<span th:text="${#temporals.format(gitta0002.createdDate, 'yyyy-MM-dd HH:mm')}"></span></td>
-                    <td><span th:text="${gitta0002.dcd}"></span></td>
-                    <td><span th:text="${gitta0002.usrNm}"></span></td>
-                    <td><span th:text="${gitta0002.usrPin}"></span></td>
-                    <td><span th:text="${gitta0002.emNm}"></span></td>
-                    <td><span th:text="${gitta0002.ugNm}"></span></td>
-                    <td><<span th:text="${${gitta0002.lfDt}}"></span></td>
+                  <tr th:each="gittd0002 : ${gittd0002List}">
+                    <td width="5%"><span th:text="${gittd0002.id}"></span></td>
+                    <td><span th:text="${#temporals.format(gittd0002.createdDate, 'yyyy-MM-dd HH:mm')}"></span></td>
+                    <td><span th:text="${gittd0002.dcd}"></span></td>
+                    <td><span th:text="${gittd0002.usrNm}"></span></td>
+                    <td><span th:text="${gittd0002.usrEn}"></span></td>
+                    <td><span th:text="${gittd0002.emNm}"></span></td>
+                    <td><span th:text="${gittd0002.ugNm}"></span></td>
+                    <td><<span th:text="${gittd0002.lfDt}"></span></td>
                   </tr>
                   </tbody>
                 </table>

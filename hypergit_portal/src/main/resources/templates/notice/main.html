@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,9 +27,9 @@
   <link rel="stylesheet" href="/webjars/AdminLTE/plugins/bs-stepper/css/bs-stepper.min.css">
   <!-- dropzonejs -->
   <link rel="stylesheet" href="/webjars/AdminLTE/plugins/dropzone/min/dropzone.min.css">
-  <!-- jsGrid -->
-  <link rel="stylesheet" href="/webjars/AdminLTE/plugins/jsgrid/jsgrid.min.css">
-  <link rel="stylesheet" href="/webjars/AdminLTE/plugins/jsgrid/jsgrid-theme.min.css">
+  <!-- summernote -->
+  <link rel="stylesheet" href="/webjars/AdminLTE/plugins/summernote/summernote-bs4.min.css">
+  <link rel="stylesheet" href="/webjars/AdminLTE/plugins/dropzone/min/dropzone.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="/webjars/AdminLTE/dist/css/adminlte.min.css">
 </head>
@@ -39,6 +40,7 @@
 
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
+
     <div th:insert="/com/leftmenuAdminMain.html" id="leftMenu"></div>
     <!-- /.sidebar -->
   </aside>
@@ -78,7 +80,7 @@
                   <div class="form-group">
                     목록 : [[${postsTotalCount}]]  건
                     <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#modal-lg"><i class="far fas fa-search"></i> 조회</button>
-                    <button type="button" th:onclick="|location.href='@{/post}'|"  class="btn btn-primary float-right" style="margin-right: 5px;">
+                    <button type="button" data-toggle="modal" data-target="#modal-wg"  class="btn btn-primary float-right" style="margin-right: 5px;">
                       <i class="fas fa-edit"></i> 등록</button>
                   </div>
 
@@ -98,10 +100,10 @@
             <!-- CONTENTS !-->
             <tr th:each="board : ${boardList}">
               <td>
-                <span th:text="${board.id}"></span>
+                <span th:text="${postsTotalCount} - ${boardStat.index}"></span>
               </td>
               <td>
-                <a th:href="@{'/post/' + ${board.id}}">
+                <a th:href="@{'/admin/post/' + ${board.id}}">
                   <span th:text="${board.title}"></span>
                 </a>
               </td>
@@ -123,9 +125,9 @@
           <span th:if="${postsTotalCount} == 0 "> 데이터가 없습니다.</span>
 
           <ul class="pagination pagination-sm m-0 float-right">
-            <li class="page-item"><a class="page-link" th:href="@{'/admin/perferencesmng?page=1'}">&laquo;</a></li>
+            <li class="page-item"><a class="page-link" th:href="@{'/admin/notice?page=1'}">&laquo;</a></li>
             <li class="page-item" th:each="pageNum : ${pageList}" th:inline="text">
-              <a  class="page-link" th:href="@{'/admin/perferencesmng?page=' + ${pageNum}}">[[${pageNum}]]</a>
+              <a  class="page-link" th:href="@{'/admin/notice?page=' + ${pageNum}}">[[${pageNum}]]</a>
             </li>
             <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
           </ul>
@@ -162,7 +164,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="/board/search" method="POST">
+        <form action="/admin/notice/search" method="POST">
           <div class="row">
             <div class="col-md-12 ">
               <div class="row">
@@ -213,6 +215,60 @@
 <!-- /.modal -->
 
 
+<div class="modal fade" id="modal-wg">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">공지사항</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form  action="/admin/post" method="post" id="notice_brd" class="form-horizontal">
+          <input type="hidden" name="_method" value="post"/>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">제목 </label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name="title" placeholder="제목">
+              </div>
+            </div>
+            <!-- div class="form-group row">
+              <label class="col-sm-2 col-form-label">작성자</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" name="writer" placeholder="작성자" value='<span sec:authentication="name"></span>'>
+              </div>
+            </div -->
+            <div class="form-group row">
+              <div class="offset-sm-2 col-sm-10">
+                <textarea name="content" id="content">
+                  공지 내용을 작성 해 주세요.
+                </textarea>
+              </div>
+            </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <div class="row">
+          <div class="col-md-12 ">
+            <div class="form-group">
+              <button type="button" class="btn btn-danger float-right" style="margin-right: 5px;" data-dismiss="modal">Close</button>
+              <button type="button" onclick="document.getElementById('notice_brd').submit();" class="btn btn-primary float-right" style="margin-right: 5px;"><i class="fas fa-search"></i> 등록</button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+
+
+
 <!-- jQuery -->
 <script src="/webjars/AdminLTE/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
@@ -226,9 +282,8 @@
 <script src="/webjars/AdminLTE/plugins/inputmask/jquery.inputmask.min.js"></script>
 <!-- date-range-picker -->
 <script src="/webjars/AdminLTE/plugins/daterangepicker/daterangepicker.js"></script>
-<!-- jsGrid -->
-<script src="/js/jsgrid/perferencesmng.js"></script>
-<script src="/webjars/AdminLTE/plugins/jsgrid/jsgrid.min.js"></script>
+<!-- Summernote -->
+<script src="/webjars/AdminLTE/plugins/summernote/summernote-bs4.min.js"></script>
 <!-- AdminLTE App -->
 <script src="/webjars/AdminLTE/dist/js/adminlte.min.js"></script>
 
@@ -244,6 +299,8 @@
         format: 'YYYY-MM-DD hh:mm A'
       }
     });
+
+    $('#content').summernote();
 
   });
 </script>

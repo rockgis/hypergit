@@ -31,7 +31,7 @@ public class Gittf0001Dto {
 
 
     public Gittf0001Entity toEntity(){
-        Gittf0001Entity gitta0001Entity = Gittf0001Entity.builder()
+        Gittf0001Entity gittf0001Entity = Gittf0001Entity.builder()
                 .id(id)
                 .roleId(roleId)
                 .roleNm(roleNm)
@@ -39,7 +39,7 @@ public class Gittf0001Dto {
                 .rgEn(rgEn)
                 .altEn(altEn)
                 .build();
-        return gitta0001Entity;
+        return gittf0001Entity;
     }
 
     @Builder

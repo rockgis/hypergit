@@ -1,4 +1,4 @@
-package com.goodmit.hypergit.board.domain.entity;
+package com.goodmit.hypergit.user.domain.entity;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Getter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public abstract class TimeEntity {
+public abstract class TimeEntity01 {
     @CreatedDate
     @Column(nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime createdDate;

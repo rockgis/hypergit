@@ -101,13 +101,16 @@
                   </thead>
                   <tbody>
                   <!-- CONTENTS !-->
-                  <tr th:each="gitta0004 : ${gitta0004List}">
-                    <td width="5%"><span th:text="${gitta0004.id}"></span></td>
-                    <td><<span th:text="${#temporals.format(gitta0004.createdDate, 'yyyy-MM-dd HH:mm')}"></span></td>
-                    <td><span th:text="${gitta0004.usrNm}"></span></td>
-                    <td><span th:text="${gitta0004.appNm}"></span></td>
-                    <td><span th:text="${gitta0004.pgeUrlAr}"></span></td>
-                    <td><span th:text="${gitta0004.ugCt}"></span></td>
+                  <tr th:each="gittd004 : ${gittd0004List}">
+                    <td width="5%"><span th:text="${gittd004.id}"></span></td>
+                    <td><span th:text="${#temporals.format(gittd004.createdDate, 'yyyy-MM-dd HH:mm')}"></span></td>
+                    <td><span th:text="${gittd004.usrNm}"></span></td>
+                    <td><span th:text="${gittd004.appNm}"></span></td>
+                    <td><span th:text="${gittd004.pgeUrlAr}"></span></td>
+                    <td>
+                      <span th:if="${gittd004.ugCt == 1}">접속</span>
+                      <span th:if="${gittd004.ugCt == 0}">미접속</span>
+                    </td>
                   </tr>
                   </tbody>
                 </table>

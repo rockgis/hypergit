@@ -18,13 +18,13 @@ public class LogmngController {
     @GetMapping("/admin/logmng")
     public String list(Model model, @RequestParam(value="page", defaultValue = "1") Integer pageNum) {
 
-        List<Gitte0001Dto> gitta0001List = gitte0001Service.getGitte0001list(pageNum);
+        List<Gitte0001Dto> gitte0001List = gitte0001Service.getGitte0001list(pageNum);
         Integer[] pageList = gitte0001Service.getPageList(pageNum);
 
         double  count = Double.valueOf(gitte0001Service.getGitte001Count());
         Integer postsTotalCount = (int) count;
 
-        model.addAttribute("gitta0001List", gitta0001List);
+        model.addAttribute("gitte0001List", gitte0001List);
         model.addAttribute("pageList", pageList);
         model.addAttribute("postsTotalCount", postsTotalCount);
 

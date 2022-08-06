@@ -108,6 +108,7 @@ public class Gittd0004Service {
                 .appNm(gittd0004Entity.getAppNm())
                 .pgeUrlAr(gittd0004Entity.getPgeUrlAr())
                 .ugCt(gittd0004Entity.getUgCt())
+                .createdDate(gittd0004Entity.getCreatedDate())
                 .build();
     }
 }

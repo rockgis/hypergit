@@ -9,8 +9,8 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="/webjars/AdminLTE/plugins/fontawesome-free/css/all.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="/webjars/AdminLTE/plugins/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Ionicons
+  <link rel="stylesheet" href="/webjars/AdminLTE/plugins/ionicons/2.0.1/css/ionicons.min.css">-->
   <!-- Tempusdominus Bootstrap 4 -->
   <link rel="stylesheet" href="/webjars/AdminLTE/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
   <!-- iCheck -->
@@ -72,12 +72,12 @@
             <div class="inner">
               <h3>150</h3>
 
-              <p>New Orders</p>
+              <p>일일 권한 요청 수</p>
             </div>
             <div class="icon">
               <i class="ion ion-bag"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="/admin/permissionmng" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -85,14 +85,14 @@
           <!-- small box -->
           <div class="small-box bg-success">
             <div class="inner">
-              <h3>53<sup style="font-size: 20px">%</sup></h3>
+              <h3>53</h3>
 
-              <p>Bounce Rate</p>
+              <p>APP 등록 건수</p>
             </div>
             <div class="icon">
               <i class="ion ion-stats-bars"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="/admin/appmng" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -162,7 +162,7 @@
                     <span th:text="${board.id}"></span>
                   </td>
                   <td>
-                    <a th:href="@{'/post/' + ${board.id}}">
+                    <a th:href="@{'/admin/post/' + ${board.id}}">
                       <span th:text="${board.title}"></span>
                     </a>
                   </td>

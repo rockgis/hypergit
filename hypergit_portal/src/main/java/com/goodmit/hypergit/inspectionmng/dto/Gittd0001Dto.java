@@ -22,6 +22,9 @@ public class Gittd0001Dto {
 
     private String emNm; //EM_NM       CHAR(20) COMMENT '이메일',
 
+
+    private String usrIp; //USR_IP       CHAR(20) COMMENT '접근 IP ',
+
     private String ugNm;// UG_NM       CHAR(20) COMMENT '활동',
 
     private String refUrlAr;// REF_URL_AR  VARCHAR(200) COMMENT 'ReferURL'
@@ -37,6 +40,7 @@ public class Gittd0001Dto {
                 .usrNm(usrNm)
                 .usrEn(usrEn)
                 .emNm(emNm)
+                .usrIp(usrIp)
                 .ugNm(ugNm)
                 .refUrlAr(refUrlAr)
                 .build();
@@ -44,12 +48,13 @@ public class Gittd0001Dto {
     }
 
     @Builder
-    public Gittd0001Dto(Long id, String  dcd, String usrNm, String usrEn, String emNm, String ugNm, String refUrlAr,LocalDateTime createdDate) {
+    public Gittd0001Dto(Long id, String  dcd, String usrNm, String usrEn, String emNm, String usrIp,String ugNm, String refUrlAr,LocalDateTime createdDate) {
         this.id = id;
         this.dcd = dcd;
         this.usrNm = usrNm;
         this.usrEn = usrEn;
         this.emNm = emNm;
+        this.usrIp = usrIp;
         this.ugNm = ugNm;
         this.refUrlAr = refUrlAr;
         this.createdDate = createdDate;

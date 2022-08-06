@@ -102,14 +102,14 @@
                   </thead>
                   <tbody>
                   <!-- CONTENTS !-->
-                  <tr th:each="gitta0003 : ${gitta0003List}">
-                    <td width="5%"><span th:text="${gitta0003.id}"></span></td>
-                    <td><<span th:text="${#temporals.format(gitta0003.modifiedDate, 'yyyy-MM-dd HH:mm')}"></span></td>
-                    <td><span th:text="${gitta0003.wrTy}"></span></td>
-                    <td><span th:text="${gitta0003.dcd}"></span></td>
-                    <td><span th:text="${gitta0003.usrNm}"></span></td>
-                    <td><span th:text="${gitta0003.ugId}"></span></td>
-                    <td><span th:text="${gitta0003.altEn}"></span></td>
+                  <tr th:each="gittd0003 : ${gittd0003List}">
+                    <td width="5%"><span th:text="${gittd0003.id}"></span></td>
+                    <td><span th:text="${#temporals.format(gittd0003.modifiedDate, 'yyyy-MM-dd HH:mm')}"></span></td>
+                    <td><span th:text="${gittd0003.wrTy}"></span></td>
+                    <td><span th:text="${gittd0003.dcd}"></span></td>
+                    <td><span th:text="${gittd0003.usrNm}"></span></td>
+                    <td><span th:text="${gittd0003.ugId}"></span></td>
+                    <td><span th:text="${gittd0003.altEn}"></span></td>
                   </tr>
                   </tbody>
                 </table>

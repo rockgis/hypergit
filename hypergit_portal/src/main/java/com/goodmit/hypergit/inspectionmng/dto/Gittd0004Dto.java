@@ -14,9 +14,6 @@ public class Gittd0004Dto {
 
     private Long id; //'등록순번'
 
-    private String wrTy; //   WR_TY       CHAR(20) COMMENT '타입',
-
-
     private String dcd; //    DCD         VARCHAR(50) COMMENT '부서코드',
 
 
@@ -31,6 +28,8 @@ public class Gittd0004Dto {
     private String pgeUrlAr; //PGE_URL_AR  VARCHAR(200) COMMENT '접속 앱 URL',
 
     private int ugCt;// UG_CT   INT COMMENT '접속상태'
+
+    LocalDateTime createdDate;
 
 
     public Gittd0004Entity toEntity(){
@@ -47,7 +46,7 @@ public class Gittd0004Dto {
     }
 
     @Builder
-    public Gittd0004Dto(Long id,  String  dcd, String usrNm, String usrEn, String appNm, String pgeUrlAr, int ugCt) {
+    public Gittd0004Dto(Long id,  String  dcd, String usrNm, String usrEn, String appNm, String pgeUrlAr, int ugCt,LocalDateTime createdDate) {
         this.id = id;
         this.dcd = dcd;
         this.usrNm = usrNm;
@@ -55,6 +54,7 @@ public class Gittd0004Dto {
         this.appNm = appNm;
         this.pgeUrlAr = pgeUrlAr;
         this.ugCt = ugCt;
+        this.createdDate = createdDate;
     }
 
 }

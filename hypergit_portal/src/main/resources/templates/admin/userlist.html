@@ -81,12 +81,12 @@
                 <div class="form-group">
                   목록 : [[${postsTotalCount}]]  건
                   <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#modal-xl"><i class="far fas fa-search"></i> 조회</button>
-                  <button type="button" class="btn btn-danger float-right" style="margin-right: 5px;">
-                    <i class="fas fa-copy"></i> 삭제</button>
-                  <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
-                    <i class="fas fa-edit"></i> 등록</button>
                   <button type="button" class="btn btn-secondary float-right" style="margin-right: 5px;">
                     <i class=" far fa-plus-square"></i> 잠금해제</button>
+                  <button type="button" class="btn btn-danger float-right" style="margin-right: 5px;" id="delete">
+                    <i class="fas fa-copy"></i> 삭제</button>
+                  <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-lg" style="margin-right: 5px;">
+                    <i class="fas fa-edit"></i> 등록</button>
 
                 </div>
 
@@ -98,17 +98,15 @@
               <thead>
               <tr>
                 <th width="5%">
-                   <input type="checkbox">
+                   <input type="checkbox" id="chkAll">
                 </th>
                 <th width="5%">번호</th>
                 <th>부서</th>
                 <th>이름</th>
                 <th>사번</th>
                 <th>이메일</th>
-                <th>사용자그룹</th>
-                <th>상태</th>
-                <th>인증실패수</th>
-                <th>마지막로그인 시간</th>
+                <th>관리공간 IP</th>
+                <th>공용계정 사용 여부</th>
                 <th>수정일</th>
                 <th>수정자</th>
               </tr>
@@ -117,20 +115,17 @@
               <!-- CONTENTS !-->
               <tr th:each="gitta0001 : ${gitta0001List}">
                 <td width="5%">
-                  <input type="checkbox">
+                  <input type="checkbox" class="chk"  th:value="${gitta0001.id}">
                 </td>
                 <td width="5%"><span th:text="${gitta0001.id}"></span></td>
-                <td><span th:text="${gitta0001.id}"></span></td>
                 <td><span th:text="${gitta0001.dcd}"></span></td>
                 <td><span th:text="${gitta0001.usrNm}"></span></td>
-                <td><span th:text="${gitta0001.usrPin}"></span></td>
+                <td><span th:text="${gitta0001.usrEn}"></span></td>
                 <td><span th:text="${gitta0001.emNm}"></span></td>
-                <td><span th:text="${gitta0001.id}"></span></td>
-                <td><span th:text="${gitta0001.usd}"></span></td>
-                <td><span th:text="${gitta0001.id}"></span></td>
-                <td><span th:text="${gitta0001.id}"></span></td>
-                <td><<span th:text="${#temporals.format(gitta0001.createdDate, 'yyyy-MM-dd HH:mm')}"></span></td>
-                <td><span th:text="${gitta0001.altEn}"></span></td>
+                <td><span th:text="${gitta0001.nrIpAr}"></span></td>
+                <td><span th:text="${gitta0001.earEhf}"></span></td>
+                <td><span th:text="${#temporals.format(gitta0001.createdDate, 'yyyy-MM-dd HH:mm')}"></span></td>
+                <td><span th:text="${gitta0001.rgEn}"></span></td>
               </tr>
               </tbody>
             </table>
@@ -295,6 +290,93 @@
 </div>
 <!-- /.modal -->
 
+<div class="modal fade" id="modal-lg">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">사용자 관리</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form  action="/admin/userpost" method="post" id="app_brd" class="form-horizontal">
+          <input type="hidden" name="_method" value="post"/>
+          <div class="form-group row">
+              <label class="col-sm-2 col-form-label">부서 </label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="dcd" placeholder="부서명">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">이름</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="usrNm" placeholder="이름">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">사번 </label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="usrEn" placeholder="사번">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">이메일</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="emNm" placeholder="이메일">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">관리공간 IP</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="nrIpAr" placeholder="관리공간 IP">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">공용 계정 사용여부 </label>
+            <div class="col-sm-10">
+              <select class="form-control select2" name="earEhf"  style="width: 100%;">
+                <option selected="selected" value="Y" >기본사용</option>
+                <option value="N">사용불가</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">관리자 여부 </label>
+            <div class="col-sm-10">
+              <select class="form-control select2" name="adTf"  style="width: 100%;">
+                <option value="Y" >관리자</option>
+                <option selected="selected" value="N">사용자</option>
+              </select>
+            </div>
+          </div>
+          <!-- div class="form-group row">
+            <label class="col-sm-2 col-form-label">작성자</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="writer" placeholder="작성자" value='<span sec:authentication="name"></span>'>
+            </div>
+          </div -->
+
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <div class="row">
+          <div class="col-md-12 ">
+            <div class="form-group">
+              <button type="button" class="btn btn-danger float-right" style="margin-right: 5px;" data-dismiss="modal">Close</button>
+              <button type="button" onclick="document.getElementById('app_brd').submit();" class="btn btn-primary float-right" style="margin-right: 5px;"><i class="fas fa-search"></i> 등록</button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
 
 <!-- jQuery -->
 <script src="/webjars/AdminLTE/plugins/jquery/jquery.min.js"></script>
@@ -325,6 +407,28 @@
       }
     });
 
+  });
+
+  //전체체크 클릭 시
+  $("#chkAll").click(function(){
+
+    if($("#chkAll").is(":checked")){
+      $(".chk").prop("checked", true);
+    }else{
+      $(".chk").prop("checked", false);
+    }
+
+  });
+
+  $(document).on('click', '#delete', function() {	// 삭제버튼 클릭 시
+    var chk_id = [];
+
+    $(".chk:checked").each(function(){
+      var id = $(this).val();
+      chk_id.push(id);
+    });
+    //alert(chk_id)
+    location.href="/admin/userdel?idx="+chk_id;
   });
 </script>
 </body>

@@ -49,23 +49,31 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers(getResources()).permitAll()
                     .antMatchers("/h2-console/**").permitAll()
                     .antMatchers("/admin/**").authenticated()
+                    //.antMatchers("/").authenticated()
                 .and() // 로그인 설정
                     .formLogin()
                     .loginPage("/admin/login")
-                    .defaultSuccessUrl("/admin/login/result")
+                    .defaultSuccessUrl("/admin")
                     .permitAll()
                 .and() // 로그아웃 설정
                     .logout()
                     .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
-                    .logoutSuccessUrl("/user/logout/result")
+                    .logoutSuccessUrl("/admin")
                     .invalidateHttpSession(true)
                 .and()
                     .csrf()
+                    .ignoringAntMatchers("/admin/*post")
+                    .ignoringAntMatchers("/admin/*del")
+                    .ignoringAntMatchers("/admin/post")
+                    .ignoringAntMatchers("/admin/post")
                     .ignoringAntMatchers("/post")
+                .and()
+                    .oauth2Login().loginPage("/login")
                 .and()
                 // 403 예외처리 핸들링
                     .exceptionHandling().accessDeniedPage("/user/denied");
-//                .and().csrf().disable();
+
+//              .and().csrf().disable();
 
     }
 

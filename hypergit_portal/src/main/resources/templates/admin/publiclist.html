@@ -26,11 +26,14 @@
   <link rel="stylesheet" href="/webjars/AdminLTE/plugins/bs-stepper/css/bs-stepper.min.css">
   <!-- dropzonejs -->
   <link rel="stylesheet" href="/webjars/AdminLTE/plugins/dropzone/min/dropzone.min.css">
-  <!-- summernote -->
-  <link rel="stylesheet" href="/webjars/AdminLTE/plugins/summernote/summernote-bs4.min.css">
-  <link rel="stylesheet" href="/webjars/AdminLTE/plugins/dropzone/min/dropzone.min.css">
+  <!-- jsGrid -->
+  <link rel="stylesheet" href="/webjars/AdminLTE/plugins/jsgrid/jsgrid.min.css">
+  <link rel="stylesheet" href="/webjars/AdminLTE/plugins/jsgrid/jsgrid-theme.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="/webjars/AdminLTE/dist/css/adminlte.min.css">
+
+
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -39,7 +42,7 @@
 
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <div th:insert="/com/leftmenupolicymng.html" id="leftMenu"></div>
+    <div th:insert="/com/leftmenuAdminMain.html" id="leftMenu"></div>
     <!-- /.sidebar -->
   </aside>
 
@@ -55,7 +58,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">정책관리</li>
+              <li class="breadcrumb-item active">사용자 관리</li>
             </ol>
           </div>
         </div>
@@ -68,82 +71,83 @@
       <!-- /.card -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title"><i class="fas fa-cog"></i>  ROLE 관리</h3>
+          <h3 class="card-title"><i class="fas fa-user-secret"></i> 공용 계정관리</h3>
         </div>
         <div class="card-body">
-          <div class="container-fluid">
-            <div class="row">
+
+        <div class="container-fluid">
+          <div class="row">
               <div class="col-md-12 ">
-                  <div class="form-group">
-                    목록 : [[${postsTotalCount}]]  건
-                    <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#modal-xl"><i class="far fas fa-search"></i> 조회</button>
-                    <button type="button" class="btn btn-danger float-right" style="margin-right: 5px;" id="delete">
-                      <i class="fas fa-copy"></i> 삭제</button>
-                    <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-lg" style="margin-right: 5px;">
-                      <i class="fas fa-edit"></i> 등록</button>
+                <div class="form-group">
+                  목록 : [[${postsTotalCount}]]  건
+                  <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#modal-xl"><i class="far fas fa-search"></i> 조회</button>
+                  <button type="button" class="btn btn-secondary float-right" style="margin-right: 5px;">
+                    <i class=" far fa-plus-square"></i> 잠금해제</button>
+                  <button type="button" class="btn btn-danger float-right" style="margin-right: 5px;" id="delete">
+                    <i class="fas fa-copy"></i> 삭제</button>
+                  <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal-lg" style="margin-right: 5px;">
+                    <i class="fas fa-edit"></i> 등록</button>
 
-                  </div>
                 </div>
-              </div>
 
-            <div class="row">
-                <table class="table table-hover text-nowrap">
-                  <thead>
-                  <tr>
-                    <th width="5%">
-                      <input type="checkbox" id="chkAll">
-                    </th>
-                    <th width="5%">번호</th>
-                    <th >역할ID</th>
-                    <th>역할명</th>
-                    <th>작성자</th>
-                    <th>작성일</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <!-- CONTENTS !-->
-                  <tr th:each="gittf0001 : ${gittf0001List}">
-                    <td >
-                      <input type="checkbox" class="chk"  th:value="${gittf0001.id}">
-                    </td>
-                    <td>
-                      <span th:text="${gittf0001.id}"></span>
-                    </td>
-                    <td>
-                        <span th:text="${gittf0001.roleId}"></span>
-                    </td>
-                    <td>
-                      <span th:text="${gittf0001.roleNm}"></span>
-                    </td>
-                    <td>
-                      <span th:text="${gittf0001.rgEn}"></span>
-                    </td>
-                    <td>
-                      <span th:text="${#temporals.format(gittf0001.createdDate, 'yyyy-MM-dd HH:mm')}"></span>
-                    </td>
-                  </tr>
-
-                  </tbody>
-                </table>
               </div>
             </div>
-            <!-- /.card-body -->
-            <div class="card-footer clearfix">
 
-              <span th:if="${postsTotalCount} > 0 "> Pages:</span>
-              <span th:if="${postsTotalCount} == 0 "> 데이터가 없습니다.</span>
+          <div class="row">
+            <table class="table table-hover text-nowrap">
+              <thead>
+              <tr>
+                <th width="5%">
+                   <input type="checkbox" id="chkAll">
+                </th>
+                <th width="5%">번호</th>
+                <th>P_아이디</th>
+                <th>구분</th>
+                <th>소유자 사번</th>
+                <th>소유자</th>
+                <th>Data 권한</th>
+                <th>사용유뮤</th>
+                <th>생성일</th>
+              </tr>
+              </thead>
+              <tbody>
+              <!-- CONTENTS !-->
+              <tr th:each="gitta0002 : ${gitta0002List}">
+                <td width="5%">
+                  <input type="checkbox" class="chk"  th:value="${gitta0002.id}">
+                </td>
+                <td width="5%"><span th:text="${gitta0002.id}"></span></td>
+                <td><span th:text="${gitta0002.usrEn}"></span></td>
+                <td><span th:text="${gitta0002.usTf}"></span></td>
+                <td><span th:text="${gitta0002.rgEn}"></span></td>
+                <td><span th:text="${gitta0002.usrNm}"></span></td>
+                <td><span th:text="${gitta0002.ruleId}"></span></td>
+                <td><span th:text="${gitta0002.seTf}"></span></td>
+                <td><span th:text="${#temporals.format(gitta0002.createdDate, 'yyyy-MM-dd HH:mm')}"></span></td>
 
-              <ul class="pagination pagination-sm m-0 float-right">
-                <li class="page-item"><a class="page-link" th:href="@{'/admin/perferencesmng?page=1'}">&laquo;</a></li>
-                <li class="page-item" th:each="pageNum : ${pageList}" th:inline="text">
-                  <a  class="page-link" th:href="@{'/admin/perferencesmng?page=' + ${pageNum}}">[[${pageNum}]]</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
-              </ul>
-            </div>
+              </tr>
+              </tbody>
+            </table>
           </div>
-      <!-- /.card -->
         </div>
+          <!-- /.card-body -->
+          <div class="card-footer clearfix">
+
+            <span th:if="${postsTotalCount} > 0 "> Pages:</span>
+            <span th:if="${postsTotalCount} == 0 "> 데이터가 없습니다.</span>
+
+            <ul class="pagination pagination-sm m-0 float-right">
+              <li class="page-item"><a class="page-link" th:href="@{'/admin/perferencesmng?page=1'}">&laquo;</a></li>
+              <li class="page-item" th:each="pageNum : ${pageList}" th:inline="text">
+                <a  class="page-link" th:href="@{'/admin/perferencesmng?page=' + ${pageNum}}">[[${pageNum}]]</a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+            </ul>
+
+          </div>
+        </div>
+        <!-- /.card -->
+      <!-- /.card -->
     </section>
     <!-- /.content -->
   </div>
@@ -179,20 +183,48 @@
               <div class="row">
                 <div class="col-4">
                   <div class="form-group">
-                    <label>사용자</label>
-                    <input class="form-control" name="keyword" type="text" placeholder="검색어를 입력해주세요">
-                  </div>
-                </div>
-                <div class="col-4">
-                  <div class="form-group">
                     <label>사번</label>
                     <input class="form-control" name="keyword" type="text" placeholder="검색어를 입력해주세요">
                   </div>
                 </div>
                 <div class="col-4">
                   <div class="form-group">
+                    <label>이름</label>
+                    <input class="form-control" name="keyword" type="text" placeholder="검색어를 입력해주세요">
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
+                    <label>Email</label>
+                    <input class="form-control" name="keyword" type="text" placeholder="검색어를 입력해주세요">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 ">
+              <div class="row">
+                <div class="col-4">
+                  <div class="form-group">
                     <label>부서</label>
                     <input class="form-control" name="keyword" type="text" placeholder="검색어를 입력해주세요">
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
+                    <label>직급</label>
+                    <input class="form-control" name="keyword" type="text" placeholder="검색어를 입력해주세요">
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
+                    <label>관리자 여부</label>
+                    <select class="form-control select2" style="width: 100%;">
+                      <option selected="selected" value="A" >전체</option>
+                      <option value="Y">Y</option>
+                      <option value="N">N</option>
+                    </select>
                   </div>
                 </div>
               </div>
@@ -202,10 +234,25 @@
           <div class="row">
             <div class="col-md-12 ">
               <div class="row">
-
-                <div class="col-6">
+                <div class="col-4">
                   <div class="form-group">
-                    <label>조회 기간</label>
+                    <label>사용자 그룹</label>
+                    <input class="form-control" name="keyword" type="text" placeholder="검색어를 입력해주세요">
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
+                    <label>계정 상태</label>
+                    <select class="form-control select2" style="width: 100%;">
+                      <option selected="selected" value="A" >전체</option>
+                      <option value="Y">Y</option>
+                      <option value="N">N</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
+                    <label>로그인 기간</label>
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text"><i class="far fa-clock"></i></span>
@@ -214,13 +261,6 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-6">
-                  <div class="form-group">
-                    <label>결과</label>
-                    <input class="form-control" name="keyword" type="text" placeholder="검색어를 입력해주세요">
-                  </div>
-                </div>
-
               </div>
 
             </div>
@@ -253,32 +293,64 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">Role 꽌리</h4>
+        <h4 class="modal-title">사용자 관리</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form  action="/admin/rollmnpost" method="post" id="app_brd" class="form-horizontal">
+        <form  action="/admin/publicpost" method="post" id="app_brd" class="form-horizontal">
           <input type="hidden" name="_method" value="post"/>
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">역활 ID </label>
+            <label class="col-sm-2 col-form-label">P_아이디 </label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" name="roleId" placeholder="역활 ID">
+              <input type="text" class="form-control" name="usrEn" placeholder="P_아이디">
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">역활 명</label>
+            <label class="col-sm-2 col-form-label">구분</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" name="roleNm" placeholder="역활 명">
+              <select class="form-control select2" name="usTf"  style="width: 100%;">
+                <option selected="selected" value="Y" >기본사용</option>
+                <option value="N">사용불가</option>
+              </select>
             </div>
           </div>
           <div class="form-group row">
-            <div class="offset-sm-2 col-sm-10">
-                <textarea name="descTt" id="descTt">
-                  앱 설명을 넣어 주세요.
+            <label class="col-sm-2 col-form-label">소유자 사번 </label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="rgEn" placeholder="소유자 사번">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">소유자</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="usrNm" placeholder="소유자">
+            </div>
+          </div>
+          <!-- div class="form-group row">
+            <label class="col-sm-2 col-form-label">이메일</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" name="emNm" placeholder="이메일">
+            </div>
+          </div -->
 
-                </textarea>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Data 권한 </label>
+            <div class="col-sm-10">
+              <select class="form-control select2" name="ruleId"  style="width: 100%;">
+                <option selected="selected" value="1" >관리자</option>
+                <option value="2">RW</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">사용여부 </label>
+            <div class="col-sm-10">
+              <select class="form-control select2" name="seTf"  style="width: 100%;">
+                <option selected="selected" value="Y" >기본사용</option>
+                <option value="N">사용불가</option>
+              </select>
             </div>
           </div>
         </form>
@@ -302,7 +374,6 @@
   <!-- /.modal-dialog -->
 </div>
 
-
 <!-- jQuery -->
 <script src="/webjars/AdminLTE/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
@@ -316,9 +387,6 @@
 <script src="/webjars/AdminLTE/plugins/inputmask/jquery.inputmask.min.js"></script>
 <!-- date-range-picker -->
 <script src="/webjars/AdminLTE/plugins/daterangepicker/daterangepicker.js"></script>
-<!-- Summernote -->
-<script src="/webjars/AdminLTE/plugins/summernote/summernote-bs4.min.js"></script>
-
 <!-- AdminLTE App -->
 <script src="/webjars/AdminLTE/dist/js/adminlte.min.js"></script>
 
@@ -326,8 +394,6 @@
 
 <script>
   $(function () {
-
-    $('#descTt').summernote();
 
     $('#reservationtime').daterangepicker({
       timePicker: true,
@@ -357,10 +423,9 @@
       var id = $(this).val();
       chk_id.push(id);
     });
-    alert(chk_id)
-    location.href="/admin/rollmndel?idx="+chk_id;
+    //alert(chk_id)
+    location.href="/admin/publicdel?idx="+chk_id;
   });
-
 </script>
 </body>
 </html>

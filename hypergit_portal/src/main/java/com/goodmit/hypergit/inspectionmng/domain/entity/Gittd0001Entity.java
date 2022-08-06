@@ -32,6 +32,10 @@ public class Gittd0001Entity extends TimeEntity  {
     @Column(columnDefinition ="char" , length = 20,  nullable = false)
     private String emNm; //EM_NM       CHAR(20) COMMENT '이메일',
 
+    @Column(columnDefinition ="char" , length = 20,  nullable = false)
+    private String usrIp; //USR_IP       CHAR(20) COMMENT '접근 IP ',
+
+
     @Column(columnDefinition ="char" , length = 20, nullable = false)
     private String ugNm;// UG_NM       CHAR(20) COMMENT '활동',
 
@@ -39,12 +43,13 @@ public class Gittd0001Entity extends TimeEntity  {
     private String refUrlAr;// REF_URL_AR  VARCHAR(200) COMMENT 'ReferURL'
 
     @Builder
-    public Gittd0001Entity(Long id, String  dcd, String usrNm, String usrEn, String emNm, String ugNm, String refUrlAr) {
+    public Gittd0001Entity(Long id, String  dcd, String usrNm, String usrEn, String emNm, String usrIp,String ugNm, String refUrlAr) {
         this.id = id;
         this.dcd = dcd;
         this.usrNm = usrNm;
         this.usrEn = usrEn;
         this.emNm = emNm;
+        this.usrIp = usrIp;
         this.ugNm = ugNm;
         this.refUrlAr = refUrlAr;
     }

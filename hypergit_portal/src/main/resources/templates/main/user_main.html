@@ -122,7 +122,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                   <a class="btn btn-info" href="javascript:void(0)" data-filter="2"> 통합 BDP </a>
                   <a class="btn btn-info" href="javascript:void(0)" data-filter="3"> 서비스 CDSW </a>
                   <a class="btn btn-info" href="javascript:void(0)" data-filter="4"> 통합  CDSW </a>
-                    <a class="btn btn-info" href="javascript:void(0)" data-filter="5"> 쥬키퍼 </a>
                 </div>
                 <!-- div class="mb-2">
                   <a class="btn btn-secondary" href="javascript:void(0)" data-shuffle> Shuffle items </a>
@@ -132,6 +131,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                       <option value="sortData"> Sort by Custom Data </option>
                     </select>
                     <div class="btn-group">
+                    <a th:href="@{'/admin/webloging/' + ${gittb0001.id}}"></a>
+
                       <a class="btn btn-default" href="javascript:void(0)" data-sortAsc> Ascending </a>
                       <a class="btn btn-default" href="javascript:void(0)" data-sortDesc> Descending </a>
                     </div>

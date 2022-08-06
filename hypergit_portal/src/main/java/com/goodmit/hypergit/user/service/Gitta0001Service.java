@@ -104,14 +104,11 @@ public class Gitta0001Service {
                 .dcd(gitta0001Entity.getDcd())
                 .usrNm(gitta0001Entity.getUsrNm())
                 .usrEn(gitta0001Entity.getUsrEn())
-                .usrPin(gitta0001Entity.getUsrPin())
                 .emNm(gitta0001Entity.getEmNm())
-                .usd(gitta0001Entity.getUsd())
-                .adTf(gitta0001Entity.getAdTf())
-                .seTf(gitta0001Entity.getSeTf())
                 .earEhf(gitta0001Entity.getEarEhf())
+                .adTf(gitta0001Entity.getAdTf())
+                .nrIpAr(gitta0001Entity.getNrIpAr())
                 .rgEn(gitta0001Entity.getRgEn())
-                .altEn(gitta0001Entity.getAltEn())
                 .createdDate(gitta0001Entity.getCreatedDate())
                 .build();
 

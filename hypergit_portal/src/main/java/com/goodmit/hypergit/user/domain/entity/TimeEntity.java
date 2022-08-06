@@ -18,6 +18,4 @@ public abstract class TimeEntity {
     @Column(nullable = false, updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime createdDate;
 
-    @LastModifiedDate
-    private LocalDateTime modifiedDate;
 }

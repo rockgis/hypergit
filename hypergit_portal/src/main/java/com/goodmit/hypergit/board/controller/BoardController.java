@@ -46,7 +46,7 @@ public class BoardController {
     public String write(BoardDto boardDto) {
         boardService.savePost(boardDto);
 
-        return "redirect:/admin/perferencesmng";
+        return "redirect:/list";
     }
 
     /* 게시글 수정 */
@@ -62,7 +62,7 @@ public class BoardController {
     public String update(BoardDto boardDTO) {
         boardService.savePost(boardDTO);
 
-        return "redirect:/admin/perferencesmng";
+        return "redirect:/list";
     }
 
     /* 게시글 삭제 */
@@ -70,7 +70,7 @@ public class BoardController {
     public String delete(@PathVariable("no") Long no) {
         boardService.deletePost(no);
 
-        return "redirect:/admin/perferencesmng";
+        return "redirect:/list";
     }
 
     @GetMapping("/board/search")
@@ -80,23 +80,5 @@ public class BoardController {
         model.addAttribute("boardList", boardDtoList);
 
         return "board/list.html";
-    }
-
-
-    /* Main Page */
-    @GetMapping("/admin/notice")
-    public String notice(Model model, @RequestParam(value="page", defaultValue = "1") Integer pageNum) {
-        List<BoardDto> boardList = boardService.getBoardlist(pageNum);
-        Integer[] pageList = boardService.getPageList(pageNum);
-
-        // 총 게시글 갯수
-        double  count = Double.valueOf(boardService.getBoardCount());
-        Integer postsTotalCount = (int) count;
-
-        model.addAttribute("boardList", boardList);
-        model.addAttribute("pageList", pageList);
-        model.addAttribute("postsTotalCount", postsTotalCount);
-
-        return "notice/main.html";
     }
 }
