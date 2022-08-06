@@ -55,7 +55,7 @@ public class UserSecurityConfig extends WebSecurityConfigurerAdapter {
                     .httpBasic().authenticationEntryPoint(samlEntryPoint)
                 .and()
                     .addFilterAfter(samlFilterChain(samlProperties), BasicAuthenticationFilter.class)
-                .csrf().disable();
+                .csrf().ignoringAntMatchers(samlProperties.getAcs()+"/**");
     }
 
     @Override

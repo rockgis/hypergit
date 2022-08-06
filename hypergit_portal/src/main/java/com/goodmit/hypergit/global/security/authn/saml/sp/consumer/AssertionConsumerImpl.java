@@ -34,7 +34,7 @@ public class AssertionConsumerImpl implements AssertionConsumer {
     private static final String KEY_USER_FI="urn:oid:2.5.4.11";
 
     @Builder
-    protected AssertionConsumerImpl(@NonNull int assertionValidTime) {
+    protected AssertionConsumerImpl(int assertionValidTime) {
         this.assertionValidTime = assertionValidTime;
     }
 
