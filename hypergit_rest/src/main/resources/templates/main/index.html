@@ -131,6 +131,104 @@
 
     </section>
     <!-- /.content -->
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <!-- interactive chart -->
+            <div class="card card-primary card-outline">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="far fa-chart-bar"></i>
+                  시간당 처리량
+                </h3>
+
+                <div class="card-tools">
+                  Real time
+                  <div class="btn-group" id="realtime" data-toggle="btn-toggle">
+                    <button type="button" class="btn btn-default btn-sm active" data-toggle="on">On</button>
+                    <button type="button" class="btn btn-default btn-sm" data-toggle="off">Off</button>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div id="interactive" style="height: 300px;"></div>
+              </div>
+              <!-- /.card-body-->
+            </div>
+            <!-- /.card -->
+
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+        <div class="row">
+          <div class="col-md-6">
+            <!-- Line chart -->
+            <div class="card card-primary card-outline">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="far fa-chart-bar"></i>
+                  서비스별 수행 건수
+                </h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div id="line-chart" style="height: 300px;"></div>
+              </div>
+              <!-- /.card-body-->
+            </div>
+            <!-- /.card -->
+
+
+          </div>
+          <!-- /.col -->
+
+          <div class="col-md-6">
+            <!-- Bar chart -->
+            <div class="card card-primary card-outline">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="far fa-chart-bar"></i>
+                  서비스별 일일 수행 수
+                </h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button type="button" class="btn btn-tool" data-card-widget="remove">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body">
+                <div id="bar-chart" style="height: 300px;"></div>
+              </div>
+              <!-- /.card-body-->
+            </div>
+            <!-- /.card -->
+
+            <!-- Donut chart -->
+
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
 
@@ -158,6 +256,204 @@
 <script src="/webjars/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="/webjars/AdminLTE/dist/js/adminlte.js"></script>
+
+<!-- FLOT CHARTS -->
+<script src="/webjars/AdminLTE/plugins/flot/jquery.flot.js"></script>
+<!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
+<script src="/webjars/AdminLTE/plugins/flot/plugins/jquery.flot.resize.js"></script>
+<!-- FLOT PIE PLUGIN - also used to draw donut charts -->
+<script src="/webjars/AdminLTE/plugins/flot/plugins/jquery.flot.pie.js"></script>
+
+<!-- Page specific script -->
+<script>
+  $(function () {
+    /*
+     * Flot Interactive Chart
+     * -----------------------
+     */
+    // We use an inline data source in the example, usually data would
+    // be fetched from a server
+    var data        = [],
+        totalPoints = 100
+
+    function getRandomData() {
+
+      if (data.length > 0) {
+        data = data.slice(1)
+      }
+
+      // Do a random walk
+      while (data.length < totalPoints) {
+
+        var prev = data.length > 0 ? data[data.length - 1] : 50,
+                y    = prev + Math.random() * 10 - 5
+
+        if (y < 0) {
+          y = 0
+        } else if (y > 100) {
+          y = 100
+        }
+
+        data.push(y)
+      }
+
+      // Zip the generated y values with the x values
+      var res = []
+      for (var i = 0; i < data.length; ++i) {
+        res.push([i, data[i]])
+      }
+
+      return res
+    }
+
+    var interactive_plot = $.plot('#interactive', [
+              {
+                data: getRandomData(),
+              }
+            ],
+            {
+              grid: {
+                borderColor: '#f3f3f3',
+                borderWidth: 1,
+                tickColor: '#f3f3f3'
+              },
+              series: {
+                color: '#3c8dbc',
+                lines: {
+                  lineWidth: 2,
+                  show: true,
+                  fill: true,
+                },
+              },
+              yaxis: {
+                min: 0,
+                max: 100,
+                show: true
+              },
+              xaxis: {
+                show: true
+              }
+            }
+    )
+
+    var updateInterval = 500 //Fetch data ever x milliseconds
+    var realtime       = 'on' //If == to on then fetch data every x seconds. else stop fetching
+    function update() {
+
+      interactive_plot.setData([getRandomData()])
+
+      // Since the axes don't change, we don't need to call plot.setupGrid()
+      interactive_plot.draw()
+      if (realtime === 'on') {
+        setTimeout(update, updateInterval)
+      }
+    }
+
+    //INITIALIZE REALTIME DATA FETCHING
+    if (realtime === 'on') {
+      update()
+    }
+    //REALTIME TOGGLE
+    $('#realtime .btn').click(function () {
+      if ($(this).data('toggle') === 'on') {
+        realtime = 'on'
+      }
+      else {
+        realtime = 'off'
+      }
+      update()
+    })
+    /*
+     * END INTERACTIVE CHART
+     */
+
+
+    /*
+     * LINE CHART
+     * ----------
+     */
+    //LINE randomly generated data
+
+    var sin = [],
+            cos = []
+    for (var i = 0; i < 14; i += 0.5) {
+      sin.push([i, Math.sin(i)])
+      cos.push([i, Math.cos(i)])
+    }
+    var line_data1 = {
+      data : sin,
+      color: '#3c8dbc'
+    }
+    var line_data2 = {
+      data : cos,
+      color: '#00c0ef'
+    }
+    $.plot('#line-chart', [line_data1, line_data2], {
+      grid  : {
+        hoverable  : true,
+        borderColor: '#f3f3f3',
+        borderWidth: 1,
+        tickColor  : '#f3f3f3'
+      },
+      series: {
+        shadowSize: 0,
+        lines     : {
+          show: true
+        },
+        points    : {
+          show: true
+        }
+      },
+      lines : {
+        fill : false,
+        color: ['#3c8dbc', '#f56954']
+      },
+      yaxis : {
+        show: true
+      },
+      xaxis : {
+        show: true
+      }
+    })
+    //Initialize tooltip on hover
+    $('<div class="tooltip-inner" id="line-chart-tooltip"></div>').css({
+      position: 'absolute',
+      display : 'none',
+      opacity : 0.8
+    }).appendTo('body')
+    $('#line-chart').bind('plothover', function (event, pos, item) {
+
+      if (item) {
+        var x = item.datapoint[0].toFixed(2),
+                y = item.datapoint[1].toFixed(2)
+
+        $('#line-chart-tooltip').html(item.series.label + ' of ' + x + ' = ' + y)
+                .css({
+                  top : item.pageY + 5,
+                  left: item.pageX + 5
+                })
+                .fadeIn(200)
+      } else {
+        $('#line-chart-tooltip').hide()
+      }
+
+    })
+    /* END LINE CHART */
+
+
+  })
+
+  /*
+   * Custom Label formatter
+   * ----------------------
+   */
+  function labelFormatter(label, series) {
+    return '<div style="font-size:13px; text-align:center; padding:2px; color: #fff; font-weight: 600;">'
+            + label
+            + '<br>'
+            + Math.round(series.percent) + '%</div>'
+  }
+</script>
 
 </body>
 </html>

@@ -4,7 +4,7 @@ spring:
     group:
       local: common, locdb, loc
       dev: common, devdb, develop
-      prod: common
+      prod: common, devdb, prodop
 ---
 
 spring:
@@ -138,6 +138,24 @@ server:
    key-alias: uiscloud_tomcat
   http2:
    enabled: true
+  tomcat:
+    accesslog:
+      enabled: false
+      directory: /dev
+      prefix: stdout
+      buffered: false
+      suffix: ""
+      file-date-format: ""
+#  address: 10.11.10.200
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prodop
+
+server:
+  port: 80
   tomcat:
     accesslog:
       enabled: false

@@ -4,7 +4,7 @@ spring:
     group:
       local: common, locdb, loc
       dev: common, devdb, develop
-      prod: common
+      prod: common, devdb , prodop
 ---
 
 spring:
@@ -147,22 +147,41 @@ spring:
       on-profile: develop
 
 server:
-  port: 9090
+  port: 9091
   ssl:
-   key-store: classpath:/static/ssl/uiscloud_keystore.p12
-   key-store-type: PKCS12
-   key-store-password: Goodmit0802!
-   key-alias: uiscloud_tomcat
-  http2:
-   enabled: true
+    key-store: classpath:/static/ssl/uiscloud_keystore.p12
+    key-store-type: PKCS12
+    key-store-password: Goodmit0802!
+    key-alias: uiscloud_tomcat
+    http2:
+      enabled: true
+    tomcat:
+      accesslog:
+        enabled: false
+        directory: /dev
+        prefix: stdout
+        buffered: false
+        suffix: ""
+        file-date-format: ""
+
+#  address: 10.11.10.200
+---
+spring:
+  config:
+    activate:
+      on-profile: prodop
+
+server:
+  port: 9000
   tomcat:
-    accesslog:
-      enabled: false
-      directory: /dev
-      prefix: stdout
-      buffered: false
-      suffix: ""
-      file-date-format: ""
+      accesslog:
+        enabled: false
+        directory: /op
+        prefix: stdout
+        buffered: false
+        suffix: ""
+        file-date-format: ""
+
 #  address: 10.11.10.200
 ---
 spring:

@@ -49,4 +49,17 @@ public class OnlineRestApi {
 
         return  ResponseEntity.ok().body(result);
     }
+
+    @ResponseBody
+    @GetMapping( "{appId}")
+    public ResponseEntity<String> getSelectPosts(
+            @RequestParam(value = "appId") String appId,
+            @RequestParam(value = "transactionId") String transactionId,
+            @RequestParam(value = "data") String data
+    ) {
+
+        String result = "3,001,6,6,6,6,,002,0,0,0,0,,003,0,0,0,0";
+
+        return  ResponseEntity.ok().body(result);
+    }
 }

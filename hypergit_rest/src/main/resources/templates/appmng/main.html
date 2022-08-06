@@ -55,7 +55,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">앱 관리</li>
+              <li class="breadcrumb-item active">서비스 관리</li>
             </ol>
           </div>
         </div>
@@ -68,7 +68,7 @@
       <!-- /.card -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title"><i class="fas fa-user-secret"></i>  앱 관리</h3>
+          <h3 class="card-title"><i class="fas fa-user-secret"></i>Sevice 관리</h3>
         </div>
         <div class="card-body">
           <div class="container-fluid">
@@ -97,14 +97,12 @@
                     <input type="checkbox" id="chkAll">
                   </th>
                   <th width="5%">번호</th>
-                  <th>앱순서</th>
-                  <th>앱명</th>
-                  <th>클러스터명</th>
-                  <th>링크 URL</th>
+                  <th>서비스명</th>
+                  <th>모델 정보</th>
+                  <th>서비스 URL</th>
                   <th>사용여부</th>
-                  <th>기본사용여부</th>
-                  <th>수정일</th>
-                  <th>수정자</th>
+                  <th>시작일</th>
+                  <th>종료일</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -115,13 +113,11 @@
                   </td>
                   <td width="5%"><span th:text="${gittb0001.id}"></span></td>
                   <td><span th:text="${gittb0001.appNm}"></span></td>
-                  <td><span th:text="${gittb0001.appNm}"></span></td>
                   <td><span th:text="${gittb0001.clNm}"></span></td>
                   <td><i class="far fas fa-search"></i><span th:text="${gittb0001.pgeUrlAr}"></span></td>
                   <td><span th:text="${gittb0001.seTf}"></span></td>
-                  <td><span th:text="${gittb0001.bsTf}"></span></td>
                   <td><span th:text="${#temporals.format(gittb0001.createdDate, 'yyyy-MM-dd HH:mm')}"></span></td>
-                  <td><span th:text="${gittb0001.rgEn}"></span></td>
+                  <td><span th:text="${#temporals.format(gittb0001.createdDate, 'yyyy-MM-dd HH:mm')}"></span></td>
                 </tr>
                 </tbody>
               </table>
@@ -227,7 +223,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">앱관리</h4>
+        <h4 class="modal-title">서비스관리</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -236,7 +232,7 @@
         <form  action="/admin/appmngpost" method="post" id="app_brd" class="form-horizontal">
           <input type="hidden" name="_method" value="post"/>
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">앱순서 </label>
+            <label class="col-sm-2 col-form-label">서비스 순서 </label>
             <div class="col-sm-10">
               <select class="form-control select2" name="appSn"  style="width: 100%;">
                 <option selected="selected" value="1" >1</option>
@@ -248,13 +244,13 @@
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">앱명</label>
+            <label class="col-sm-2 col-form-label">서비스 명</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" name="appNm" placeholder="앱명">
+              <input type="text" class="form-control" name="appNm" placeholder="서비스 명">
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">클러스터 명 </label>
+            <label class="col-sm-2 col-form-label">모델 정보 </label>
             <div class="col-sm-10">
               <select class="form-control select2" name="clNm"  style="width: 100%;">
                 <option selected="selected" value="서비스 BDP" >서비스 BDP</option>
@@ -263,15 +259,15 @@
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">링크 URL </label>
+            <label class="col-sm-2 col-form-label">서비스 URL </label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" name="pgeUrlAr" placeholder="링크 URL">
+              <input type="text" class="form-control" name="pgeUrlAr" placeholder="서비스 URL">
             </div>
           </div>
           <div class="form-group row">
             <div class="offset-sm-2 col-sm-10">
                 <textarea name="descTt" id="descTt">
-                  앱 설명을 넣어 주세요.
+                  서비스 설명을 넣어 주세요.
 
                 </textarea>
             </div>
@@ -294,12 +290,21 @@
               </select>
             </div>
           </div>
-          <!-- div class="form-group row">
-            <label class="col-sm-2 col-form-label">작성자</label>
+          <div class="form-group row">
+            <label class="col-sm-2 col-form-label">모델 선택 </label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" name="writer" placeholder="작성자" value='<span sec:authentication="name"></span>'>
+              <select class="duallistbox" multiple="multiple">
+                <option selected>Model 1</option>
+                <option>Model 2</option>
+                <option>Model 3</option>
+                <option>Model 4</option>
+                <option>Model 5</option>
+                <option>Model 6</option>
+                <option>Model 7</option>
+              </select>
             </div>
-          </div -->
+            <!-- /.card -->
+          </div>
 
         </form>
 
@@ -345,6 +350,10 @@
 <script>
   $(function () {
     $('#descTt').summernote();
+
+    //Bootstrap Duallistbox
+    $('.duallistbox').bootstrapDualListbox()
+
 
   });
 

@@ -57,7 +57,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">사용권한관리</li>
+              <li class="breadcrumb-item active">모델 관리</li>
             </ol>
           </div>
         </div>
@@ -69,7 +69,7 @@
       <!-- /.card -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title"><i class="fas fa-user-secret"></i>  사용권한 관리</h3>
+          <h3 class="card-title"><i class="fas fa-user-secret"></i>  모델 관리</h3>
         </div>
         <div class="card-body">
           <div class="container-fluid">
@@ -96,14 +96,12 @@
                       <input type="checkbox" id="chkAll">
                     </th>
                     <th width="5%">번호</th>
-                    <th>앱명</th>
-                    <th>클러스터명</th>
-                    <th>부서</th>
-                    <th>사용자ID</th>
-                    <th>사번</th>
-                    <th>이름</th>
-                    <th>시작일자</th>
-                    <th>종료일자</th>
+                    <th>모델명</th>
+                    <th>모델구분</th>
+                    <th>Access Key</th>
+                    <th>모델 URL</th>
+                    <th>시작 날짜</th>
+                    <th>종료 날짜</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -116,9 +114,7 @@
                     <td><span th:text="${gittc0001.appNm}"></span></td>
                     <td><span th:text="${gittc0001.clNm}"></span></td>
                     <td><span th:text="${gittc0001.usrDcd}"></span></td>
-                    <td><span th:text="${gittc0001.rgEn}"></span></td>
-                    <td><span th:text="${gittc0001.usrEn}"></span></td>
-                    <td><span th:text="${gittc0001.usrNm}"></span></td>
+                    <td><span th:text="${gittc0001.pgeUrlAr}"></span></td>
                     <td><span th:text="${gittc0001.startDate}"></span></td>
                     <td><span th:text="${gittc0001.endDate}"></span></td>
                   </tr>
@@ -234,56 +230,50 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title">앱관리</h4>
+        <h4 class="modal-title">Model 관리</h4>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form  action="/admin/permissionpost" method="post" id="app_brd" class="form-horizontal">
+        <form  action="/admin/modelpost" method="post" id="app_brd" class="form-horizontal">
           <input type="hidden" name="_method" value="post"/>
           <input type="hidden" name="roleId" value="1"/>
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">앱 일련번호 </label>
+            <label class="col-sm-2 col-form-label">모델 일련번호 </label>
             <div class="col-sm-10">
-              <select class="form-control select2" name="gsnId"  style="width: 100%;">
-                <option th:each="gittb0001 : ${gittb0001List}" th:value="${gittb0001.id}"
-                        th:utext="${ gittb0001.clNm + ':' + gittb0001.appNm}">
-                </option>
-              </select>
+                <input type="text" class="form-control" name="gsnId" placeholder="Model 구분 번호">
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">앱명  </label>
+            <label class="col-sm-2 col-form-label">Model 명  </label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" name="appNm" placeholder="앱명">
+              <input type="text" class="form-control" name="appNm" placeholder="Model 명">
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">클러스터 명 </label>
+            <label class="col-sm-2 col-form-label">Authorization </label>
             <div class="col-sm-10">
-              <select class="form-control select2" name="clNm"  style="width: 100%;">
-                <option selected="selected" value="서비스 BDP" >서비스 BDP</option>
-                <option value="통합 BDP">통합 BDP</option>
-              </select>
+              <input type="text" class="form-control" name="clNm" placeholder="Authorization">
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">링크 URL </label>
+            <label class="col-sm-2 col-form-label">Accesskey </label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" name="pgeUrlAr" placeholder="링크 URL">
+              <input type="text" class="form-control" name="usrDcd" placeholder="Accesskey">
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-2 col-form-label">부서 </label>
+            <label class="col-sm-2 col-form-label">모델 URL </label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" name="usrDcd" placeholder="부서">
+              <input type="text" class="form-control" name="pgeUrlAr" placeholder="모델 URL">
             </div>
           </div>
+
           <div class="form-group row">
             <label class="col-sm-2 col-form-label">사용자 ID </label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" name="rgEn" placeholder="사용자 ID">
+              <input type="text" class="form-control" name="rgEn" value="radmin" placeholder="사용자 ID">
             </div>
           </div>
           <div class="form-group row">
