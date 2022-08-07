@@ -1,10 +1,11 @@
 package com.goodmit.hypergit.global.config;
 
-import com.goodmit.hypergit.global.security.authn.AuthenticationEvents;
+import com.goodmit.hypergit.global.security.authn.db.AuthenticationEvents;
 import com.goodmit.hypergit.repository.LoginAuditRepo;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateProperties;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateSettings;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
@@ -15,6 +16,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -35,6 +37,7 @@ import java.util.Map;
         transactionManagerRef = "authTransactionMgr"
 )
 @Slf4j
+@Profile(value = "devdb")
 public class AuthDBConfig {
 
     @Bean(name="authDatasource")

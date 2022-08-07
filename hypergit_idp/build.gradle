@@ -102,6 +102,8 @@ dependencies {
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
 
+    implementation 'com.google.code.findbugs:jsr305:3.0.2'
+
     //unit test
     implementation 'junit:junit:4.13.2'
     testCompileOnly 'org.projectlombok:lombok'

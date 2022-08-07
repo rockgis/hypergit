@@ -52,14 +52,20 @@ spring:
       client:
         registration:
           wso2:
-            client-id: H1ifsmxXZXWpERgabpvBfgZkd48a
-            client-secret: OFJEyPnfzM90_HolKxNxA70cU08a
+            client-name: wso2
+            client-id: tQD7YinEvII3_i7Hq60fnEuTpVoa
+            client-secret: 0wah9FQT2Haj5qIr7Pj89XvmiEca
+            scope: openid
+            authorization-grant-type: authorization_code
         provider:
           wso2:
-            authorization-uri: "http://wso2.uiscloud.com:9443/oauth2/authorize"
-            token-uri: "http://wso2.uiscloud.com:9443/oauth2/token"
-            user-info-uri: "http://wso2.uiscloud.com:9443/oauth2/userinfo"
-            jwk-set-uri: "http://wso2.uiscloud.com:9443/oauth2/jwks"
+            issuer-uri: https://localhost:9443/oauth2/token
+#            authorization-uri: http://wso2.uiscloud.com:9445/oauth2/authorize
+#            token-uri: http://wso2.uiscloud.com:9445/oauth2/token
+#            user-info-uri: http://wso2.uiscloud.com:9445/oauth2/userinfo
+#            jwk-set-uri: http://wso2.uiscloud.com:9445/oauth2/jwks
+  thymeleaf:
+    cache: false
 server:
   servlet:
     session:
@@ -84,7 +90,7 @@ server:
 
 logging:
   level:
-    root: info
+    root: INFO
     org:
       hibernate:
         SQL: DEBUG
@@ -95,9 +101,6 @@ logging:
     com.zaxxer.hikari.HikariConfig: DEBUG
     com.zaxxer.hikari: trace
     org.thymeleaf: info
-
-authentication:
-  localAuth: /admin
 
 ---
 spring:
@@ -115,7 +118,7 @@ server:
   port: 9090
   tomcat:
     accesslog:
-      enabled: true
+      enabled: false
       directory: /dev
       prefix: stdout
       buffered: false

@@ -1,4 +1,4 @@
-package com.goodmit.hypergit.global.security.authn;
+package com.goodmit.hypergit.global.security.authn.db;
 
 import com.goodmit.hypergit.repository.LoginAuditRepo;
 import com.goodmit.hypergit.repository.entity.LoginAudit;
@@ -54,7 +54,6 @@ public class AuthenticationEvents {
 
         AuditEvent auditEvent = auditApplicationEvent.getAuditEvent();
         log.info("Principal " + auditEvent.getPrincipal() + " - " + auditEvent.getType());
-
         WebAuthenticationDetails details = (WebAuthenticationDetails) auditEvent.getData().get("details");
         log.info("Remote IP address: " + details.getRemoteAddress());
         log.info("  Session Id: " + details.getSessionId());

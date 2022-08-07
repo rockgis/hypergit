@@ -5,7 +5,6 @@ import org.springframework.boot.autoconfigure.security.StaticResourceLocation;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -18,7 +17,6 @@ import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
-@Order(1)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private MemberService memberService;
 
@@ -45,35 +43,36 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests()
-                    .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                    .antMatchers(getResources()).permitAll()
-                    .antMatchers("/h2-console/**").permitAll()
-                    .antMatchers("/admin/**").authenticated()
-                    //.antMatchers("/").authenticated()
+                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                .antMatchers(getResources()).permitAll()
+                .antMatchers("/admin/**").authenticated()
+                //.antMatchers("/").authenticated()
                 .and() // 로그인 설정
-                    .formLogin()
-                    .loginPage("/admin/login")
-                    .defaultSuccessUrl("/admin")
-                    .permitAll()
+                .formLogin()
+                .loginPage("/admin/login")
+                .defaultSuccessUrl("/admin")
+                .permitAll()
                 .and() // 로그아웃 설정
-                    .logout()
-                    .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
-                    .logoutSuccessUrl("/admin")
-                    .invalidateHttpSession(true)
+                .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
+                .logoutSuccessUrl("/admin")
+                .invalidateHttpSession(true)
                 .and()
-                    .csrf()
-                    .ignoringAntMatchers("/admin/*post")
-                    .ignoringAntMatchers("/admin/*del")
-                    .ignoringAntMatchers("/admin/post")
-                    .ignoringAntMatchers("/admin/post")
-                    .ignoringAntMatchers("/post")
-                .and()
-                    .oauth2Login().loginPage("/login")
+                .csrf()
+                .ignoringAntMatchers("/admin/*post")
+                .ignoringAntMatchers("/admin/*del")
+                .ignoringAntMatchers("/admin/post")
+                .ignoringAntMatchers("/post")
                 .and()
                 // 403 예외처리 핸들링
-                    .exceptionHandling().accessDeniedPage("/user/denied");
+                .exceptionHandling().accessDeniedPage("/user/denied");
 
-//              .and().csrf().disable();
+
+        http.authorizeRequests()
+                .antMatchers("/login","/","/login/oauth2/code/wso2").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .oauth2Login().loginPage("/login");
 
     }
 
