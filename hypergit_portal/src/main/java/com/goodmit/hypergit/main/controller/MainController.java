@@ -1,29 +1,26 @@
 package com.goodmit.hypergit.main.controller;
 
-import com.goodmit.hypergit.board.dto.BoardDto;
-import com.goodmit.hypergit.board.service.BoardService;
-
 import com.goodmit.hypergit.appmng.dto.Gittb0001Dto;
 import com.goodmit.hypergit.appmng.service.Gittb0001Service;
-
+import com.goodmit.hypergit.board.dto.BoardDto;
+import com.goodmit.hypergit.board.service.BoardService;
 import com.goodmit.hypergit.inspectionmng.dto.Gittd0004Dto;
 import com.goodmit.hypergit.inspectionmng.service.Gittd0004Service;
 import com.goodmit.hypergit.permissionmng.dto.Gittc0001Dto;
 import com.goodmit.hypergit.permissionmng.service.Gittc0001Service;
-
-import  com.goodmit.hypergit.common.util.NetUtil;
-
-
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.util.List;
 
+@Slf4j
 @Controller
 @AllArgsConstructor
 public class MainController {
@@ -34,6 +31,10 @@ public class MainController {
     private Gittd0004Service gittd0004Service;
 
     private Gittc0001Service gittc0001Service;
+
+
+    private static String authorizationRequestBaseUri = OAuth2AuthorizationRequestRedirectFilter.DEFAULT_AUTHORIZATION_REQUEST_BASE_URI;
+
 
     /* Main Page */
     @GetMapping("/")
@@ -103,7 +104,7 @@ public class MainController {
     @GetMapping("/login")
     public String getLoginPage(Model model) {
 
-        return "redirect:/oauth2/authorization/wso2";
+        return "redirect:"+authorizationRequestBaseUri+"/wso2";
     }
 
 }
