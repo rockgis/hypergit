@@ -58,6 +58,31 @@ public class MainController {
 
         model.addAttribute("gittc0001List", gittc0001List);
 
+        return "redirect:/user";
+    }
+
+
+    @GetMapping("/user")
+    public String mainuser( Model model, @RequestParam(value="page", defaultValue = "1") Integer pageNum) {
+
+        List<BoardDto> boardList = boardService.getBoardlist(pageNum);
+        Integer[] pageList = boardService.getPageList(pageNum);
+
+        double  count = Double.valueOf(boardService.getBoardCount());
+        Integer postsTotalCount = (int) count;
+
+        model.addAttribute("boardList", boardList);
+        model.addAttribute("pageList", pageList);
+        model.addAttribute("postsTotalCount", postsTotalCount);
+
+        //String username = principal.getName();  권한에 따라 URL 가지고 와야 됨
+
+        String username = "450192";
+
+        List<Gittc0001Dto> gittc0001List = gittc0001Service.getGittc0001listUser(username);
+
+        model.addAttribute("gittc0001List", gittc0001List);
+
         return "main/user_main.html";
     }
 
@@ -113,6 +138,13 @@ public class MainController {
     public String getLoginPage(Model model) {
 
         return "redirect:"+authorizationRequestBaseUri+"/wso2";
+    }
+
+
+    @GetMapping("/help")
+    public String gethelp(Model model) {
+
+        return "redirect:/swagger-ui.html";
     }
 
 }

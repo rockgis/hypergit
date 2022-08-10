@@ -45,6 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 .antMatchers(getResources()).permitAll()
+                .antMatchers("/help","/api/**").permitAll()
                 .antMatchers("/admin/**").authenticated()
                 //.antMatchers("/").authenticated()
                 .and() // 로그인 설정
@@ -54,7 +55,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and() // 로그아웃 설정
                 .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
+                .logoutRequestMatcher(new AntPathRequestMatcher("/admin/logout"))
                 .logoutSuccessUrl("/admin")
                 .invalidateHttpSession(true)
                 .and()
@@ -62,15 +63,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .ignoringAntMatchers("/admin/*post")
                 .ignoringAntMatchers("/admin/*del")
                 .ignoringAntMatchers("/admin/post")
-                .ignoringAntMatchers("/post")
+                //.ignoringAntMatchers("/post")
                 .and()
                 // 403 예외처리 핸들링
-                .exceptionHandling().accessDeniedPage("/user/denied");
+                .exceptionHandling().accessDeniedPage("/admin/denied");
 
 
         http.authorizeRequests()
                 .antMatchers("/login","/","/login/oauth2/code/wso2").permitAll()
-                .anyRequest().authenticated()
+                .antMatchers("/help","/api/**").permitAll()
+                //.anyRequest().authenticated()
+                .antMatchers("/user/**").authenticated()
                 .and()
                 .oauth2Login().loginPage("/login");
 
