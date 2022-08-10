@@ -96,7 +96,7 @@ public class Wso2UserService {
 
 
 
-        // PATCH 사용자 ID 수정(serviceid/validtimestamp 정보 수정)
+    // PATCH 사용자 ID 수정(serviceid/validtimestamp 정보 수정)
     // URL : https://wso2.uiscloud.com:9445/scim2/Users/4cba4705-b366-45a6-8ab2-2dee0f34bde3
     // Basic Auth : Authorization   : Basic YWRtaW46YWRtaW4=
     // Input parm :
@@ -111,7 +111,7 @@ public class Wso2UserService {
             "phoneNumbers": [
             {
                 "value": "1111",
-                    "type": "mobile"
+                "type": "mobile"
             }
         ]
         }
@@ -125,7 +125,7 @@ public class Wso2UserService {
         "urn:ietf:params:scim:api:messages:2.0:Error"
     ],
         "detail": "No user with the id : 4cba4705-b366-45a6-8ab2-2dee0f34bde3 in the user store.",
-            "status": "404"
+        "status": "404"
     }*/
 
 
