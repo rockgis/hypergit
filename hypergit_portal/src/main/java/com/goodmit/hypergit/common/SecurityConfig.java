@@ -1,6 +1,7 @@
 package com.goodmit.hypergit.common;
 
 import com.goodmit.hypergit.member.service.MemberService;
+import com.goodmit.hypergit.user.service.CustomOAuth2UserService;
 import org.springframework.boot.autoconfigure.security.StaticResourceLocation;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -20,8 +21,11 @@ import java.util.Arrays;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private MemberService memberService;
 
-    protected SecurityConfig(MemberService memberService) {
+    private final CustomOAuth2UserService customOAuth2UserService;
+
+    protected SecurityConfig(MemberService memberService, CustomOAuth2UserService customOAuth2UserService) {
         this.memberService =memberService;
+        this.customOAuth2UserService = customOAuth2UserService;
     }
 
     @Bean
@@ -46,12 +50,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 .antMatchers(getResources()).permitAll()
                 .antMatchers("/help","/api/**").permitAll()
-                .antMatchers("/admin/**").authenticated()
+                //.antMatchers("/admin/**").authenticated()
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/user/**").hasRole("USER")
                 //.antMatchers("/").authenticated()
                 .and() // 로그인 설정
                 .formLogin()
                 .loginPage("/admin/login")
-                .defaultSuccessUrl("/admin")
+                .defaultSuccessUrl("/")
                 .permitAll()
                 .and() // 로그아웃 설정
                 .logout()
@@ -75,7 +81,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //.anyRequest().authenticated()
                 .antMatchers("/user/**").authenticated()
                 .and()
-                .oauth2Login().loginPage("/login");
+                .oauth2Login()
+                .loginPage("/login")
+               // .userInfoEndpoint() // 로그인 이후 사용자 정보를 가져올 때 설정
+                //.userService(customOAuth2UserService)
+                .and() // 로그아웃 설정
+                .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
+                .logoutSuccessUrl("/")
+                .invalidateHttpSession(true);
 
     }
 

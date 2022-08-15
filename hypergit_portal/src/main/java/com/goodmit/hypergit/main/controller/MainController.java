@@ -10,7 +10,11 @@ import com.goodmit.hypergit.permissionmng.dto.Gittc0001Dto;
 import com.goodmit.hypergit.permissionmng.service.Gittc0001Service;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,57 +42,73 @@ public class MainController {
 
     /* Main Page */
     @GetMapping("/")
-    public String main( Model model, @RequestParam(value="page", defaultValue = "1") Integer pageNum) {
+    public String main(Authentication authentication, Model model) {
 
-        List<BoardDto> boardList = boardService.getBoardlist(pageNum);
-        Integer[] pageList = boardService.getPageList(pageNum);
+        if (authentication != null) {
+            System.out.println("타입정보 : " + authentication.getClass());
+            System.out.println("권한 정보 : " + authentication.getAuthorities().toString().equals("[ROLE_ADMIN]"));
 
-        double  count = Double.valueOf(boardService.getBoardCount());
-        Integer postsTotalCount = (int) count;
+            // 세션 정보 객체 반환
+            WebAuthenticationDetails web = (WebAuthenticationDetails)authentication.getDetails();
+            System.out.println("세션ID : " + web.getSessionId());
+            System.out.println("접속IP : " + web.getRemoteAddress());
 
-        model.addAttribute("boardList", boardList);
-        model.addAttribute("pageList", pageList);
-        model.addAttribute("postsTotalCount", postsTotalCount);
+            if(authentication.getAuthorities().toString().equals("[ROLE_ADMIN]")){
+                return "redirect:/admin";
+            }else {
+                return "redirect:/user";
+            }
 
-        //String username = principal.getName();  권한에 따라 URL 가지고 와야 됨
+        }else {
 
-        String username = "450192";
+            return "redirect:/login";
 
-        List<Gittc0001Dto> gittc0001List = gittc0001Service.getGittc0001listUser(username);
+        }
 
-        model.addAttribute("gittc0001List", gittc0001List);
 
-        return "redirect:/user";
     }
 
-
     @GetMapping("/user")
-    public String mainuser( Model model, @RequestParam(value="page", defaultValue = "1") Integer pageNum) {
+    public String mainuser( Authentication authentication,  Model model, @RequestParam(value="page", defaultValue = "1") Integer pageNum) {
 
-        List<BoardDto> boardList = boardService.getBoardlist(pageNum);
-        Integer[] pageList = boardService.getPageList(pageNum);
+        String username = authentication.getName();
 
-        double  count = Double.valueOf(boardService.getBoardCount());
-        Integer postsTotalCount = (int) count;
+        System.out.println("권한 정보 : " + authentication.getAuthorities().toString().equals("[ROLE_ADMIN]"));
 
-        model.addAttribute("boardList", boardList);
-        model.addAttribute("pageList", pageList);
-        model.addAttribute("postsTotalCount", postsTotalCount);
+        if(authentication.getAuthorities().toString().equals("[ROLE_ADMIN]")){
 
-        //String username = principal.getName();  권한에 따라 URL 가지고 와야 됨
+            return "redirect:/";
 
-        String username = "450192";
+        }else {
 
-        List<Gittc0001Dto> gittc0001List = gittc0001Service.getGittc0001listUser(username);
+            List<BoardDto> boardList = boardService.getBoardlist(pageNum);
+            Integer[] pageList = boardService.getPageList(pageNum);
 
-        model.addAttribute("gittc0001List", gittc0001List);
+            double  count = Double.valueOf(boardService.getBoardCount());
+            Integer postsTotalCount = (int) count;
 
-        return "main/user_main.html";
+            model.addAttribute("boardList", boardList);
+            model.addAttribute("pageList", pageList);
+            model.addAttribute("postsTotalCount", postsTotalCount);
+
+            //String username = principal.getName();  권한에 따라 URL 가지고 와야 됨
+
+            username = "450192";
+
+            List<Gittc0001Dto> gittc0001List = gittc0001Service.getGittc0001listUser(username);
+
+            model.addAttribute("gittc0001List", gittc0001List);
+
+
+            return "main/user_main.html";
+        }
+
+
     }
 
 
     @GetMapping("/admin")
-    public String admin(Model model, @RequestParam(value="page", defaultValue = "1") Integer pageNum) {
+    public String admin(Principal principal, Model model, @RequestParam(value="page", defaultValue = "1") Integer pageNum) {
 
         List<BoardDto> boardList = boardService.getBoardlist(pageNum);
         Integer[] pageList = boardService.getPageList(pageNum);
