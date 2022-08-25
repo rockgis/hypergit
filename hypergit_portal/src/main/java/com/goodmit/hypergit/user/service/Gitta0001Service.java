@@ -17,6 +17,7 @@ import java.util.Optional;
 @AllArgsConstructor
 @Service
 public class Gitta0001Service {
+
     private Gitta0001Repository gitta0001Repository;
 
     private static final int BLOCK_PAGE_NUM_COUNT = 10;  // 블럭에 존재하는 페이지 번호 수
@@ -60,8 +61,43 @@ public class Gitta0001Service {
     }
 
     @Transactional
-    public List<Gitta0001Dto> searchPosts(String keyword) {
-        List<Gitta0001Entity> gitta0001Entities = gitta0001Repository.findByUsrEnContaining(keyword);
+    public List<Gitta0001Dto> searchPosts(Gitta0001Dto gitta0001Dto) {
+
+        String dcd = gitta0001Dto.getDcd();
+        String usrNm =  gitta0001Dto.getUsrNm();
+        String usrEn = gitta0001Dto.getUsrEn();
+        String emNm = gitta0001Dto.getEmNm();
+        String nrIpAr = gitta0001Dto.getNrIpAr();
+        String earEhf = gitta0001Dto.getEarEhf();
+
+        System.out.println(dcd);
+        System.out.println(usrNm);
+        System.out.println(usrEn);
+        System.out.println(emNm);
+        System.out.println(nrIpAr);
+        System.out.println(earEhf);
+
+        List<Gitta0001Entity> gitta0001Entities = null;
+
+        if(!dcd.isEmpty()){
+            gitta0001Entities = gitta0001Repository.findByDcdContaining(dcd);
+        } else if (!usrNm.isEmpty()) {
+            gitta0001Entities = gitta0001Repository.findByUsrNmContaining(usrNm);
+        }else if (!usrEn.isEmpty()) {
+            gitta0001Entities = gitta0001Repository.findByUsrEnContaining(usrEn);
+        }else if (!emNm.isEmpty()) {
+            gitta0001Entities = gitta0001Repository.findByEmNmContaining(emNm);
+        }else if (!nrIpAr.isEmpty()) {
+            gitta0001Entities = gitta0001Repository.findByNrIpArContaining(nrIpAr);
+        }else if (!earEhf.equals("A")) {
+            gitta0001Entities = gitta0001Repository.findByEarEhfContaining(earEhf);
+        }else{
+
+            Page<Gitta0001Entity> page = gitta0001Repository.findAll(PageRequest.of(0, PAGE_POST_COUNT, Sort.by(Sort.Direction.DESC, "createdDate")));
+
+            gitta0001Entities = page.getContent();
+        }
+
         List<Gitta0001Dto> gitta0001DtoList = new ArrayList<>();
 
         if (gitta0001Entities.isEmpty()) return gitta0001DtoList;

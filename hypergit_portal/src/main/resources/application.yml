@@ -48,28 +48,6 @@ spring:
       idle-timeout: 10000
       maximum-pool-size: 10
       minimum-idle: 5
-  security:
-    oauth2:
-      client:
-        registration:
-          wso2:
-            client-name: wso2
-#            client-id: VafP6jXaCdPk0JaWJlOBY5WHXdsa
-#            client-secret: xrOla6poc_x2SzmXeofHr5GstlIa
-            client-id: 8HbqgJWAu6IVFtlSyV1x6P_0gtUa
-            client-secret: wyIZ7z0LaDRwwCN36MbuEVJNFgIa
-            scope: openid
-            authorization-grant-type: authorization_code
-        provider:
-          wso2:
-            issuer-uri: https://wso2.uiscloud.com:9445/oauth2/token
-            #메타데이터 확인 방법 https://wso2.uiscloud.com:9445/oauth2/token/.well-known/openid-configuration
-#            issuer-uri: https://localhost:9443/oauth2/token
-            #메타데이터 확인 방법 https://localhost:9443/oauth2/token/.well-known/openid-configuration
-            #authorization-uri: http://wso2.uiscloud.com:9445/oauth2/authorize
-            #token-uri: http://wso2.uiscloud.com:9445/oauth2/token
-            #user-info-uri: http://wso2.uiscloud.com:9445/oauth2/userinfo
-            #jwk-set-uri: http://wso2.uiscloud.com:9445/oauth2/jwks
 
 server:
   servlet:
@@ -111,16 +89,49 @@ logging:
 spring:
   config:
     activate:
-      on-profile: production
-
----
-spring:
-  config:
-    activate:
       on-profile: loc
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: 'rockgis@gmail.com'
+    password: 'dldPwns!@09'
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  security:
+    oauth2:
+      client:
+        registration:
+          wso2:
+            client-name: wso2
+            #            client-id: cFzLkJoOMsAjBnI9BnUQdXhZf2ka
+            #            client-secret: LsI5fGW3k6MSRieK4TH1XrZryQca
+            client-id: 8HbqgJWAu6IVFtlSyV1x6P_0gtUa
+            client-secret: wyIZ7z0LaDRwwCN36MbuEVJNFgIa
+            scope: openid
+            authorization-grant-type: authorization_code
+        provider:
+          wso2:
+            issuer-uri: https://wso2.uiscloud.com:9445/oauth2/token
+            #메타데이터 확인 방법 https://wso2.uiscloud.com:9445/oauth2/token/.well-known/openid-configuration
+            #            issuer-uri: https://localhost:9443/oauth2/token
+            authorization-uri: https://wso2.uiscloud.com:9445/oauth2/authorize
+            token-uri: https://wso2.uiscloud.com:9445/oauth2/token
+            user-info-uri: https://wso2.uiscloud.com:9445/oauth2/userinfo
+            jwk-set-uri: https://wso2.uiscloud.com:9445/oauth2/jwks
 
 server:
   port: 9000
+  ssl:
+    key-store: classpath:lhlee-keystore.p12
+    key-store-type: PKCS12
+    key-store-password: lyijun!@09
+    key-alias: lhlee-keystore
+    http2:
+      enabled: true
   tomcat:
     accesslog:
       enabled: false
@@ -136,6 +147,38 @@ spring:
   config:
     activate:
       on-profile: develop
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: 'rockgis@gmail.com'
+    password: 'dldPwns!@09'
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  security:
+    oauth2:
+      client:
+        registration:
+          wso2:
+            client-name: wso2
+            #            client-id: cFzLkJoOMsAjBnI9BnUQdXhZf2ka
+            #            client-secret: LsI5fGW3k6MSRieK4TH1XrZryQca
+            client-id: 8HbqgJWAu6IVFtlSyV1x6P_0gtUa
+            client-secret: wyIZ7z0LaDRwwCN36MbuEVJNFgIa
+            scope: openid
+            authorization-grant-type: authorization_code
+        provider:
+          wso2:
+            issuer-uri: https://wso2.uiscloud.com:9445/oauth2/token
+            #메타데이터 확인 방법 https://wso2.uiscloud.com:9445/oauth2/token/.well-known/openid-configuration
+            #            issuer-uri: https://localhost:9443/oauth2/token
+            authorization-uri: https://wso2.uiscloud.com:9445/oauth2/authorize
+            token-uri: https://wso2.uiscloud.com:9445/oauth2/token
+            user-info-uri: https://wso2.uiscloud.com:9445/oauth2/userinfo
+            jwk-set-uri: https://wso2.uiscloud.com:9445/oauth2/jwks
 
 server:
   port: 9000
@@ -161,6 +204,36 @@ spring:
   config:
     activate:
       on-profile: prodop
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: 'rockgis@gmail.com'
+    password: 'dldPwns!@09'
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  security:
+    oauth2:
+      client:
+        registration:
+          wso2:
+            client-name: CloudPortal
+            client-id: cBUc4eSZKwYKMVvEFUhLhfH6fbka
+            client-secret: CDVdKDp1eyaCXZjVZSml6AnfoV8a
+            scope: openid
+            authorization-grant-type: authorization_code
+        provider:
+          wso2:
+            issuer-uri: https://apiqap01.hyundaicapiyal.com:9443/oauth2/token
+            #메타데이터 확인 방법 https://apiqap01.hyundaicapiyal.com:9443/oauth2/token/.well-known/openid-configuration
+            authorization-uri: http://apiqap01.hyundaicapiyal.com:9443/oauth2/authorize
+            token-uri: http://apiqap01.hyundaicapiyal.com:9443/oauth2/token
+            user-info-uri: http://apiqap01.hyundaicapiyal.com:9443/oauth2/userinfo
+            jwk-set-uri: http://apiqap01.hyundaicapiyal.com:9443/oauth2/jwks
+
 
 server:
   port: 80

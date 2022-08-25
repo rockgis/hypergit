@@ -88,11 +88,18 @@ public class UserController {
     }
 
 
-    @GetMapping("/admin/usersearch")
-    public String search(@RequestParam(value="keyword") String keyword, Model model) {
-        List<Gitta0001Dto> gitta0001DtoList = gitta0001Service.searchPosts(keyword);
+    @PostMapping("/admin/usersearch")
+    public String usersearch(Gitta0001Dto gitta0001Dto, Model model) {
+
+        List<Gitta0001Dto> gitta0001DtoList = gitta0001Service.searchPosts(gitta0001Dto);
+
+        double  count = Double.valueOf(gitta0001DtoList.size());
+        Integer postsTotalCount = (int) count;
 
         model.addAttribute("gitta0001List", gitta0001DtoList);
+        model.addAttribute("pageList", postsTotalCount);
+        model.addAttribute("postsTotalCount", postsTotalCount);
+
 
         return "admin/userlist";
     }

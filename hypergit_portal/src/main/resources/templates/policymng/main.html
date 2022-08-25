@@ -70,22 +70,40 @@
       </div>
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title"><i class="fa-thin fa-align-justify"></i>  통합정보 관리 시스템 연결 정보</h3>
+          <h3 class="card-title"><i class="fa-thin fa-align-justify"></i>  Saml 관리 시스템 연결 정보</h3>
         </div>
         <div class="card-body">
           <div class="form-group row">
-            <label for="inputEmail3" class="col-sm-2 col-form-label">서버 정보</label>
+            <label for="wsourl" class="col-sm-2 col-form-label">서버 정보</label>
             <div class="col-sm-10">
-              <input type="email" class="form-control" id="inputEmail3" placeholder="10.200.101.10">
+              <input type="text" class="form-control" id="wsourl" placeholder="https://apiqap01.hyundaicapiyal.com:9443/">
             </div>
           </div>
           <div class="form-group row">
-            <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
+            <label for="wsoauth" class="col-sm-2 col-form-label">Auth</label>
             <div class="col-sm-10">
-              <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+              <input type="text" class="form-control" id="wsoauth" placeholder="Auth">
             </div>
           </div>
         </div>
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title"><i class="fa-thin fa-align-justify"></i> Ranger 관리 시스템 연결 정보</h3>
+          </div>
+          <div class="card-body">
+            <div class="form-group row">
+              <label for="rangerurl" class="col-sm-2 col-form-label">서버 정보</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="rangerurl" placeholder="https://apiqap01.hyundaicapiyal.com:9443/">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="ranagerauth" class="col-sm-2 col-form-label">Auth</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="ranagerauth" placeholder="Auth">
+              </div>
+            </div>
+          </div>
         <!-- /.card-body -->
         <div class="card-footer">
           <!-- this row will not appear when printing -->

@@ -1,4 +1,4 @@
-package com.goodmit.hypergit.wsouserapi.service.util;
+package com.goodmit.hypergit.wsouserapi.service;
 
 import com.goodmit.hypergit.wsouserapi.dto.Wso2UserNameReplace;
 import org.json.JSONArray;
@@ -9,6 +9,39 @@ import java.util.List;
 
 
 public class Wso2UserJson {
+
+
+    public JSONObject Wso2UserSaml(String rgEN , String validTimeStamp){
+
+        List<String> schemas_list = new ArrayList<>();
+        schemas_list.add("urn:ietf:params:scim:api:messages:2.0:PatchOp");
+
+        JSONArray schemas_ja = new JSONArray(schemas_list);
+
+        JSONObject jo = new JSONObject();
+        jo.put("schemas", schemas_ja);
+
+        List<JSONObject> Operations_list = new ArrayList<>();
+
+        JSONObject rgen = new JSONObject();
+        rgen.put("validTimeStamp", validTimeStamp);
+        rgen.put("rgEN", rgEN);
+
+        JSONObject value = new JSONObject();
+        value.put("urn:ietf:params:scim:schemas:extension:enterprise:2.0:User", rgen);
+
+
+        JSONObject Operations = new JSONObject();
+        Operations.put("op", "replace");
+        Operations.put("value", value);
+
+        Operations_list.add(Operations);
+
+        jo.put("Operations", Operations_list);
+
+        return jo;
+
+    }
 
     public JSONObject Wso2UserAdd(String userName , String password, String emails, String givenName , String familyName){
 
