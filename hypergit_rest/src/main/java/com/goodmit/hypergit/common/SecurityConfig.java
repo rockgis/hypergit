@@ -73,6 +73,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 403 예외처리 핸들링
                     .exceptionHandling().accessDeniedPage("/user/denied");
 
+        http.authorizeRequests()
+                .antMatchers("/login","/","/login/oauth2/code/wso2").permitAll()
+                .antMatchers("/help","/api/**").permitAll()
+                .anyRequest().authenticated()
+                //.antMatchers("/user/**").authenticated()
+                .and()
+                .oauth2Login().loginPage("/login");
+
 //              .and().csrf().disable();
 
     }
