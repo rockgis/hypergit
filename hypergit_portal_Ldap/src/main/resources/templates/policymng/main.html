@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>현대 캐피탈 BDP 인증 서비스</title>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/webjars/AdminLTE/plugins/fontawesome-free/css/all.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/webjars/AdminLTE/dist/css/adminlte.min.css">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <div th:insert="com/header.html" id="header"></div>
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <div th:insert="com/leftmenupolicymng.html" id="leftMenu"></div>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>BDP 인증 서비스 <small>Version 1.0</small> </h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">정책관리</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title"><i class="fa-thin fa-align-justify"></i>  인증정책</h3>
+        </div>
+        <div class="card-body">
+          <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">인증 허용 횟수</label>
+            <div class="col-sm-5">
+              <input type="email" class="form-control" id="inputEmail3" placeholder="5">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title"><i class="fa-thin fa-align-justify"></i> 장기 미사용 정책</h3>
+        </div>
+        <div class="card-body">
+          <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">장기 미사용 정기준(일)</label>
+            <div class="col-sm-5">
+              <input type="email" class="form-control" id="inputEmail3" placeholder="15">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title"><i class="fa-thin fa-align-justify"></i>  Saml 관리 시스템 연결 정보</h3>
+        </div>
+        <div class="card-body">
+          <div class="form-group row">
+            <label for="wsourl" class="col-sm-2 col-form-label">서버 정보</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="wsourl" placeholder="https://apiqap01.hyundaicapiyal.com:9443/">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="wsoauth" class="col-sm-2 col-form-label">Auth</label>
+            <div class="col-sm-10">
+              <input type="text" class="form-control" id="wsoauth" placeholder="Auth">
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title"><i class="fa-thin fa-align-justify"></i> Ranger 관리 시스템 연결 정보</h3>
+          </div>
+          <div class="card-body">
+            <div class="form-group row">
+              <label for="rangerurl" class="col-sm-2 col-form-label">서버 정보</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="rangerurl" placeholder="https://apiqap01.hyundaicapiyal.com:9443/">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="ranagerauth" class="col-sm-2 col-form-label">Auth</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="ranagerauth" placeholder="Auth">
+              </div>
+            </div>
+          </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+          <!-- this row will not appear when printing -->
+          <div class="row no-print">
+            <div class="col-12">
+              <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i>초기화</button>
+              <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
+                <i class="fas fa-download"></i> 저장</button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /.card -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- FOOTER -->
+  <div th:insert="com/footer.html" id="footer"></div>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+
+
+<!-- jQuery -->
+<script src="/webjars/AdminLTE/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="/webjars/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- bs-custom-file-input -->
+<script src="/webjars/AdminLTE/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/webjars/AdminLTE/dist/js/adminlte.min.js"></script>
+
+<!-- Page specific script -->
+
+<script>
+  $(function () {
+
+  });
+</script>
+</body>
+</html>

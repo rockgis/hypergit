@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>현대 캐피탈 BDP 인증 서비스</title>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/webjars/AdminLTE/plugins/fontawesome-free/css/all.min.css">
+  <!-- daterange picker -->
+  <link rel="stylesheet" href="/webjars/AdminLTE/plugins/daterangepicker/daterangepicker.css">
+  <!-- iCheck for checkboxes and radio inputs -->
+  <link rel="stylesheet" href="/webjars/AdminLTE/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <!-- Bootstrap Color Picker -->
+  <link rel="stylesheet" href="/webjars/AdminLTE/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+  <!-- Tempusdominus Bootstrap 4 -->
+  <link rel="stylesheet" href="/webjars/AdminLTE/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="/webjars/AdminLTE/plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="/webjars/AdminLTE/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+  <!-- Bootstrap4 Duallistbox -->
+  <link rel="stylesheet" href="/webjars/AdminLTE/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
+  <!-- BS Stepper -->
+  <link rel="stylesheet" href="/webjars/AdminLTE/plugins/bs-stepper/css/bs-stepper.min.css">
+  <!-- dropzonejs -->
+  <link rel="stylesheet" href="/webjars/AdminLTE/plugins/dropzone/min/dropzone.min.css">
+  <!-- jsGrid -->
+  <link rel="stylesheet" href="/webjars/AdminLTE/plugins/jsgrid/jsgrid.min.css">
+  <link rel="stylesheet" href="/webjars/AdminLTE/plugins/jsgrid/jsgrid-theme.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/webjars/AdminLTE/dist/css/adminlte.min.css">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <div th:insert="com/header.html" id="header"></div>
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <div th:insert="com/leftmenuInspection.html" id="leftMenu"></div>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>BDP 인증 서비스 <small>Version 1.0</small> </h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item">감사</li>
+              <li class="breadcrumb-item active">앱 점속 감사</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <!-- Horizontal Form -->
+      <!-- /.card -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title"><i class="fas fa-user-secret"></i>  앱 접속 감사</h3>
+        </div>
+        <div class="card-body">
+          <div class="container-fluid">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-md-12 ">
+                  <div class="form-group">
+                    목록 : [[${postsTotalCount}]]  건
+                    <button type="button" class="btn btn-success float-right" data-toggle="modal" data-target="#modal-xl"><i class="far fas fa-search"></i> 조회</button>
+                    <button type="button" class="btn btn-secondary float-right" style="margin-right: 5px;">
+                      <i class="fas fa-download"></i> 다운로드</button>
+
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="row">
+                <table class="table table-hover text-nowrap">
+                  <thead>
+                  <tr>
+                    <th width="5%">번호</th>
+                    <th>시간</th>
+                    <th>사용자명</th>
+                    <th>접속 앱 명</th>
+                    <th>접속 앱 URL</th>
+                    <th>접속 상태</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <!-- CONTENTS !-->
+                  <tr th:each="gittd004 : ${gittd0004List}">
+                    <td width="5%"><span th:text="${gittd004.id}"></span></td>
+                    <td><span th:text="${#temporals.format(gittd004.createdDate, 'yyyy-MM-dd HH:mm')}"></span></td>
+                    <td><span th:text="${gittd004.usrNm}"></span></td>
+                    <td><span th:text="${gittd004.appNm}"></span></td>
+                    <td><span th:text="${gittd004.pgeUrlAr}"></span></td>
+                    <td>
+                      <span th:if="${gittd004.ugCt == 1}">접속</span>
+                      <span th:if="${gittd004.ugCt == 0}">미접속</span>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer clearfix">
+
+              <span th:if="${postsTotalCount} > 0 "> Pages:</span>
+              <span th:if="${postsTotalCount} == 0 "> 데이터가 없습니다.</span>
+
+              <ul class="pagination pagination-sm m-0 float-right">
+                <li class="page-item"><a class="page-link" th:href="@{'/admin/perferencesmng?page=1'}">&laquo;</a></li>
+                <li class="page-item" th:each="pageNum : ${pageList}" th:inline="text">
+                  <a  class="page-link" th:href="@{'/admin/perferencesmng?page=' + ${pageNum}}">[[${pageNum}]]</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+              </ul>
+
+            </div>
+          </div>
+          <!-- /.card -->
+          <!-- /.card -->
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- FOOTER -->
+  <div th:insert="com/footer.html" id="footer"></div>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- /.modal
+<div class="modal fade" id="modal-lg">
+  <div class="modal-dialog modal-lg">-->
+<div class="modal fade" id="modal-xl">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Search</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/board/search" method="POST">
+          <div class="row">
+            <div class="col-md-12 ">
+              <div class="row">
+                <div class="col-4">
+                  <div class="form-group">
+                    <label>앱</label>
+                    <input class="form-control" name="keyword" type="text" placeholder="검색어를 입력해주세요">
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
+                    <label>앱 URL</label>
+                    <input class="form-control" name="keyword" type="text" placeholder="검색어를 입력해주세요">
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="form-group">
+                    <label>사용자</label>
+                    <input class="form-control" name="keyword" type="text" placeholder="검색어를 입력해주세요">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12 ">
+              <div class="row">
+                <div class="col-6">
+                  <div class="form-group">
+                    <label>접속상태</label>
+                    <input class="form-control" name="keyword" type="text" placeholder="검색어를 입력해주세요">
+                  </div>
+                </div>
+                <div class="col-6">
+                  <div class="form-group">
+                    <label>조회 기간</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="far fa-clock"></i></span>
+                      </div>
+                      <input type="text" class="form-control float-right" id="reservationtime">
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+
+            </div>
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <div class="row">
+          <div class="col-md-12 ">
+            <div class="form-group">
+              <button type="button" class="btn btn-danger float-right" style="margin-right: 5px;" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-secondary float-right" style="margin-right: 5px;">
+                <i class="fas fa-ellipsis-h"></i> 초기화</button>
+              <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;"><i class="fas fa-search"></i>  Search</button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+
+
+<!-- jQuery -->
+<script src="/webjars/AdminLTE/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="/webjars/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Select2 -->
+<script src="/webjars/AdminLTE/plugins/select2/js/select2.full.min.js"></script>
+<!-- Bootstrap4 Duallistbox -->
+<script src="/webjars/AdminLTE/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+<!-- InputMask -->
+<script src="/webjars/AdminLTE/plugins/moment/moment.min.js"></script>
+<script src="/webjars/AdminLTE/plugins/inputmask/jquery.inputmask.min.js"></script>
+<!-- date-range-picker -->
+<script src="/webjars/AdminLTE/plugins/daterangepicker/daterangepicker.js"></script>
+<!-- jsGrid -->
+<script src="/webjars/AdminLTE/plugins/jsgrid/demos/db.js"></script>
+<script src="/webjars/AdminLTE/plugins/jsgrid/jsgrid.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/webjars/AdminLTE/dist/js/adminlte.min.js"></script>
+
+<!-- Page specific script -->
+
+<script>
+  $(function () {
+
+    $('#reservationtime').daterangepicker({
+      timePicker: true,
+      timePickerIncrement: 30,
+      locale: {
+        format: 'YYYY-MM-DD hh:mm A'
+      }
+    });
+
+  });
+</script>
+</body>
+</html>

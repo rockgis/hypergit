@@ -1,0 +1,288 @@
+---
+spring:
+  profiles:
+    group:
+      local: common, locdb, loc
+      dev: common, devdb, develop
+      prod: common, devdb, prodop
+---
+
+spring:
+  config:
+    activate:
+      on-profile: common
+  pid:
+    file: ./pid/hypergitPortal.pid
+  mvc:
+    hidden-method:
+      filter:
+        enabled: true
+  thymeleaf:
+    cache: false
+    prefix:
+     classpath: /templates/
+  web:
+    resources:
+      static-locations:
+        classpath: /static/
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: 'rockgis@gmail.com'
+    password: 'dldPwns!@09'
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  jpa:
+    hibernate:
+      connection:
+        provider_class: com.zaxxer.hikari.hibernate.HikariConnectionProvider
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: true
+  datasource:
+    hikari:
+      type: com.zaxxer.hikari.HikariDataSource
+      idle-timeout: 10000
+      maximum-pool-size: 10
+      minimum-idle: 5
+
+server:
+  servlet:
+    session:
+      #      session delete when app restart
+      persistent: false
+      cookie:
+        name: hypergit
+        max-age: 3660
+        http-only: true
+  tomcat:
+    basedir: .
+    accesslog:
+      enabled: true
+      directory: logs
+      prefix: access_log
+      buffered: false
+      suffix: .log
+      file-date-format: .yyyy-MM-dd
+  error:
+    include-exception: true # 오류 응답에 exception의 내용을 포함할지 여부
+    include-stacktrace: always # 오류 응답에 stacktrace 내용을 포함할 지 여부
+
+logging:
+  level:
+    root: INFO
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
+    com.zaxxer.hikari.HikariConfig: DEBUG
+    com.zaxxer.hikari: trace
+    org.thymeleaf: info
+
+---
+spring:
+  config:
+    activate:
+      on-profile: loc
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: 'rockgis@gmail.com'
+    password: 'dldPwns!@09'
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  security:
+    oauth2:
+      client:
+        registration:
+          wso2:
+            client-name: wso2
+            #            client-id: cFzLkJoOMsAjBnI9BnUQdXhZf2ka
+            #            client-secret: LsI5fGW3k6MSRieK4TH1XrZryQca
+            client-id: 8HbqgJWAu6IVFtlSyV1x6P_0gtUa
+            client-secret: wyIZ7z0LaDRwwCN36MbuEVJNFgIa
+            scope: openid
+            authorization-grant-type: authorization_code
+        provider:
+          wso2:
+            issuer-uri: https://wso2.uiscloud.com:9445/oauth2/token
+            #메타데이터 확인 방법 https://wso2.uiscloud.com:9445/oauth2/token/.well-known/openid-configuration
+            #            issuer-uri: https://localhost:9443/oauth2/token
+            authorization-uri: https://wso2.uiscloud.com:9445/oauth2/authorize
+            token-uri: https://wso2.uiscloud.com:9445/oauth2/token
+            user-info-uri: https://wso2.uiscloud.com:9445/oauth2/userinfo
+            jwk-set-uri: https://wso2.uiscloud.com:9445/oauth2/jwks
+
+server:
+  port: 9000
+  ssl:
+    key-store: classpath:lhlee-keystore.p12
+    key-store-type: PKCS12
+    key-store-password: lyijun!@09
+    key-alias: lhlee-keystore
+    http2:
+      enabled: true
+  tomcat:
+    accesslog:
+      enabled: false
+      directory: /dev
+      prefix: stdout
+      buffered: false
+      suffix: ""
+      file-date-format: ""
+  address: 127.0.0.1
+
+---
+spring:
+  config:
+    activate:
+      on-profile: develop
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: 'rockgis@gmail.com'
+    password: 'dldPwns!@09'
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  security:
+    oauth2:
+      client:
+        registration:
+          wso2:
+            client-name: wso2
+            #            client-id: cFzLkJoOMsAjBnI9BnUQdXhZf2ka
+            #            client-secret: LsI5fGW3k6MSRieK4TH1XrZryQca
+            client-id: 8HbqgJWAu6IVFtlSyV1x6P_0gtUa
+            client-secret: wyIZ7z0LaDRwwCN36MbuEVJNFgIa
+            scope: openid
+            authorization-grant-type: authorization_code
+        provider:
+          wso2:
+            issuer-uri: https://wso2.uiscloud.com:9445/oauth2/token
+            #메타데이터 확인 방법 https://wso2.uiscloud.com:9445/oauth2/token/.well-known/openid-configuration
+            #            issuer-uri: https://localhost:9443/oauth2/token
+            authorization-uri: https://wso2.uiscloud.com:9445/oauth2/authorize
+            token-uri: https://wso2.uiscloud.com:9445/oauth2/token
+            user-info-uri: https://wso2.uiscloud.com:9445/oauth2/userinfo
+            jwk-set-uri: https://wso2.uiscloud.com:9445/oauth2/jwks
+
+server:
+  port: 9000
+  ssl:
+   key-store: classpath:/static/ssl/uiscloud_keystore.p12
+   key-store-type: PKCS12
+   key-store-password: Goodmit0802!
+   key-alias: uiscloud_tomcat
+  http2:
+   enabled: true
+  tomcat:
+    accesslog:
+      enabled: false
+      directory: /dev
+      prefix: stdout
+      buffered: false
+      suffix: ""
+      file-date-format: ""
+#  address: 10.11.10.200
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prodop
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: 'rockgis@gmail.com'
+    password: 'dldPwns!@09'
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  security:
+    oauth2:
+      client:
+        registration:
+          wso2:
+            client-name: CloudPortal
+            client-id: cBUc4eSZKwYKMVvEFUhLhfH6fbka
+            client-secret: CDVdKDp1eyaCXZjVZSml6AnfoV8a
+            scope: openid
+            authorization-grant-type: authorization_code
+        provider:
+          wso2:
+            issuer-uri: https://apiqap01.hyundaicapiyal.com:9443/oauth2/token
+            #메타데이터 확인 방법 https://apiqap01.hyundaicapiyal.com:9443/oauth2/token/.well-known/openid-configuration
+            authorization-uri: http://apiqap01.hyundaicapiyal.com:9443/oauth2/authorize
+            token-uri: http://apiqap01.hyundaicapiyal.com:9443/oauth2/token
+            user-info-uri: http://apiqap01.hyundaicapiyal.com:9443/oauth2/userinfo
+            jwk-set-uri: http://apiqap01.hyundaicapiyal.com:9443/oauth2/jwks
+
+
+server:
+  port: 80
+  tomcat:
+    accesslog:
+      enabled: false
+      directory: /dev
+      prefix: stdout
+      buffered: false
+      suffix: ""
+      file-date-format: ""
+#  address: 10.11.10.200
+---
+spring:
+  config:
+    activate:
+      on-profile: locdb
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://wso2.uiscloud.com:13306/hypergit?serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&useSSL=false
+    username: hypergit
+    password: Goodmit0802!
+
+---
+spring:
+  config:
+    activate:
+      on-profile: devdb
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:13306/hypergit?serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&useSSL=false
+    username: hypergit
+    password: Goodmit0802!
+---
+spring:
+  config:
+    activate:
+      on-profile: h2db
+  datasource:
+    url: jdbc:h2:mem:test
+    username: rockgis
+    password: dldPwns!@09
+    driver-class-name: org.h2.Driver
+  h2:
+    console:
+      enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true

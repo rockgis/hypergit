@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>현대 캐피탈 BDP 인증 서비스</title>
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="/webjars/AdminLTE/plugins/fontawesome-free/css/all.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/webjars/AdminLTE/dist/css/adminlte.min.css">
+</head>
+<body class="hold-transition layout-top-nav">
+<div class="wrapper">
+
+  <div th:insert="com/user_header.html" id="header"></div>
+
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0"> BDP 인증 서비스 <small>Version 1.0</small></h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item active">User</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+
+    <!-- Main content -->
+    <div class="content">
+      <div class="container">
+        <div class="row">
+        <div class="col-12">
+          <div class="card card-primary">
+            <div class="card-header">
+              <h4 class="card-title">접근 허용 시스템</h4>
+
+            </div>
+            <div class="card-body">
+              <div>
+                <div class="btn-group w-100 mb-2">
+                  <a class="btn btn-info active" href="javascript:void(0)" data-filter="all"> All items </a>
+                  <a class="btn btn-info" href="javascript:void(0)" data-filter="1"> 서비스 BDP </a>
+                  <a class="btn btn-info" href="javascript:void(0)" data-filter="2"> 통합 BDP </a>
+                  <a class="btn btn-info" href="javascript:void(0)" data-filter="3"> 서비스 CDSW </a>
+                  <a class="btn btn-info" href="javascript:void(0)" data-filter="4"> 통합  CDSW </a>
+                </div>
+              </div>
+              <div>
+                <div class="filter-container p-0 row">
+                  <th:block th:each="gittc0001 : ${gittc0001List}">
+                    <div class="filtr-item col-sm-2" data-category="1" data-sort="white sample">
+                      <a href="#" data-toggle="lightbox" data-title="sample 1 - white">
+                        <img src="/images/user/1.jpeg" class="img-fluid mb-2" alt="white sample"/>
+                      </a>
+                      <p th:text="${gittc0001.appNm}"></p>
+                      <p th:text="${gittc0001.startDate}"></p>
+                      <p th:text="${gittc0001.endDate}"></p>
+                    </div>
+                  </th:block>
+
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      <div class="col-12">
+      <!-- Default box -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">공지 사항</h3>
+
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+              <i class="fas fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="container-fluid">
+            <div class="row">
+              <table class="table table-hover text-nowrap">
+                <thead>
+                <tr>
+                  <th width="10%">번호</th>
+                  <th>글제목</th>
+                  <th width="20%">작성자</th>
+                  <th width="20%">작성일</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- CONTENTS !-->
+                <tr th:each="board : ${boardList}">
+                  <td>
+                    <span th:text="${board.id}"></span>
+                  </td>
+                  <td>
+                    <a th:href="@{'/user/post/' + ${board.id}}">
+                      <span th:text="${board.title}"></span>
+                    </a>
+                  </td>
+                  <td>
+                    <span th:text="${board.writer}"></span>
+                  </td>
+                  <td>
+                    <span th:text="${#temporals.format(board.createdDate, 'yyyy-MM-dd HH:mm')}"></span>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <!-- /.card-body -->
+          <div class="card-footer">
+            <span th:if="${postsTotalCount} > 0 "> 목록 : [[${postsTotalCount}]]  건</span>
+            <span th:if="${postsTotalCount} == 0 "> 데이터가 없습니다.</span>
+
+            <ul class="pagination pagination-sm m-0 float-right">
+              <li class="page-item"><a class="page-link" th:href="@{'/user/list?page=1'}">&laquo;</a></li>
+              <li class="page-item" th:each="pageNum : ${pageList}" th:inline="text">
+                <a  class="page-link" th:href="@{'/user/list?page=' + ${pageNum}}">[[${pageNum}]]</a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+            </ul>
+          </div>
+        <!-- /.card-footer-->
+      </div>
+      <!-- /.card -->
+    </div>
+
+      </div>
+      <!-- /.row -->
+
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+
+  <!-- FOOTER -->
+  <div th:insert="com/footer.html" id="footer"></div>
+
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED SCRIPTS -->
+
+
+
+
+
+
+
+<!-- jQuery -->
+<script src="/webjars/AdminLTE/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="/webjars/AdminLTE/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Ekko Lightbox -->
+<script src="/webjars/AdminLTE/plugins/ekko-lightbox/ekko-lightbox.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/webjars/AdminLTE/dist/js/adminlte.min.js"></script>
+<!-- Filterizr-->
+<script src="/webjars/AdminLTE/plugins/filterizr/jquery.filterizr.min.js"></script>
+
+
+<script>
+  $(function () {
+
+    $('.filter-container').filterizr({gutterPixels: 3});
+    $('.btn[data-filter]').on('click', function() {
+      $('.btn[data-filter]').removeClass('active');
+      $(this).addClass('active');
+    });
+  })
+</script>
+
+</body>
+</html>
