@@ -61,7 +61,7 @@ public class MainController {
 
         }else {
 
-            return "redirect:/login";
+            return "redirect:/admin/login";
 
         }
 
@@ -77,7 +77,7 @@ public class MainController {
 
         if(authentication.getAuthorities().toString().equals("[ROLE_ADMIN]")){
 
-            return "redirect:/";
+            return "redirect:/admin";
 
         }else {
 
@@ -153,13 +153,6 @@ public class MainController {
 
         return "main/webloging";
     }
-
-    @GetMapping("/login")
-    public String getLoginPage(Model model) {
-
-        return "redirect:"+authorizationRequestBaseUri+"/wso2";
-    }
-
 
     @GetMapping("/help")
     public String gethelp(Model model) {

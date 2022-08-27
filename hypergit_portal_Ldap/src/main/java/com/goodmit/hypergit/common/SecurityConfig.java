@@ -1,11 +1,13 @@
 package com.goodmit.hypergit.common;
 
 import com.goodmit.hypergit.member.service.MemberService;
-import com.goodmit.hypergit.user.service.CustomOAuth2UserService;
+import lombok.NonNull;
 import org.springframework.boot.autoconfigure.security.StaticResourceLocation;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -21,11 +23,9 @@ import java.util.Arrays;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private MemberService memberService;
 
-    private final CustomOAuth2UserService customOAuth2UserService;
 
-    protected SecurityConfig(MemberService memberService, CustomOAuth2UserService customOAuth2UserService) {
+    protected SecurityConfig(MemberService memberService ) {
         this.memberService =memberService;
-        this.customOAuth2UserService = customOAuth2UserService;
     }
 
     @Bean
@@ -76,28 +76,41 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().accessDeniedPage("/admin/denied");
 
 
-        http.authorizeRequests()
-                .antMatchers("/login","/","/login/oauth2/code/wso2").permitAll()
-                .antMatchers("/help","/api/**").permitAll()
-                //.anyRequest().authenticated()
-                .antMatchers("/user/**").authenticated()
-                .and()
-                .oauth2Login()
-                .loginPage("/login")
-               // .userInfoEndpoint() // 로그인 이후 사용자 정보를 가져올 때 설정
-                //.userService(customOAuth2UserService)
-                .and() // 로그아웃 설정
-                .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
-                .logoutSuccessUrl("/")
-                .invalidateHttpSession(true);
-
     }
 
-    @Override
+    //@Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(memberService).passwordEncoder(passwordEncoder());
     }
+
+
+    //@Override
+    //protected void configure(AuthenticationManagerBuilder auth) {
+ /*
+        auth.ldapAuthentication()
+                .userDnPatterns("uid={0},ou=people")
+                .groupSearchBase("ou=groups")
+                .contextSource()
+                .url("ldap://localhost:8389/dc=springframework,dc=org")
+                .and()
+                .passwordCompare()
+                .passwordEncoder(new BCryptPasswordEncoder())
+                .passwordAttribute("userPassword");
+
+        auth.ldapAuthentication()
+                .userDnPatterns("CN={0},OU=Users, OU=PlatformDivision,DC=GOODMIT,DC=COM")
+                .userSearchBase("OU=Users,OU=PlatformDivision,DC=GOODMIT,DC=COM")
+                .groupSearchBase("OU=Groups,OU=PlatformDivision,DC=GOODMIT,DC=COM")
+                .contextSource()
+                .url("ldap://10.200.101.19:389/OU=PlatformDivision,DC=GOODMIT,DC=COM")
+                .managerDn("CN=samltest,OU=Users,OU=PlatformDivision,DC=GOODMIT,DC=COM")
+                .managerPassword("git08021!")
+                .and()
+                .passwordCompare();
+     */
+     //   auth.authenticationProvider(authnProvider);
+
+   // }
 
     private String[] getResources() {
         return  Arrays.stream(StaticResourceLocation.values())

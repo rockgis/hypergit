@@ -6,7 +6,6 @@ spring:
       dev: common, devdb, develop
       prod: common, devdb, prodop
 ---
-
 spring:
   config:
     activate:
