@@ -2,8 +2,8 @@
 spring:
   profiles:
     group:
-      local: common, loc
-      dev: common, devdb, develop
+      local: common, loc, ad_test
+      dev: common,  develop
       prod: common
 ---
 spring:
@@ -107,36 +107,45 @@ ad:
   url: ldap://10.200.101.19:389
   domain: GOODMIT.COM
   rootDn: OU=Users,OU=PlatformDivision,DC=GOODMIT,DC=COM
+
 ---
 spring:
   config:
     activate:
-      on-profile: devdb
-authdb:
-  hikari:
-    jdbc-url: jdbc:mysql://10.200.101.15:3307/hypergit?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
-    username: rockgis
-    password: dldPwns!@09
-    driver-class-name: com.mysql.cj.jdbc.Drive
-    type: com.zaxxer.hikari.HikariDataSource
-    idle-timeout: 10000
-    maximum-pool-size: 10
-    minimum-idle: 5
-    pool-name: authenpool
-  jpa:
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    database: mysql
-    properties:
-      hibernate:
-        format_sql: true
-    hibernate:
-      connection:
-        provider_class: com.zaxxer.hikari.hibernate.HikariConnectionProvider
-logging:
-  level:
-    org:
-      hibernate:
-        SQL: debug
-    com.zaxxer.hikari.HikariConfig: DEBUG
-    com.zaxxer.hikari: trace
-    org.thymeleaf: info
+      on-profile: ad_test
+ad:
+  url: ldap://localhost:8389
+  rootDn: ou=groups,dc=springframework,dc=org
+---
+#spring:
+#  config:
+#    activate:
+#      on-profile: devdb
+#authdb:
+#  hikari:
+#    jdbc-url: jdbc:mysql://10.200.101.15:3307/hypergit?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+#    username: rockgis
+#    password: dldPwns!@09
+#    driver-class-name: com.mysql.cj.jdbc.Drive
+#    type: com.zaxxer.hikari.HikariDataSource
+#    idle-timeout: 10000
+#    maximum-pool-size: 10
+#    minimum-idle: 5
+#    pool-name: authenpool
+#  jpa:
+#    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+#    database: mysql
+#    properties:
+#      hibernate:
+#        format_sql: true
+#    hibernate:
+#      connection:
+#        provider_class: com.zaxxer.hikari.hibernate.HikariConnectionProvider
+#logging:
+#  level:
+#    org:
+#      hibernate:
+#        SQL: debug
+#    com.zaxxer.hikari.HikariConfig: DEBUG
+#    com.zaxxer.hikari: trace
+#    org.thymeleaf: info

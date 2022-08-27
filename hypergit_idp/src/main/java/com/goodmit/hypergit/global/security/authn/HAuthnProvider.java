@@ -19,6 +19,7 @@ public class HAuthnProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+        log.info("authen in");
         return authProvider.authenticate(authentication);
     }
 
