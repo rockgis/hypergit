@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 
 @Slf4j
@@ -53,8 +54,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) {
- /*
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+
         auth.ldapAuthentication()
                 .userDnPatterns("uid={0},ou=people")
                 .groupSearchBase("ou=groups")
@@ -64,7 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordCompare()
                 .passwordEncoder(new BCryptPasswordEncoder())
                 .passwordAttribute("userPassword");
-
+       /*
         auth.ldapAuthentication()
                 .userDnPatterns("CN={0},OU=Users, OU=PlatformDivision,DC=GOODMIT,DC=COM")
                 .userSearchBase("OU=Users,OU=PlatformDivision,DC=GOODMIT,DC=COM")
@@ -75,8 +76,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .managerPassword("git08021!")
                 .and()
                 .passwordCompare();
-     */
-        auth.authenticationProvider(authnProvider);
+        */
+        //auth.authenticationProvider(authnProvider);
 
 
     }

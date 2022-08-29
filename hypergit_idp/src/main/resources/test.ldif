@@ -44,6 +44,16 @@ sn: Alex
 uid: ben
 userPassword: $2a$12$V9fmdkGAQwSBItuLykwoBe8hc6Uh3mm2Gi753t2TwRuuNv57vC2Va
 
+dn: uid=rockgis,ou=people,dc=springframework,dc=org
+objectclass: top
+objectclass: person
+objectclass: organizationalPerson
+objectclass: inetOrgPerson
+cn: Ben Alex
+sn: Alex
+uid: rockgis
+userPassword: $2a$12$V9fmdkGAQwSBItuLykwoBe8hc6Uh3mm2Gi753t2TwRuuNv57vC2Va
+
 dn: uid=bob,ou=people,dc=springframework,dc=org
 objectclass: top
 objectclass: person
