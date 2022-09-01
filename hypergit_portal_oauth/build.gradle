@@ -72,12 +72,6 @@ dependencies {
     implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.13'
 
 
-    //   ldap dependency
-    implementation 'org.springframework.ldap:spring-ldap-core'
-    implementation 'org.springframework.security:spring-security-ldap'
-    implementation 'com.unboundid:unboundid-ldapsdk'
-
-
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'

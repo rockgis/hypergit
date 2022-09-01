@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -38,11 +39,9 @@ public class BoardController {
 
     /* 게시글 상세 */
     @GetMapping("/user/post/{no}")
-    public String detail(@PathVariable("no") Long no, Model model) {
+    public String detail(Principal principal,  @PathVariable("no") Long no, Model model) {
 
-        //String username = principal.getName();  권한에 따라 URL 가지고 와야 됨
-
-        String username = "450192";
+        String username = principal.getName();  //권한에 따라 URL 가지고 와야 됨
 
         List<Gittc0001Dto> gittc0001List = gittc0001Service.getGittc0001listUser(username);
 

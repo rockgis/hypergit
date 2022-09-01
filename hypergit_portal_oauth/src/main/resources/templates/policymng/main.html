@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -42,15 +42,19 @@
 
     <!-- Main content -->
     <section class="content">
+      <form th:action="@{'/admin/policymng/edit/' + ${gittf0003Dto.id}}" method="post" id="app_brd" name="app_brd">
+        <input type="hidden" name="_method" value="put"/>
+        <input type="text" name="id" th:value="${gittf0003Dto.id}"/>
+
       <div class="card">
         <div class="card-header">
           <h3 class="card-title"><i class="fa-thin fa-align-justify"></i>  인증정책</h3>
         </div>
         <div class="card-body">
           <div class="form-group row">
-            <label for="inputEmail3" class="col-sm-2 col-form-label">인증 허용 횟수</label>
+            <label for="urCk" class="col-sm-2 col-form-label">인증 허용 횟수</label>
             <div class="col-sm-5">
-              <input type="email" class="form-control" id="inputEmail3" placeholder="5">
+              <input type="text" class="form-control" id="urCk" placeholder="5" th:value="${gittf0003Dto.urCk}">
             </div>
           </div>
         </div>
@@ -61,9 +65,9 @@
         </div>
         <div class="card-body">
           <div class="form-group row">
-            <label for="inputEmail3" class="col-sm-2 col-form-label">장기 미사용 정기준(일)</label>
+            <label for="urDay" class="col-sm-2 col-form-label">장기 미사용 정기준(일)</label>
             <div class="col-sm-5">
-              <input type="email" class="form-control" id="inputEmail3" placeholder="15">
+              <input type="text" class="form-control" id="urDay" placeholder="15"  th:value="${gittf0003Dto.urDay}">
             </div>
           </div>
         </div>
@@ -74,43 +78,43 @@
         </div>
         <div class="card-body">
           <div class="form-group row">
-            <label for="wsourl" class="col-sm-2 col-form-label">서버 정보</label>
+            <label for="samlUrl" class="col-sm-2 col-form-label">서버 정보</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="wsourl" placeholder="https://apiqap01.hyundaicapiyal.com:9443/">
+              <input type="text" class="form-control" id="samlUrl" placeholder="https://apiqap01.hyundaicapiyal.com:9443/" th:value="${gittf0003Dto.samlUrl}">
             </div>
           </div>
           <div class="form-group row">
-            <label for="wsoauth" class="col-sm-2 col-form-label">Auth</label>
+            <label for="samlPass" class="col-sm-2 col-form-label">Auth</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control" id="wsoauth" placeholder="Auth">
+              <input type="text" class="form-control" id="samlPass" placeholder="Auth" th:value="${gittf0003Dto.samlPass}">
             </div>
           </div>
         </div>
+        <!--
         <div class="card">
           <div class="card-header">
             <h3 class="card-title"><i class="fa-thin fa-align-justify"></i> Ranger 관리 시스템 연결 정보</h3>
           </div>
           <div class="card-body">
             <div class="form-group row">
-              <label for="rangerurl" class="col-sm-2 col-form-label">서버 정보</label>
+              <label for="rangerUrl" class="col-sm-2 col-form-label">서버 정보</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="rangerurl" placeholder="https://apiqap01.hyundaicapiyal.com:9443/">
+                <input type="text" class="form-control" id="rangerUrl" placeholder="https://apiqap01.hyundaicapiyal.com:9443/" th:value="${gittf0003Dto.rangerUrl}">
               </div>
             </div>
             <div class="form-group row">
-              <label for="ranagerauth" class="col-sm-2 col-form-label">Auth</label>
+              <label for="rangerPass" class="col-sm-2 col-form-label">Auth</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="ranagerauth" placeholder="Auth">
+                <input type="text" class="form-control" id="rangerPass" placeholder="Auth" th:value="${gittf0003Dto.rangerPass}">
               </div>
             </div>
-          </div>
+          </div>-->
         <!-- /.card-body -->
         <div class="card-footer">
           <!-- this row will not appear when printing -->
           <div class="row no-print">
             <div class="col-12">
-              <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i>초기화</button>
-              <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
+              <button type="button"  onclick="document.getElementById('app_brd').submit();" class="btn btn-primary float-right" style="margin-right: 5px;">
                 <i class="fas fa-download"></i> 저장</button>
 
             </div>
@@ -118,6 +122,8 @@
         </div>
       </div>
       <!-- /.card -->
+      </div>
+      </form>
     </section>
     <!-- /.content -->
   </div>
