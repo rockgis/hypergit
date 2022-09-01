@@ -4,12 +4,16 @@ import com.goodmit.hypergit.appmng.dto.Gittb0001Dto;
 import com.goodmit.hypergit.appmng.service.Gittb0001Service;
 import com.goodmit.hypergit.board.dto.BoardDto;
 import com.goodmit.hypergit.board.service.BoardService;
+import com.goodmit.hypergit.common.config.auth.LoginUser;
+import com.goodmit.hypergit.common.config.auth.dto.SessionUser;
 import com.goodmit.hypergit.inspectionmng.dto.Gittd0004Dto;
 import com.goodmit.hypergit.inspectionmng.service.Gittd0004Service;
 import com.goodmit.hypergit.permissionmng.dto.Gittc0001Dto;
 import com.goodmit.hypergit.permissionmng.service.Gittc0001Service;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -39,19 +43,23 @@ public class MainController {
 
     private static String authorizationRequestBaseUri = OAuth2AuthorizationRequestRedirectFilter.DEFAULT_AUTHORIZATION_REQUEST_BASE_URI;
 
+  //  private final static Logger log = LoggerFactory.getLogger(MainController.class);
+
 
     /* Main Page */
     @GetMapping("/")
-    public String main(Authentication authentication, Model model) {
+    public String main(Authentication authentication, @LoginUser SessionUser user) {
 
         if (authentication != null) {
-            System.out.println("타입정보 : " + authentication.getClass());
-            System.out.println("권한 정보 : " + authentication.getAuthorities().toString().equals("[ROLE_ADMIN]"));
+
+            log.info("Main Start");
+            log.info("타입정보 : " + authentication.getClass());
+            log.info("권한 정보 : " + authentication.getAuthorities());
 
             // 세션 정보 객체 반환
             WebAuthenticationDetails web = (WebAuthenticationDetails)authentication.getDetails();
-            System.out.println("세션ID : " + web.getSessionId());
-            System.out.println("접속IP : " + web.getRemoteAddress());
+            log.info("세션ID : " + web.getSessionId());
+            log.info("접속IP : " + web.getRemoteAddress());
 
             if(authentication.getAuthorities().toString().equals("[ROLE_ADMIN]")){
                 return "redirect:/admin";
@@ -73,13 +81,18 @@ public class MainController {
 
         String username = authentication.getName();
 
-        System.out.println("권한 정보 : " + authentication.getAuthorities().toString().equals("[ROLE_ADMIN]"));
+        log.info("user Start");
+        log.info("타입정보 : " + authentication.getClass());
+        log.info("권한 정보 : " + authentication.getAuthorities());
 
-        System.out.println("username 정보 : " + username);
+        // 세션 정보 객체 반환
+        WebAuthenticationDetails web = (WebAuthenticationDetails)authentication.getDetails();
+        log.info("세션ID : " + web.getSessionId());
+        log.info("접속IP : " + web.getRemoteAddress());
 
         if(authentication.getAuthorities().toString().equals("[ROLE_ADMIN]")){
 
-            return "redirect:/";
+            return "redirect:/admin";
 
         }else {
 
@@ -106,7 +119,16 @@ public class MainController {
 
 
     @GetMapping("/admin")
-    public String admin(Principal principal, Model model, @RequestParam(value="page", defaultValue = "1") Integer pageNum) {
+    public String admin(Authentication authentication, Model model, @RequestParam(value="page", defaultValue = "1") Integer pageNum) {
+
+        log.info("Admin Start");
+        log.info("타입정보 : " + authentication.getClass());
+        log.info("권한 정보 : " + authentication.getAuthorities());
+
+        // 세션 정보 객체 반환
+        WebAuthenticationDetails web = (WebAuthenticationDetails)authentication.getDetails();
+        log.info("세션ID : " + web.getSessionId());
+        log.info("접속IP : " + web.getRemoteAddress());
 
         List<BoardDto> boardList = boardService.getBoardlist(pageNum);
         Integer[] pageList = boardService.getPageList(pageNum);
@@ -122,10 +144,19 @@ public class MainController {
     }
 
     @GetMapping("/admin/webloging/{no}")
-    public String webloging(Principal principal, @PathVariable("no") Long no, Model model) {
+    public String webloging(Authentication authentication, @PathVariable("no") Long no, Model model) {
+
+        log.info("Webloging Start");
+        log.info("타입정보 : " + authentication.getClass());
+        log.info("권한 정보 : " + authentication.getAuthorities());
+
+        // 세션 정보 객체 반환
+        WebAuthenticationDetails web = (WebAuthenticationDetails)authentication.getDetails();
+        log.info("세션ID : " + web.getSessionId());
+        log.info("접속IP : " + web.getRemoteAddress());
 
 
-        String username = principal.getName();
+        String username = authentication.getName();
 
         Gittb0001Dto gittb0001Dto = gittb0001Service.getPost(no);
 
@@ -153,7 +184,7 @@ public class MainController {
     }
 
     @GetMapping("/login")
-    public String getLoginPage(Model model) {
+    public String getLoginPage() {
 
         return "redirect:"+authorizationRequestBaseUri+"/wso2";
     }

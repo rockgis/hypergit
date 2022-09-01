@@ -1,5 +1,6 @@
 package com.goodmit.hypergit.common;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.HttpClient;
 import org.apache.http.config.Registry;
 import org.apache.http.config.RegistryBuilder;
@@ -26,19 +27,19 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.X509Certificate;
 import java.util.Collections;
-
+@Slf4j
 @Configuration
 public class RestTemplateConfig {
 
 
     public RestTemplateConfig() {
-        System.out.println("RestTemplateConfig 초기화");
+        log.info("RestTemplateConfig 초기화");
     }
 
     @Bean
     public RestTemplate restTemplate() throws KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
 
-        System.out.println("restTemplate bean");
+        log.info("restTemplate bean");
 
 
         HttpClientBuilder httpClientBuilder = HttpClientBuilder.create();

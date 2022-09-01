@@ -1,15 +1,17 @@
 package com.goodmit.hypergit.user.domain.entity;
 
-import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
+@NoArgsConstructor
 @Entity
-public class OauthUser {
+@Table(name = "GITOAUTHUSER")
+public class OauthUser extends BaseTimeEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -19,14 +21,20 @@ public class OauthUser {
 
     @Column(nullable = false)
     private String email;
+
+    @Column
     private String picture;
-    private String role = "ROLE_USER";
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
 
-    public OauthUser(String name, String email, String picture) {
+    @Builder
+    public OauthUser(String name, String email, String picture, Role role) {
         this.name = name;
         this.email = email;
         this.picture = picture;
+        this.role = role;
     }
 
     public OauthUser update(String name, String picture) {
@@ -36,45 +44,7 @@ public class OauthUser {
         return this;
     }
 
-    // .. getter, setter
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPicture() {
-        return picture;
-    }
-
-    public void setPicture(String picture) {
-        this.picture = picture;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
+    public String getRoleKey() {
+        return this.role.getKey();
     }
 }

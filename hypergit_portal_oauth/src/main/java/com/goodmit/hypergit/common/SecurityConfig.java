@@ -1,7 +1,10 @@
 package com.goodmit.hypergit.common;
 
 import com.goodmit.hypergit.member.service.MemberService;
-import com.goodmit.hypergit.user.service.CustomOAuth2UserService;
+import com.goodmit.hypergit.common.config.auth.CustomOAuth2UserService;
+import com.goodmit.hypergit.user.domain.entity.Role;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.security.StaticResourceLocation;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -16,31 +19,24 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import java.util.Arrays;
 
-@Configuration
+@Slf4j
+@RequiredArgsConstructor
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private MemberService memberService;
+
 
     private final CustomOAuth2UserService customOAuth2UserService;
 
-    protected SecurityConfig(MemberService memberService, CustomOAuth2UserService customOAuth2UserService) {
-        this.memberService =memberService;
-        this.customOAuth2UserService = customOAuth2UserService;
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-//    @Override
-//    public void configure(WebSecurity web) throws Exception
-//    {
-////        PathRequest.toStaticResources().atCommonLocations()
-//        // static 디렉터리의 하위 파일 목록은 인증 무시 ( = 항상통과 )
-//        web.ignoring()
-//                .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+//    private MemberService memberService;
 //
+//    protected SecurityConfig(MemberService memberService, CustomOAuth2UserService customOAuth2UserService) {
+//        this.memberService =memberService;
+//        this.customOAuth2UserService = customOAuth2UserService;
+//    }
+//
+//    @Bean
+//    public PasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder();
 //    }
 
     @Override
@@ -77,28 +73,55 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .exceptionHandling().accessDeniedPage("/admin/denied");
 
 
-        http.authorizeRequests()
+//        http.authorizeRequests()
+//                .antMatchers("/login","/","/login/oauth2/code/wso2").permitAll()
+//                .antMatchers("/help","/api/**").permitAll()
+//                .anyRequest().authenticated()
+//                //.antMatchers("/user/**").authenticated()
+//                .and()
+//                .csrf()
+//                .ignoringAntMatchers("/admin/*post")
+//                .ignoringAntMatchers("/admin/*del")
+//                .ignoringAntMatchers("/admin/*search")
+//                .ignoringAntMatchers("/admin/*/edit")
+//                .ignoringAntMatchers("/admin/post")
+//                //.ignoringAntMatchers("/post")
+//                .and()
+//                // 403 예외처리 핸들링
+//                .exceptionHandling().accessDeniedPage("/admin/denied")
+//                .and() // 로그아웃 설정
+//                .logout()
+//                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+//                .logoutSuccessUrl("/")
+//                .and()
+//                .oauth2Login()
+//                .loginPage("/login")
+//                .userInfoEndpoint() // 로그인 이후 사용자 정보를 가져올 때 설정
+//                .userService(customOAuth2UserService);
+        http
+                .csrf().disable()
+                .headers().frameOptions().disable()
+                .and()
+                .authorizeRequests()
                 .antMatchers("/login","/","/login/oauth2/code/wso2").permitAll()
                 .antMatchers("/help","/api/**").permitAll()
-                //.anyRequest().authenticated()
-                .antMatchers("/user/**").authenticated()
+                .anyRequest().authenticated()
+                .and()
+                .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/")
                 .and()
                 .oauth2Login()
                 .loginPage("/login")
-               // .userInfoEndpoint() // 로그인 이후 사용자 정보를 가져올 때 설정
-                //.userService(customOAuth2UserService)
-                .and() // 로그아웃 설정
-                .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
-                .logoutSuccessUrl("/")
-                .invalidateHttpSession(true);
+                .userInfoEndpoint()
+                .userService(customOAuth2UserService);
 
     }
 
-    @Override
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(memberService).passwordEncoder(passwordEncoder());
-    }
+//    @Override
+//    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.userDetailsService(memberService).passwordEncoder(passwordEncoder());
+//    }
 
     private String[] getResources() {
         return  Arrays.stream(StaticResourceLocation.values())
