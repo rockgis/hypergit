@@ -1,2 +1,2 @@
 rootProject.name = 'hypergit'
-include 'hypergit_portal', 'hypergit_portal_Ldap', 'hypergit_idp' , 'hypergit_rest'
+include 'hypergit_portal', 'hypergit_portal_oauth', 'hypergit_idp' , 'hypergit_rest'

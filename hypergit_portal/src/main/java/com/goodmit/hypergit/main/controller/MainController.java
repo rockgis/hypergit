@@ -75,6 +75,8 @@ public class MainController {
 
         System.out.println("권한 정보 : " + authentication.getAuthorities().toString().equals("[ROLE_ADMIN]"));
 
+        System.out.println("username 정보 : " + username);
+
         if(authentication.getAuthorities().toString().equals("[ROLE_ADMIN]")){
 
             return "redirect:/";
@@ -90,10 +92,6 @@ public class MainController {
             model.addAttribute("boardList", boardList);
             model.addAttribute("pageList", pageList);
             model.addAttribute("postsTotalCount", postsTotalCount);
-
-            //String username = principal.getName();  권한에 따라 URL 가지고 와야 됨
-
-            username = "450192";
 
             List<Gittc0001Dto> gittc0001List = gittc0001Service.getGittc0001listUser(username);
 
