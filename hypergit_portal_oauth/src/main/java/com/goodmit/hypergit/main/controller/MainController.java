@@ -2,12 +2,12 @@ package com.goodmit.hypergit.main.controller;
 
 import com.goodmit.hypergit.appmng.dto.Gittb0001Dto;
 import com.goodmit.hypergit.appmng.service.Gittb0001Service;
+import com.goodmit.hypergit.inspectionmng.service.Gittd0004Service;
+import com.goodmit.hypergit.inspectionmng.dto.Gittd0004Dto;
 import com.goodmit.hypergit.board.dto.BoardDto;
 import com.goodmit.hypergit.board.service.BoardService;
 import com.goodmit.hypergit.common.config.auth.LoginUser;
 import com.goodmit.hypergit.common.config.auth.dto.SessionUser;
-import com.goodmit.hypergit.inspectionmng.dto.Gittd0004Dto;
-import com.goodmit.hypergit.inspectionmng.service.Gittd0004Service;
 import com.goodmit.hypergit.permissionmng.dto.Gittc0001Dto;
 import com.goodmit.hypergit.permissionmng.service.Gittc0001Service;
 import lombok.AllArgsConstructor;
@@ -158,25 +158,27 @@ public class MainController {
 
         String username = authentication.getName();
 
-        Gittb0001Dto gittb0001Dto = gittb0001Service.getPost(no);
+        Gittc0001Dto gittc0001Dto = gittc0001Service.getPost(no);
+
+        Gittb0001Dto gittb0001Dto = gittb0001Service.getPost((long) gittc0001Dto.getGsnId());
+
+
 
         String url=gittb0001Dto.getPgeUrlAr();
 
+        log.info("url : " + url);
+        log.info("username : " + username);
+
+        //사용권한 채크
         Gittd0004Dto gittd0004Dto = new Gittd0004Dto();
         gittd0004Dto.setAppNm(gittb0001Dto.getAppNm());
         gittd0004Dto.setPgeUrlAr(gittb0001Dto.getPgeUrlAr());
         gittd0004Dto.setUsrEn(username);
-
-        //사용권한 채크
-
-        Gittc0001Dto gittc0001Dto = gittc0001Service.getPost(no);
         gittd0004Dto.setDcd(gittc0001Dto.getUsrDcd());
         gittd0004Dto.setUsrNm(gittc0001Dto.getUsrNm());
         gittd0004Dto.setUgCt(1);
 
-
         gittd0004Service.savePost(gittd0004Dto);
-
 
         model.addAttribute("url", url);
 

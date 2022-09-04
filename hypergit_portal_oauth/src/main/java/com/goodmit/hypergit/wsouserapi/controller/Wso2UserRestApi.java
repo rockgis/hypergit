@@ -142,7 +142,9 @@ public class Wso2UserRestApi {
 
         SimpleDateFormat sdf = new SimpleDateFormat ("yyyyMMddhh:mm:ss");
 
-        JSONObject requestJson = wso2UserJson.Wso2UserSaml(rgEN,sdf.format(timestamp));
+        long epoch = System.currentTimeMillis()/1000;
+
+        JSONObject requestJson = wso2UserJson.Wso2UserSaml(rgEN, String.valueOf(epoch));
 
         System.out.println(requestJson.toString());
 
