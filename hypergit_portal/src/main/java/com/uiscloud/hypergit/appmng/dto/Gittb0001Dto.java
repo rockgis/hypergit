@@ -1,6 +1,6 @@
-package com.goodmit.hypergit.appmng.dto;
+package com.uiscloud.hypergit.appmng.dto;
 
-import com.goodmit.hypergit.appmng.domain.entity.Gittb0001Entity;
+import com.uiscloud.hypergit.appmng.domain.entity.Gittb0001Entity;
 import lombok.*;
 
 import javax.persistence.Column;

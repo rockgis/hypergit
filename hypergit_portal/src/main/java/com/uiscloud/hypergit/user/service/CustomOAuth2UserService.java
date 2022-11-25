@@ -1,7 +1,7 @@
-package com.goodmit.hypergit.user.service;
+package com.uiscloud.hypergit.user.service;
 
-import com.goodmit.hypergit.user.domain.entity.OauthUser;
-import com.goodmit.hypergit.user.dto.OAuthAttributes;
+import com.uiscloud.hypergit.user.domain.entity.OauthUser;
+import com.uiscloud.hypergit.user.dto.OAuthAttributes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,7 +13,7 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
-import com.goodmit.hypergit.user.domain.repository.OauthUserRepository;
+import com.uiscloud.hypergit.user.domain.repository.OauthUserRepository;
 
 import javax.servlet.http.HttpSession;
 import java.util.Collections;

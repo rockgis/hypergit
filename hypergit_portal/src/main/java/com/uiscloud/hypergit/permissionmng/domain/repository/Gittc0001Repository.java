@@ -1,7 +1,7 @@
-package com.goodmit.hypergit.permissionmng.domain.repository;
+package com.uiscloud.hypergit.permissionmng.domain.repository;
 
-import com.goodmit.hypergit.permissionmng.domain.entity.Gittc0001Entity;
-import com.goodmit.hypergit.permissionmng.dto.Gittc0001Dto;
+import com.uiscloud.hypergit.permissionmng.domain.entity.Gittc0001Entity;
+import com.uiscloud.hypergit.permissionmng.dto.Gittc0001Dto;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

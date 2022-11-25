@@ -1,10 +1,10 @@
-package com.goodmit.hypergit.wsouserapi.service.util;
+package com.uiscloud.hypergit.wsouserapi.service.util;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.goodmit.hypergit.wsouserapi.dto.*;
+import com.uiscloud.hypergit.wsouserapi.dto.*;
 
 import java.util.ArrayList;
 import java.util.List;

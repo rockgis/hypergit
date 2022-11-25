@@ -1,4 +1,4 @@
-package com.goodmit.hypergit.modelmng.domain.entity;
+package com.uiscloud.hypergit.modelmng.domain.entity;
 
 //'사용자관리'
 

@@ -1,6 +1,6 @@
-package com.goodmit.hypergit.ipusenm.domain.repository;
+package com.uiscloud.hypergit.ipusenm.domain.repository;
 
-import com.goodmit.hypergit.ipusenm.domain.entity.Gittf0002Entity;
+import com.uiscloud.hypergit.ipusenm.domain.entity.Gittf0002Entity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

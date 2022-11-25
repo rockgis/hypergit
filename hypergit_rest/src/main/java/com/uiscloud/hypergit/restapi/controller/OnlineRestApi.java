@@ -1,8 +1,8 @@
-package com.goodmit.hypergit.restapi.controller;
+package com.uiscloud.hypergit.restapi.controller;
 
-import com.goodmit.hypergit.restapi.domain.response.BasicResponse;
-import com.goodmit.hypergit.restapi.domain.response.ErrorResponse;
-import com.goodmit.hypergit.restapi.domain.values.ResultValue;
+import com.uiscloud.hypergit.restapi.domain.response.BasicResponse;
+import com.uiscloud.hypergit.restapi.domain.response.ErrorResponse;
+import com.uiscloud.hypergit.restapi.domain.values.ResultValue;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;

@@ -1,7 +1,7 @@
-package com.goodmit.hypergit.global.security.config;
+package com.uiscloud.hypergit.global.security.config;
 
-import com.goodmit.hypergit.global.security.authn.HAuthnProvider;
-import com.goodmit.hypergit.global.security.authn.properties.ADProperties;
+import com.uiscloud.hypergit.global.security.authn.HAuthnProvider;
+import com.uiscloud.hypergit.global.security.authn.properties.ADProperties;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;

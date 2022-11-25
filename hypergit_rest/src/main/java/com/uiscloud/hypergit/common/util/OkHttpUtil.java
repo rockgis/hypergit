@@ -1,4 +1,4 @@
-package com.goodmit.hypergit.common.util;
+package com.uiscloud.hypergit.common.util;
 
 import okhttp3.*;
 import org.apache.commons.lang3.exception.ExceptionUtils;

@@ -1,6 +1,6 @@
-package com.goodmit.hypergit.modelmng.dto;
+package com.uiscloud.hypergit.modelmng.dto;
 
-import com.goodmit.hypergit.modelmng.domain.entity.Gittc0001Entity;
+import com.uiscloud.hypergit.modelmng.domain.entity.Gittc0001Entity;
 import lombok.*;
 
 import java.time.LocalDateTime;

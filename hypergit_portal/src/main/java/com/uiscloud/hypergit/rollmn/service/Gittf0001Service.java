@@ -1,8 +1,8 @@
-package com.goodmit.hypergit.rollmn.service;
+package com.uiscloud.hypergit.rollmn.service;
 
-import com.goodmit.hypergit.rollmn.domain.entity.Gittf0001Entity;
-import com.goodmit.hypergit.rollmn.domain.repository.Gittf0001Repository;
-import com.goodmit.hypergit.rollmn.dto.Gittf0001Dto;
+import com.uiscloud.hypergit.rollmn.domain.entity.Gittf0001Entity;
+import com.uiscloud.hypergit.rollmn.domain.repository.Gittf0001Repository;
+import com.uiscloud.hypergit.rollmn.dto.Gittf0001Dto;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

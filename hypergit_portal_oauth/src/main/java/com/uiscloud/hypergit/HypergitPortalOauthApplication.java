@@ -1,4 +1,4 @@
-package com.goodmit.hypergit;
+package com.uiscloud.hypergit;
 
 import org.apache.catalina.Context;
 import org.apache.catalina.connector.Connector;

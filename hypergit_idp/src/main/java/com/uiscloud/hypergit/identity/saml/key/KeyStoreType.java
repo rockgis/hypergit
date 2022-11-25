@@ -1,4 +1,4 @@
-package com.goodmit.hypergit.identity.saml.key;
+package com.uiscloud.hypergit.identity.saml.key;
 
 import java.util.Optional;
 import java.util.stream.Stream;

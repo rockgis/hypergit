@@ -1,4 +1,4 @@
-package com.goodmit.hypergit.global.security.authn;
+package com.uiscloud.hypergit.global.security.authn;
 
 import lombok.Builder;
 import lombok.NonNull;

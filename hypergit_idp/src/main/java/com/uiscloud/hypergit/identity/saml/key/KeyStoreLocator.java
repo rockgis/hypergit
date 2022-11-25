@@ -1,4 +1,4 @@
-package com.goodmit.hypergit.identity.saml.key;
+package com.uiscloud.hypergit.identity.saml.key;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;

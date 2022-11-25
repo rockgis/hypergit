@@ -1,4 +1,4 @@
-package com.goodmit.hypergit.restapi.domain.response;
+package com.uiscloud.hypergit.restapi.domain.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;

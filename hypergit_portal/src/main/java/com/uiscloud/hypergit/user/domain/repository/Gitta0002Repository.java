@@ -1,6 +1,6 @@
-package com.goodmit.hypergit.user.domain.repository;
+package com.uiscloud.hypergit.user.domain.repository;
 
-import com.goodmit.hypergit.user.domain.entity.Gitta0002Entity;
+import com.uiscloud.hypergit.user.domain.entity.Gitta0002Entity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

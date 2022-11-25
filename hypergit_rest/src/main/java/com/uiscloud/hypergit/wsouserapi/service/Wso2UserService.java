@@ -1,4 +1,4 @@
-package com.goodmit.hypergit.wsouserapi.service;
+package com.uiscloud.hypergit.wsouserapi.service;
 
 import org.springframework.stereotype.Component;
 

@@ -1,6 +1,6 @@
-package com.goodmit.hypergit.ipusenm.dto;
+package com.uiscloud.hypergit.ipusenm.dto;
 
-import com.goodmit.hypergit.ipusenm.domain.entity.Gittf0002Entity;
+import com.uiscloud.hypergit.ipusenm.domain.entity.Gittf0002Entity;
 import lombok.*;
 
 import javax.persistence.Column;

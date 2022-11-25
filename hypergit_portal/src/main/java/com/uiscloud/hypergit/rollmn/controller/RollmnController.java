@@ -1,8 +1,8 @@
-package com.goodmit.hypergit.rollmn.controller;
+package com.uiscloud.hypergit.rollmn.controller;
 
-import com.goodmit.hypergit.appmng.dto.Gittb0001Dto;
-import com.goodmit.hypergit.rollmn.dto.Gittf0001Dto;
-import com.goodmit.hypergit.rollmn.service.Gittf0001Service;
+import com.uiscloud.hypergit.appmng.dto.Gittb0001Dto;
+import com.uiscloud.hypergit.rollmn.dto.Gittf0001Dto;
+import com.uiscloud.hypergit.rollmn.service.Gittf0001Service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

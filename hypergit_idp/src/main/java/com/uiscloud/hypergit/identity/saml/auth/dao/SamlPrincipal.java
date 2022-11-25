@@ -1,4 +1,4 @@
-package com.goodmit.hypergit.identity.saml.auth.dao;
+package com.uiscloud.hypergit.identity.saml.auth.dao;
 
 import lombok.Builder;
 import lombok.Getter;

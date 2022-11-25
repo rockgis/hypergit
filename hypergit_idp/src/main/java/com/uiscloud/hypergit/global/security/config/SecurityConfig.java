@@ -1,8 +1,8 @@
-package com.goodmit.hypergit.global.security.config;
+package com.uiscloud.hypergit.global.security.config;
 
-import com.goodmit.hypergit.global.security.authn.HAuthnProvider;
-import com.goodmit.hypergit.identity.saml.auth.filter.SamlResponseFilter;
-import com.goodmit.hypergit.identity.saml.config.SamlConfiguration;
+import com.uiscloud.hypergit.global.security.authn.HAuthnProvider;
+import com.uiscloud.hypergit.identity.saml.auth.filter.SamlResponseFilter;
+import com.uiscloud.hypergit.identity.saml.config.SamlConfiguration;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;

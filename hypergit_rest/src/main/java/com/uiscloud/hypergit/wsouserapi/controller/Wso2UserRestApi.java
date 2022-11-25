@@ -1,7 +1,7 @@
-package com.goodmit.hypergit.wsouserapi.controller;
+package com.uiscloud.hypergit.wsouserapi.controller;
 
-import com.goodmit.hypergit.restapi.domain.response.ErrorResponse;
-import com.goodmit.hypergit.restapi.domain.response.CommonResponse;
+import com.uiscloud.hypergit.restapi.domain.response.ErrorResponse;
+import com.uiscloud.hypergit.restapi.domain.response.CommonResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;

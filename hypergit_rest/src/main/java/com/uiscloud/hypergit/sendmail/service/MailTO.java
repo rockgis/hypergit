@@ -1,4 +1,4 @@
-package com.goodmit.hypergit.sendmail.service;
+package com.uiscloud.hypergit.sendmail.service;
 
 public class MailTO {
 

@@ -1,7 +1,7 @@
-package com.goodmit.hypergit.member.controller;
+package com.uiscloud.hypergit.member.controller;
 
-import com.goodmit.hypergit.member.dto.MemberDto;
-import com.goodmit.hypergit.member.service.MemberService;
+import com.uiscloud.hypergit.member.dto.MemberDto;
+import com.uiscloud.hypergit.member.service.MemberService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

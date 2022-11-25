@@ -1,5 +1,6 @@
-package com.goodmit.hypergit.board.domain.repository;
+package com.uiscloud.hypergit.board.domain.repository;
 
+import com.goodmit.hypergit.board.domain.repository.BoardRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;

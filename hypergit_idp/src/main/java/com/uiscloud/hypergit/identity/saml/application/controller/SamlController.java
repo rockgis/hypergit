@@ -1,6 +1,6 @@
-package com.goodmit.hypergit.identity.saml.application.controller;
+package com.uiscloud.hypergit.identity.saml.application.controller;
 
-import com.goodmit.hypergit.identity.saml.application.SAMLService;
+import com.uiscloud.hypergit.identity.saml.application.SAMLService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

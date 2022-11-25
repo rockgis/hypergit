@@ -1,6 +1,6 @@
-package com.goodmit.hypergit.identity.saml.metadata;
+package com.uiscloud.hypergit.identity.saml.metadata;
 
-import com.goodmit.hypergit.identity.saml.auth.SamlBuilder;
+import com.uiscloud.hypergit.identity.saml.auth.SamlBuilder;
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 import org.opensaml.common.xml.SAMLConstants;

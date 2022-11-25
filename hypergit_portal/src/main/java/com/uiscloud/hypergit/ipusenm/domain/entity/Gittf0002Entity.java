@@ -1,4 +1,4 @@
-package com.goodmit.hypergit.ipusenm.domain.entity;
+package com.uiscloud.hypergit.ipusenm.domain.entity;
 
 //'사용자관리'
 import lombok.AccessLevel;

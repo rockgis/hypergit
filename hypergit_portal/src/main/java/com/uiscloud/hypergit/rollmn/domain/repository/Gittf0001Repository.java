@@ -1,6 +1,6 @@
-package com.goodmit.hypergit.rollmn.domain.repository;
+package com.uiscloud.hypergit.rollmn.domain.repository;
 
-import com.goodmit.hypergit.rollmn.domain.entity.Gittf0001Entity;
+import com.uiscloud.hypergit.rollmn.domain.entity.Gittf0001Entity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

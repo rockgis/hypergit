@@ -1,6 +1,6 @@
-package com.goodmit.hypergit.identity.saml.application;
+package com.uiscloud.hypergit.identity.saml.application;
 
-import com.goodmit.hypergit.identity.saml.config.properties.KeyProperties;
+import com.uiscloud.hypergit.identity.saml.config.properties.KeyProperties;
 import lombok.Builder;
 import lombok.Getter;
 import org.opensaml.xml.security.CriteriaSet;

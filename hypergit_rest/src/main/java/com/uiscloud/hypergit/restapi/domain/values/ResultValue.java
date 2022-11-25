@@ -1,4 +1,4 @@
-package com.goodmit.hypergit.restapi.domain.values;
+package com.uiscloud.hypergit.restapi.domain.values;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.goodmit.hypergit.global.security.authn.properties;
+package com.uiscloud.hypergit.global.security.authn.properties;
 
 import lombok.Getter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

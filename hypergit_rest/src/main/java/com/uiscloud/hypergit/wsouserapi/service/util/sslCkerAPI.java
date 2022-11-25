@@ -1,4 +1,4 @@
-package com.goodmit.hypergit.wsouserapi.service.util;
+package com.uiscloud.hypergit.wsouserapi.service.util;
 
 import javax.net.ssl.SSLParameters;
 import javax.net.ssl.SSLSocket;

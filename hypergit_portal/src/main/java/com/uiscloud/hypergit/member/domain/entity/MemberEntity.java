@@ -1,4 +1,4 @@
-package com.goodmit.hypergit.member.domain.entity;
+package com.uiscloud.hypergit.member.domain.entity;
 
 import lombok.AccessLevel;
 import lombok.Builder;

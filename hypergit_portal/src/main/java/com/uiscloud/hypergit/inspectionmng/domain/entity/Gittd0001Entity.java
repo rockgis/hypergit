@@ -1,8 +1,8 @@
-package com.goodmit.hypergit.inspectionmng.domain.entity;
+package com.uiscloud.hypergit.inspectionmng.domain.entity;
 
 //'사용자관리'
 
-import com.goodmit.hypergit.inspectionmng.domain.entity.TimeEntity;
+import com.uiscloud.hypergit.inspectionmng.domain.entity.TimeEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

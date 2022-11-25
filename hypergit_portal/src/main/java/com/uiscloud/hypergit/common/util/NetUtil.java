@@ -1,4 +1,4 @@
-package com.goodmit.hypergit.common.util;
+package com.uiscloud.hypergit.common.util;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;

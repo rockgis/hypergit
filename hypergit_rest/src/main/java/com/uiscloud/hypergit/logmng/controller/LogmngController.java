@@ -1,7 +1,7 @@
-package com.goodmit.hypergit.logmng.controller;
+package com.uiscloud.hypergit.logmng.controller;
 
-import com.goodmit.hypergit.logmng.dto.Gitte0001Dto;
-import com.goodmit.hypergit.logmng.service.Gitte0001Service;
+import com.uiscloud.hypergit.logmng.dto.Gitte0001Dto;
+import com.uiscloud.hypergit.logmng.service.Gitte0001Service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

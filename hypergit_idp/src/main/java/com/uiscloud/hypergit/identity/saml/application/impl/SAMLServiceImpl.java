@@ -1,8 +1,8 @@
-package com.goodmit.hypergit.identity.saml.application.impl;
+package com.uiscloud.hypergit.identity.saml.application.impl;
 
-import com.goodmit.hypergit.identity.saml.application.SAMLService;
-import com.goodmit.hypergit.identity.saml.config.properties.SamlProperties;
-import com.goodmit.hypergit.identity.saml.application.KeyService;
+import com.uiscloud.hypergit.identity.saml.application.SAMLService;
+import com.uiscloud.hypergit.identity.saml.config.properties.SamlProperties;
+import com.uiscloud.hypergit.identity.saml.application.KeyService;
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
 import org.opensaml.saml2.metadata.EntityDescriptor;

@@ -1,4 +1,4 @@
-package com.goodmit.hypergit.identity.saml.metadata;
+package com.uiscloud.hypergit.identity.saml.metadata;
 
 import lombok.Getter;
 import org.opensaml.common.xml.SAMLConstants;

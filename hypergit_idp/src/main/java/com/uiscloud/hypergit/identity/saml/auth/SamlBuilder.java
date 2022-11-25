@@ -1,7 +1,7 @@
-package com.goodmit.hypergit.identity.saml.auth;
+package com.uiscloud.hypergit.identity.saml.auth;
 
-import com.goodmit.hypergit.identity.saml.auth.dao.SamlAttribute;
-import com.goodmit.hypergit.identity.saml.auth.dao.SamlPrincipal;
+import com.uiscloud.hypergit.identity.saml.auth.dao.SamlAttribute;
+import com.uiscloud.hypergit.identity.saml.auth.dao.SamlPrincipal;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;

@@ -1,8 +1,8 @@
-package com.goodmit.hypergit.inspectionmng.service;
+package com.uiscloud.hypergit.inspectionmng.service;
 
-import com.goodmit.hypergit.inspectionmng.domain.entity.Gittd0002Entity;
-import com.goodmit.hypergit.inspectionmng.domain.repository.Gittd0002Repository;
-import com.goodmit.hypergit.inspectionmng.dto.Gittd0002Dto;
+import com.uiscloud.hypergit.inspectionmng.domain.entity.Gittd0002Entity;
+import com.uiscloud.hypergit.inspectionmng.domain.repository.Gittd0002Repository;
+import com.uiscloud.hypergit.inspectionmng.dto.Gittd0002Dto;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

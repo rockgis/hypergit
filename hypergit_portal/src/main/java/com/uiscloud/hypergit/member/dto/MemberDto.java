@@ -1,6 +1,6 @@
-package com.goodmit.hypergit.member.dto;
+package com.uiscloud.hypergit.member.dto;
 
-import com.goodmit.hypergit.member.domain.entity.MemberEntity;
+import com.uiscloud.hypergit.member.domain.entity.MemberEntity;
 import lombok.*;
 
 import java.time.LocalDateTime;

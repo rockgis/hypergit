@@ -1,6 +1,6 @@
-package com.goodmit.hypergit.inspectionmng.domain.repository;
+package com.uiscloud.hypergit.inspectionmng.domain.repository;
 
-import com.goodmit.hypergit.inspectionmng.domain.entity.Gittd0004Entity;
+import com.uiscloud.hypergit.inspectionmng.domain.entity.Gittd0004Entity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

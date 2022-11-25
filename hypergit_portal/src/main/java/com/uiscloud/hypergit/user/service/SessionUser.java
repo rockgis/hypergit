@@ -1,7 +1,7 @@
-package com.goodmit.hypergit.user.service;
+package com.uiscloud.hypergit.user.service;
 
 import java.io.Serializable;
-import com.goodmit.hypergit.user.domain.entity.OauthUser;
+import com.uiscloud.hypergit.user.domain.entity.OauthUser;
 
 public class SessionUser implements Serializable {
     private String name;

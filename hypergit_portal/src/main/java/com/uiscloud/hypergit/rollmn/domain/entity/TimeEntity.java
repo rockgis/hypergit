@@ -1,4 +1,4 @@
-package com.goodmit.hypergit.rollmn.domain.entity;
+package com.uiscloud.hypergit.rollmn.domain.entity;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;

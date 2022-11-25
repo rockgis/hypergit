@@ -1,4 +1,4 @@
-package com.goodmit.hypergit.common;
+package com.uiscloud.hypergit.common;
 
 import java.io.IOException;
 import java.security.KeyManagementException;

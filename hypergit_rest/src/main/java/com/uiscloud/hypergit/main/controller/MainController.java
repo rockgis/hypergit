@@ -1,9 +1,9 @@
-package com.goodmit.hypergit.main.controller;
+package com.uiscloud.hypergit.main.controller;
 
-import com.goodmit.hypergit.appmng.dto.Gittb0001Dto;
-import com.goodmit.hypergit.appmng.service.Gittb0001Service;
+import com.uiscloud.hypergit.appmng.dto.Gittb0001Dto;
+import com.uiscloud.hypergit.appmng.service.Gittb0001Service;
 
-import  com.goodmit.hypergit.common.util.NetUtil;
+import  com.uiscloud.hypergit.common.util.NetUtil;
 
 
 import lombok.AllArgsConstructor;

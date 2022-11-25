@@ -1,4 +1,4 @@
-package com.goodmit.hypergit.logmng.domain.entity;
+package com.uiscloud.hypergit.logmng.domain.entity;
 
 //'사용자관리'
 import lombok.AccessLevel;

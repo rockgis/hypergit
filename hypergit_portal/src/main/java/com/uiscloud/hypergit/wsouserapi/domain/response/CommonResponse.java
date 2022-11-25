@@ -1,4 +1,4 @@
-package com.goodmit.hypergit.wsouserapi.domain.response;
+package com.uiscloud.hypergit.wsouserapi.domain.response;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;

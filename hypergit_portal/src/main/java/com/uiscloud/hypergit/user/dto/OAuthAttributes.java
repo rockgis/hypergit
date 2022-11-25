@@ -1,7 +1,7 @@
-package com.goodmit.hypergit.user.dto;
+package com.uiscloud.hypergit.user.dto;
 
 import java.util.Map;
-import com.goodmit.hypergit.user.domain.entity.OauthUser;
+import com.uiscloud.hypergit.user.domain.entity.OauthUser;
 
 public class OAuthAttributes {
     private Map<String, Object> attributes;

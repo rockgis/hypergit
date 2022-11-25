@@ -1,4 +1,4 @@
-package com.goodmit.hypergit.member.domain;
+package com.uiscloud.hypergit.member.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

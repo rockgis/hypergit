@@ -1,9 +1,9 @@
 
-package com.goodmit.hypergit.policymng.service;
+package com.uiscloud.hypergit.policymng.service;
 
-import com.goodmit.hypergit.policymng.domain.entity.Gittf0003Entity;
-import com.goodmit.hypergit.policymng.domain.repository.Gittf0003Repository;
-import com.goodmit.hypergit.policymng.dto.Gittf0003Dto;
+import com.uiscloud.hypergit.policymng.domain.entity.Gittf0003Entity;
+import com.uiscloud.hypergit.policymng.domain.repository.Gittf0003Repository;
+import com.uiscloud.hypergit.policymng.dto.Gittf0003Dto;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

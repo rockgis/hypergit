@@ -1,8 +1,8 @@
-package com.goodmit.hypergit.appmng.service;
+package com.uiscloud.hypergit.appmng.service;
 
-import com.goodmit.hypergit.appmng.domain.entity.Gittb0001Entity;
-import com.goodmit.hypergit.appmng.domain.repository.Gittb0001Repository;
-import com.goodmit.hypergit.appmng.dto.Gittb0001Dto;
+import com.uiscloud.hypergit.appmng.domain.entity.Gittb0001Entity;
+import com.uiscloud.hypergit.appmng.domain.repository.Gittb0001Repository;
+import com.uiscloud.hypergit.appmng.dto.Gittb0001Dto;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

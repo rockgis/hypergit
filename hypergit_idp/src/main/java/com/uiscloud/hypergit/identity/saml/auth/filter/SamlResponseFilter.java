@@ -1,9 +1,9 @@
-package com.goodmit.hypergit.identity.saml.auth.filter;
+package com.uiscloud.hypergit.identity.saml.auth.filter;
 
-import com.goodmit.hypergit.identity.saml.auth.SamlAuthHandler;
-import com.goodmit.hypergit.identity.saml.auth.SamlPrincipalFactory;
-import com.goodmit.hypergit.identity.saml.auth.dao.SamlPrincipal;
-import com.goodmit.hypergit.identity.saml.config.properties.SamlProperties;
+import com.uiscloud.hypergit.identity.saml.auth.SamlAuthHandler;
+import com.uiscloud.hypergit.identity.saml.auth.SamlPrincipalFactory;
+import com.uiscloud.hypergit.identity.saml.auth.dao.SamlPrincipal;
+import com.uiscloud.hypergit.identity.saml.config.properties.SamlProperties;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.opensaml.saml2.core.LogoutRequest;

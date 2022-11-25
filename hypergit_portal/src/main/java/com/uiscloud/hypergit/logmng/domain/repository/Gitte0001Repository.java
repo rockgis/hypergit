@@ -1,6 +1,6 @@
-package com.goodmit.hypergit.logmng.domain.repository;
+package com.uiscloud.hypergit.logmng.domain.repository;
 
-import com.goodmit.hypergit.logmng.domain.entity.Gitte0001Entity;
+import com.uiscloud.hypergit.logmng.domain.entity.Gitte0001Entity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

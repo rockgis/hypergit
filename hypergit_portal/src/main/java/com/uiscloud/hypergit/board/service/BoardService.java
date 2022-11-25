@@ -1,8 +1,8 @@
-package com.goodmit.hypergit.board.service;
+package com.uiscloud.hypergit.board.service;
 
-import com.goodmit.hypergit.board.domain.entity.BoardEntity;
-import com.goodmit.hypergit.board.domain.repository.BoardRepository;
-import com.goodmit.hypergit.board.dto.BoardDto;
+import com.uiscloud.hypergit.board.domain.entity.BoardEntity;
+import com.uiscloud.hypergit.board.domain.repository.BoardRepository;
+import com.uiscloud.hypergit.board.dto.BoardDto;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

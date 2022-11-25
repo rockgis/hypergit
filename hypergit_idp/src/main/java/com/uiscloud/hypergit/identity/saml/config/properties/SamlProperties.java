@@ -1,7 +1,7 @@
-package com.goodmit.hypergit.identity.saml.config.properties;
+package com.uiscloud.hypergit.identity.saml.config.properties;
 
-import com.goodmit.hypergit.identity.saml.metadata.BindingType;
-import com.goodmit.hypergit.util.NetUtil;
+import com.uiscloud.hypergit.identity.saml.metadata.BindingType;
+import com.uiscloud.hypergit.util.NetUtil;
 import lombok.Getter;
 import lombok.NonNull;
 import org.springframework.boot.context.properties.ConfigurationProperties;

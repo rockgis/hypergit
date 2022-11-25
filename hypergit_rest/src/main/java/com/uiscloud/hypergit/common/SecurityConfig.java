@@ -1,6 +1,6 @@
-package com.goodmit.hypergit.common;
+package com.uiscloud.hypergit.common;
 
-import com.goodmit.hypergit.member.service.MemberService;
+import com.uiscloud.hypergit.member.service.MemberService;
 import org.springframework.boot.autoconfigure.security.StaticResourceLocation;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;

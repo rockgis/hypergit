@@ -1,4 +1,4 @@
-package com.goodmit.hypergit.global.security.authn.ldap;
+package com.uiscloud.hypergit.global.security.authn.ldap;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;

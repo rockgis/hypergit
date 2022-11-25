@@ -1,4 +1,4 @@
-package com.goodmit.hypergit.common;
+package com.uiscloud.hypergit.common;
 
 import okhttp3.ConnectionPool;
 import okhttp3.OkHttpClient;
