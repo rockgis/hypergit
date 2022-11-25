@@ -1,4 +1,4 @@
-package com.goodmit.hypergit.permissionmng.domain.entity;
+package com.uiscloud.hypergit.permissionmng.domain.entity;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;

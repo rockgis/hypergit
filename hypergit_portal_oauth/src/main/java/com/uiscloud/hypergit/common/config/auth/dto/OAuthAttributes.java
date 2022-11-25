@@ -1,7 +1,7 @@
-package com.goodmit.hypergit.common.config.auth.dto;
+package com.uiscloud.hypergit.common.config.auth.dto;
 
-import com.goodmit.hypergit.user.domain.entity.Role;
-import com.goodmit.hypergit.user.domain.entity.OauthUser;
+import com.uiscloud.hypergit.user.domain.entity.Role;
+import com.uiscloud.hypergit.user.domain.entity.OauthUser;
 import lombok.Builder;
 import lombok.Getter;
 

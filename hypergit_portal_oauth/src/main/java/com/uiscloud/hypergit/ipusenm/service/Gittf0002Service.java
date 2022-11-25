@@ -1,8 +1,8 @@
-package com.goodmit.hypergit.ipusenm.service;
+package com.uiscloud.hypergit.ipusenm.service;
 
-import com.goodmit.hypergit.ipusenm.domain.entity.Gittf0002Entity;
-import com.goodmit.hypergit.ipusenm.domain.repository.Gittf0002Repository;
-import com.goodmit.hypergit.ipusenm.dto.Gittf0002Dto;
+import com.uiscloud.hypergit.ipusenm.domain.entity.Gittf0002Entity;
+import com.uiscloud.hypergit.ipusenm.domain.repository.Gittf0002Repository;
+import com.uiscloud.hypergit.ipusenm.dto.Gittf0002Dto;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

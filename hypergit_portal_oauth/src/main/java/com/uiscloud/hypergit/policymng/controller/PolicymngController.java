@@ -1,7 +1,7 @@
-package com.goodmit.hypergit.policymng.controller;
+package com.uiscloud.hypergit.policymng.controller;
 
-import com.goodmit.hypergit.policymng.dto.Gittf0003Dto;
-import com.goodmit.hypergit.policymng.service.Gittf0003Service;
+import com.uiscloud.hypergit.policymng.dto.Gittf0003Dto;
+import com.uiscloud.hypergit.policymng.service.Gittf0003Service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

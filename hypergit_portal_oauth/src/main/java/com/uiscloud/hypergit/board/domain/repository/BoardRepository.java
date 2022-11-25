@@ -1,6 +1,6 @@
-package com.goodmit.hypergit.board.domain.repository;
+package com.uiscloud.hypergit.board.domain.repository;
 
-import com.goodmit.hypergit.board.domain.entity.BoardEntity;
+import com.uiscloud.hypergit.board.domain.entity.BoardEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

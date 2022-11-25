@@ -1,4 +1,4 @@
-package com.goodmit.hypergit.common.config.auth;
+package com.uiscloud.hypergit.common.config.auth;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

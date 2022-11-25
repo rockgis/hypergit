@@ -1,8 +1,8 @@
-package com.goodmit.hypergit.ipusenm.controller;
+package com.uiscloud.hypergit.ipusenm.controller;
 
-import com.goodmit.hypergit.ipusenm.dto.Gittf0002Dto;
-import com.goodmit.hypergit.ipusenm.service.Gittf0002Service;
-import com.goodmit.hypergit.rollmn.dto.Gittf0001Dto;
+import com.uiscloud.hypergit.ipusenm.dto.Gittf0002Dto;
+import com.uiscloud.hypergit.ipusenm.service.Gittf0002Service;
+import com.uiscloud.hypergit.rollmn.dto.Gittf0001Dto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

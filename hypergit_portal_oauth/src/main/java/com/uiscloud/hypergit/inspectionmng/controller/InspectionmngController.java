@@ -1,16 +1,16 @@
-package com.goodmit.hypergit.inspectionmng.controller;
+package com.uiscloud.hypergit.inspectionmng.controller;
 
 
-import com.goodmit.hypergit.common.excel.util.ExcelXlsView;
-import com.goodmit.hypergit.inspectionmng.dto.Gittd0001Dto;
-import com.goodmit.hypergit.inspectionmng.service.Gittd0001Service;
-import com.goodmit.hypergit.inspectionmng.dto.Gittd0002Dto;
-import com.goodmit.hypergit.inspectionmng.service.Gittd0002Service;
+import com.uiscloud.hypergit.common.excel.util.ExcelXlsView;
+import com.uiscloud.hypergit.inspectionmng.dto.Gittd0001Dto;
+import com.uiscloud.hypergit.inspectionmng.service.Gittd0001Service;
+import com.uiscloud.hypergit.inspectionmng.dto.Gittd0002Dto;
+import com.uiscloud.hypergit.inspectionmng.service.Gittd0002Service;
 
-import com.goodmit.hypergit.inspectionmng.dto.Gittd0003Dto;
-import com.goodmit.hypergit.inspectionmng.service.Gittd0003Service;
-import com.goodmit.hypergit.inspectionmng.dto.Gittd0004Dto;
-import com.goodmit.hypergit.inspectionmng.service.Gittd0004Service;
+import com.uiscloud.hypergit.inspectionmng.dto.Gittd0003Dto;
+import com.uiscloud.hypergit.inspectionmng.service.Gittd0003Service;
+import com.uiscloud.hypergit.inspectionmng.dto.Gittd0004Dto;
+import com.uiscloud.hypergit.inspectionmng.service.Gittd0004Service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

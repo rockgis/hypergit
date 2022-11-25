@@ -1,10 +1,10 @@
-package com.goodmit.hypergit.permissionmng.service;
+package com.uiscloud.hypergit.permissionmng.service;
 
-import com.goodmit.hypergit.permissionmng.domain.entity.Gittc0001Entity;
-import com.goodmit.hypergit.permissionmng.domain.repository.Gittc0001Repository;
-import com.goodmit.hypergit.permissionmng.dto.Gittc0001Dto;
-import com.goodmit.hypergit.rollmn.domain.entity.Gittf0001Entity;
-import com.goodmit.hypergit.rollmn.dto.Gittf0001Dto;
+import com.uiscloud.hypergit.permissionmng.domain.entity.Gittc0001Entity;
+import com.uiscloud.hypergit.permissionmng.domain.repository.Gittc0001Repository;
+import com.uiscloud.hypergit.permissionmng.dto.Gittc0001Dto;
+import com.uiscloud.hypergit.rollmn.domain.entity.Gittf0001Entity;
+import com.uiscloud.hypergit.rollmn.dto.Gittf0001Dto;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

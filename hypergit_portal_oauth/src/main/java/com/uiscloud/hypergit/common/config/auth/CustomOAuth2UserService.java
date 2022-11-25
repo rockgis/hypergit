@@ -1,8 +1,8 @@
-package com.goodmit.hypergit.common.config.auth;
+package com.uiscloud.hypergit.common.config.auth;
 
-import com.goodmit.hypergit.common.config.auth.dto.SessionUser;
-import com.goodmit.hypergit.user.domain.entity.OauthUser;
-import com.goodmit.hypergit.common.config.auth.dto.OAuthAttributes;
+import com.uiscloud.hypergit.common.config.auth.dto.SessionUser;
+import com.uiscloud.hypergit.user.domain.entity.OauthUser;
+import com.uiscloud.hypergit.common.config.auth.dto.OAuthAttributes;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,7 +13,7 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.DefaultOAuth2User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
-import com.goodmit.hypergit.user.domain.repository.OauthUserRepository;
+import com.uiscloud.hypergit.user.domain.repository.OauthUserRepository;
 
 import javax.servlet.http.HttpSession;
 import java.util.Collections;

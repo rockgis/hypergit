@@ -1,11 +1,11 @@
-package com.goodmit.hypergit.permissionmng.controller;
+package com.uiscloud.hypergit.permissionmng.controller;
 
-import com.goodmit.hypergit.appmng.dto.Gittb0001Dto;
-import com.goodmit.hypergit.appmng.service.Gittb0001Service;
-import com.goodmit.hypergit.inspectionmng.service.Gittd0003Service;
-import com.goodmit.hypergit.inspectionmng.dto.Gittd0003Dto;
-import com.goodmit.hypergit.permissionmng.dto.Gittc0001Dto;
-import com.goodmit.hypergit.permissionmng.service.Gittc0001Service;
+import com.uiscloud.hypergit.appmng.dto.Gittb0001Dto;
+import com.uiscloud.hypergit.appmng.service.Gittb0001Service;
+import com.uiscloud.hypergit.inspectionmng.service.Gittd0003Service;
+import com.uiscloud.hypergit.inspectionmng.dto.Gittd0003Dto;
+import com.uiscloud.hypergit.permissionmng.dto.Gittc0001Dto;
+import com.uiscloud.hypergit.permissionmng.service.Gittc0001Service;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;

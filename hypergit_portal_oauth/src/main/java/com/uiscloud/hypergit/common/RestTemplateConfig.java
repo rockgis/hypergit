@@ -1,4 +1,4 @@
-package com.goodmit.hypergit.common;
+package com.uiscloud.hypergit.common;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.HttpClient;

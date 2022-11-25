@@ -1,4 +1,4 @@
-package com.goodmit.hypergit.wsouserapi.domain.values;
+package com.uiscloud.hypergit.wsouserapi.domain.values;
 
 public class WsoUser {
 

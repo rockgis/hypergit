@@ -1,7 +1,7 @@
-package com.goodmit.hypergit.wsouserapi.controller;
+package com.uiscloud.hypergit.wsouserapi.controller;
 
-import com.goodmit.hypergit.wsouserapi.domain.response.CommonResponse;
-import com.goodmit.hypergit.wsouserapi.domain.response.ErrorResponse;
+import com.uiscloud.hypergit.wsouserapi.domain.response.CommonResponse;
+import com.uiscloud.hypergit.wsouserapi.domain.response.ErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -24,7 +24,7 @@ import java.text.SimpleDateFormat;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
-import com.goodmit.hypergit.wsouserapi.service.Wso2UserJson;
+import com.uiscloud.hypergit.wsouserapi.service.Wso2UserJson;
 
 @Tag(name = "Wso2User Check ", description = "Wso2User Check API")
 @RestController

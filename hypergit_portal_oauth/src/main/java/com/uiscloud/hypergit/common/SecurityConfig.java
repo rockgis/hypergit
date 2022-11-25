@@ -1,8 +1,8 @@
-package com.goodmit.hypergit.common;
+package com.uiscloud.hypergit.common;
 
-import com.goodmit.hypergit.member.service.MemberService;
-import com.goodmit.hypergit.common.config.auth.CustomOAuth2UserService;
-import com.goodmit.hypergit.user.domain.entity.Role;
+import com.uiscloud.hypergit.member.service.MemberService;
+import com.uiscloud.hypergit.common.config.auth.CustomOAuth2UserService;
+import com.uiscloud.hypergit.user.domain.entity.Role;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.security.StaticResourceLocation;

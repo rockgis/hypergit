@@ -1,9 +1,9 @@
-package com.goodmit.hypergit.member.service;
+package com.uiscloud.hypergit.member.service;
 
-import com.goodmit.hypergit.member.domain.Role;
-import com.goodmit.hypergit.member.domain.entity.MemberEntity;
-import com.goodmit.hypergit.member.domain.repository.MemberRepository;
-import com.goodmit.hypergit.member.dto.MemberDto;
+import com.uiscloud.hypergit.member.domain.Role;
+import com.uiscloud.hypergit.member.domain.entity.MemberEntity;
+import com.uiscloud.hypergit.member.domain.repository.MemberRepository;
+import com.uiscloud.hypergit.member.dto.MemberDto;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

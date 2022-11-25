@@ -1,11 +1,11 @@
-package com.goodmit.hypergit.user.controller;
+package com.uiscloud.hypergit.user.controller;
 
-import com.goodmit.hypergit.appmng.dto.Gittb0001Dto;
-import com.goodmit.hypergit.user.dto.Gitta0001Dto;
-import com.goodmit.hypergit.user.service.Gitta0001Service;
+import com.uiscloud.hypergit.appmng.dto.Gittb0001Dto;
+import com.uiscloud.hypergit.user.dto.Gitta0001Dto;
+import com.uiscloud.hypergit.user.service.Gitta0001Service;
 
-import com.goodmit.hypergit.user.dto.Gitta0002Dto;
-import com.goodmit.hypergit.user.service.Gitta0002Service;
+import com.uiscloud.hypergit.user.dto.Gitta0002Dto;
+import com.uiscloud.hypergit.user.service.Gitta0002Service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.Authentication;

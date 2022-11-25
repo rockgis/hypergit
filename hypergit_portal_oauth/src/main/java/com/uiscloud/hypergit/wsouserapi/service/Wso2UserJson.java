@@ -1,6 +1,6 @@
-package com.goodmit.hypergit.wsouserapi.service;
+package com.uiscloud.hypergit.wsouserapi.service;
 
-import com.goodmit.hypergit.wsouserapi.dto.Wso2UserNameReplace;
+import com.uiscloud.hypergit.wsouserapi.dto.Wso2UserNameReplace;
 import org.json.JSONArray;
 import org.json.JSONObject;
 

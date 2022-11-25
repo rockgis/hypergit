@@ -1,6 +1,6 @@
-package com.goodmit.hypergit.appmng.domain.repository;
+package com.uiscloud.hypergit.appmng.domain.repository;
 
-import com.goodmit.hypergit.appmng.domain.entity.Gittb0001Entity;
+import com.uiscloud.hypergit.appmng.domain.entity.Gittb0001Entity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

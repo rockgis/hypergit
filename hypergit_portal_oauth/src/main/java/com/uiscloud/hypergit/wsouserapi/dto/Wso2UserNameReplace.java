@@ -1,4 +1,4 @@
-package com.goodmit.hypergit.wsouserapi.dto;
+package com.uiscloud.hypergit.wsouserapi.dto;
 
 import org.json.JSONObject;
 

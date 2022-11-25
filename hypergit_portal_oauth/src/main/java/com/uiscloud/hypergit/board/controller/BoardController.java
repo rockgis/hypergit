@@ -1,9 +1,9 @@
-package com.goodmit.hypergit.board.controller;
+package com.uiscloud.hypergit.board.controller;
 
-import com.goodmit.hypergit.board.dto.BoardDto;
-import com.goodmit.hypergit.board.service.BoardService;
-import com.goodmit.hypergit.permissionmng.dto.Gittc0001Dto;
-import com.goodmit.hypergit.permissionmng.service.Gittc0001Service;
+import com.uiscloud.hypergit.board.dto.BoardDto;
+import com.uiscloud.hypergit.board.service.BoardService;
+import com.uiscloud.hypergit.permissionmng.dto.Gittc0001Dto;
+import com.uiscloud.hypergit.permissionmng.service.Gittc0001Service;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -1,7 +1,7 @@
-package com.goodmit.hypergit.sendmail.controller;
+package com.uiscloud.hypergit.sendmail.controller;
 
-import com.goodmit.hypergit.sendmail.service.MailTO;
-import com.goodmit.hypergit.sendmail.service.MailService;
+import com.uiscloud.hypergit.sendmail.service.MailTO;
+import com.uiscloud.hypergit.sendmail.service.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

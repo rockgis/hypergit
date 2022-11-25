@@ -1,6 +1,6 @@
-package com.goodmit.hypergit.sendmail.service;
+package com.uiscloud.hypergit.sendmail.service;
 
-import com.goodmit.hypergit.sendmail.service.MailTO;
+import com.uiscloud.hypergit.sendmail.service.MailTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;

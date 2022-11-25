@@ -1,6 +1,6 @@
-package com.goodmit.hypergit.common;
+package com.uiscloud.hypergit.common;
 
-import com.goodmit.hypergit.common.config.auth.LoginUserArgumentResolver;
+import com.uiscloud.hypergit.common.config.auth.LoginUserArgumentResolver;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;

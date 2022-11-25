@@ -1,6 +1,6 @@
-package com.goodmit.hypergit.common.config.auth;
+package com.uiscloud.hypergit.common.config.auth;
 
-import com.goodmit.hypergit.common.config.auth.dto.SessionUser;
+import com.uiscloud.hypergit.common.config.auth.dto.SessionUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;
