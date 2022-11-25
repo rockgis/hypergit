@@ -1,7 +1,10 @@
 package com.goodmit.hypergit.common;
 
 import com.goodmit.hypergit.member.service.MemberService;
-import com.goodmit.hypergit.user.service.CustomOAuth2UserService;
+import com.goodmit.hypergit.common.config.auth.CustomOAuth2UserService;
+import com.goodmit.hypergit.user.domain.entity.Role;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.security.StaticResourceLocation;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -12,36 +15,31 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import java.util.Arrays;
 
-@Configuration
+@Slf4j
+@RequiredArgsConstructor
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private MemberService memberService;
 
-    private final CustomOAuth2UserService customOAuth2UserService;
+
+//    private final CustomOAuth2UserService customOAuth2UserService;
+
+    private MemberService memberService;
 
     protected SecurityConfig(MemberService memberService, CustomOAuth2UserService customOAuth2UserService) {
         this.memberService =memberService;
-        this.customOAuth2UserService = customOAuth2UserService;
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-//    @Override
-//    public void configure(WebSecurity web) throws Exception
-//    {
-////        PathRequest.toStaticResources().atCommonLocations()
-//        // static 디렉터리의 하위 파일 목록은 인증 무시 ( = 항상통과 )
-//        web.ignoring()
-//                .requestMatchers(PathRequest.toStaticResources().atCommonLocations());
-//
-//    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -77,21 +75,49 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().accessDeniedPage("/admin/denied");
 
 
-        http.authorizeRequests()
-                .antMatchers("/login","/","/login/oauth2/code/wso2").permitAll()
-                .antMatchers("/help","/api/**").permitAll()
-                //.anyRequest().authenticated()
-                .antMatchers("/user/**").authenticated()
-                .and()
-                .oauth2Login()
-                .loginPage("/login")
-               // .userInfoEndpoint() // 로그인 이후 사용자 정보를 가져올 때 설정
-                //.userService(customOAuth2UserService)
-                .and() // 로그아웃 설정
-                .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
-                .logoutSuccessUrl("/")
-                .invalidateHttpSession(true);
+//        http.authorizeRequests()
+//                .antMatchers("/login","/","/login/oauth2/code/wso2").permitAll()
+//                .antMatchers("/help","/api/**").permitAll()
+//                .anyRequest().authenticated()
+//                //.antMatchers("/user/**").authenticated()
+//                .and()
+//                .csrf()
+//                .ignoringAntMatchers("/admin/*post")
+//                .ignoringAntMatchers("/admin/*del")
+//                .ignoringAntMatchers("/admin/*search")
+//                .ignoringAntMatchers("/admin/*/edit")
+//                .ignoringAntMatchers("/admin/post")
+//                //.ignoringAntMatchers("/post")
+//                .and()
+//                // 403 예외처리 핸들링
+//                .exceptionHandling().accessDeniedPage("/admin/denied")
+//                .and() // 로그아웃 설정
+//                .logout()
+//                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+//                .logoutSuccessUrl("/")
+//                .and()
+//                .oauth2Login()
+//                .loginPage("/login")
+//                .userInfoEndpoint() // 로그인 이후 사용자 정보를 가져올 때 설정
+//                .userService(customOAuth2UserService);
+
+//        http
+//                .csrf().disable()
+//                .headers().frameOptions().disable()
+//                .and()
+//                .authorizeRequests()
+//                .antMatchers("/login","/","/login/oauth2/code/wso2").permitAll()
+//                .antMatchers("/help","/api/**").permitAll()
+//                .anyRequest().authenticated()
+//                .and()
+//                .logout()
+//                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+//                .logoutSuccessUrl("/")
+//                .and()
+//                .oauth2Login()
+//                .loginPage("/login")
+//                .userInfoEndpoint()
+//                .userService(this.customOAuth2UserService);
 
     }
 
