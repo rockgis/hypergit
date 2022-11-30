@@ -155,7 +155,9 @@ public class MainController {
     @GetMapping("/login")
     public String getLoginPage(Model model) {
 
-        return "redirect:"+authorizationRequestBaseUri+"/wso2";
+        return "member/login.html";
+
+        //return "redirect:"+authorizationRequestBaseUri+"/wso2";
     }
 
 
