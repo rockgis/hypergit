@@ -10,6 +10,8 @@ import com.uiscloud.hypergit.permissionmng.dto.Gittc0001Dto;
 import com.uiscloud.hypergit.permissionmng.service.Gittc0001Service;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -39,19 +41,21 @@ public class MainController {
 
     private static String authorizationRequestBaseUri = OAuth2AuthorizationRequestRedirectFilter.DEFAULT_AUTHORIZATION_REQUEST_BASE_URI;
 
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
 
     /* Main Page */
     @GetMapping("/")
     public String main(Authentication authentication, Model model) {
 
         if (authentication != null) {
-            System.out.println("타입정보 : " + authentication.getClass());
-            System.out.println("권한 정보 : " + authentication.getAuthorities().toString().equals("[ROLE_ADMIN]"));
+            logger.info("타입정보 : " + authentication.getClass());
+            logger.info("권한 정보 : " + authentication.getAuthorities().toString().equals("[ROLE_ADMIN]"));
 
             // 세션 정보 객체 반환
             WebAuthenticationDetails web = (WebAuthenticationDetails)authentication.getDetails();
-            System.out.println("세션ID : " + web.getSessionId());
-            System.out.println("접속IP : " + web.getRemoteAddress());
+            logger.info("세션ID : " + web.getSessionId());
+            logger.info("접속IP : " + web.getRemoteAddress());
 
             if(authentication.getAuthorities().toString().equals("[ROLE_ADMIN]")){
                 return "redirect:/admin";
@@ -73,17 +77,13 @@ public class MainController {
 
         String username = authentication.getName();
 
-        System.out.println("권한 정보 : " + authentication.getAuthorities().toString().equals("[ROLE_ADMIN]"));
+        logger.info("URL : /user");
 
-        System.out.println("username 정보 : " + username);
+        logger.info("권한 정보 : " + authentication.getAuthorities().toString().equals("[ROLE_ADMIN]"));
 
-        if(authentication.getAuthorities().toString().equals("[ROLE_ADMIN]")){
+        logger.info("username 정보 : " + username);
 
-            return "redirect:/";
-
-        }else {
-
-            List<BoardDto> boardList = boardService.getBoardlist(pageNum);
+                    List<BoardDto> boardList = boardService.getBoardlist(pageNum);
             Integer[] pageList = boardService.getPageList(pageNum);
 
             double  count = Double.valueOf(boardService.getBoardCount());
@@ -99,8 +99,6 @@ public class MainController {
 
 
             return "main/user_main.html";
-        }
-
 
     }
 

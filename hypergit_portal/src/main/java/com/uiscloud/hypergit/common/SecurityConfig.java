@@ -50,9 +50,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(getResources()).permitAll()
                 .antMatchers("/help","/api/**").permitAll()
                 //.antMatchers("/admin/**").authenticated()
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/user/**").hasRole("USER")
-                //.antMatchers("/").authenticated()
+                //.antMatchers("/admin/**").hasRole("ADMIN")
+                //.antMatchers("/user/**").hasRole("USER")
+                .antMatchers("/").authenticated()
                 .and() // 로그인 설정
                 .formLogin()
                 .loginPage("/admin/login")
@@ -69,7 +69,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .ignoringAntMatchers("/admin/*del")
                 .ignoringAntMatchers("/admin/*search")
                 .ignoringAntMatchers("/admin/*/edit")
-                .ignoringAntMatchers("/admin/post")
+                .ignoringAntMatchers("/admin/post/*")
                 //.ignoringAntMatchers("/post")
                 .and()
                 // 403 예외처리 핸들링
